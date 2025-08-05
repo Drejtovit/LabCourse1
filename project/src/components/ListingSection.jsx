@@ -1,0 +1,32 @@
+
+export default function ListingSection({children, props}) {
+    return (
+        <div className="col-lg-6 col-md-12 col-xs-12">
+            <a className="job-listings-featured" href="job-details.html">
+                <div className="row">
+                    <div className="col-lg-6 col-md-6 col-xs-12">
+                        {/* <div className="job-company-logo">
+                            <img src="assets/img/features/img1.pn" alt="" />
+                        </div> */}
+                        <div className="job-details">
+                            <h3>{children}</h3>
+                            <span className="company-name">{props.company}</span>
+                            <div className="tags">
+                                <span><i className="lni-map-marker"></i> {props.state}</span>
+                                <span><i className="lni-user"></i>{props.employer}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-6 col-md-6 col-xs-12 text-right">
+                        <div className="tag-type">
+                            <span className="heart-icon">
+                                <i className="lni-heart"></i>
+                            </span>
+                            <span className={props.type}>{props.type}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    )
+}
