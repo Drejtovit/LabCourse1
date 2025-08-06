@@ -1,12 +1,13 @@
-import  Header  from '../components/Header.jsx';
-import  HowItWorks  from '../components/HowItWorks.jsx';
-import  Testimonal  from '../components/Testimonal.jsx'
-import  Counter  from '../components/Counter.jsx'
+import Header from '../components/Header.jsx';
+import HowItWorks from '../components/HowItWorks.jsx';
+import Testimonal from '../components/Testimonal.jsx'
+import Counter from '../components/Counter.jsx'
 
 
 export default function About() {
 
     return (
+        <>
             <Header />
             <div className="page-header">
                 <div className="container">
@@ -51,5 +52,6 @@ export default function About() {
 
             <HowItWorks />
             <Testimonal></Testimonal>
+        </>
     )
 }

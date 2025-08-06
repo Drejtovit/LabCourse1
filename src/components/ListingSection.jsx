@@ -1,5 +1,5 @@
 
-export default function ListingSection({children, props}) {
+export default function ListingSection({children,company, state, employer,type, ...props}) {
     return (
         <div className="col-lg-6 col-md-12 col-xs-12">
             <a className="job-listings-featured" href="job-details.html">
@@ -10,10 +10,10 @@ export default function ListingSection({children, props}) {
                         </div> */}
                         <div className="job-details">
                             <h3>{children}</h3>
-                            <span className="company-name">{props.company}</span>
+                            <span className="company-name">{company}</span>
                             <div className="tags">
-                                <span><i className="lni-map-marker"></i> {props.state}</span>
-                                <span><i className="lni-user"></i>{props.employer}</span>
+                                <span><i className="lni-map-marker"></i> {state}</span>
+                                <span><i className="lni-user"></i>{employer}</span>
                             </div>
                         </div>
                     </div>
@@ -22,7 +22,7 @@ export default function ListingSection({children, props}) {
                             <span className="heart-icon">
                                 <i className="lni-heart"></i>
                             </span>
-                            <span className={props.type}>{props.type}</span>
+                            <span className={type}>{type}</span>
                         </div>
                     </div>
                 </div>
