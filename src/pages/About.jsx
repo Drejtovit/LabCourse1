@@ -7,9 +7,7 @@ import  Counter  from '../components/Counter.jsx'
 export default function About() {
 
     return (
-        <>
             <Header />
-            {/* Page Header Start */}
             <div className="page-header">
                 <div className="container">
                     <div className="row">
@@ -21,9 +19,7 @@ export default function About() {
                     </div>
                 </div>
             </div>
-            {/* Page Header End */}
 
-            {/* Main container Start */}
             <div className="about section">
                 <div className="container">
                     <div className="row">
@@ -41,9 +37,7 @@ export default function About() {
                     </div>
                 </div>
             </div>
-            {/* Main container End */}
 
-            {/* Counter Section Start */}
             <section id="counter" className="section bg-gray">
                 <div className="container">
                     <div className="row">
@@ -54,9 +48,8 @@ export default function About() {
                     </div>
                 </div>
             </section>
-            {/* Counter Section End */}
+
             <HowItWorks />
             <Testimonal></Testimonal>
-        </>
     )
 }

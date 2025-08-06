@@ -4,6 +4,7 @@ export default function Header() {
     return (
         <header id="home" className="hero-area">
             <Navbar />
+            {/* put this in home page only */}
             <div className="container">
                 <div className="row space-100 justify-content-center">
                     <div className="col-lg-10 col-md-12 col-xs-12">
