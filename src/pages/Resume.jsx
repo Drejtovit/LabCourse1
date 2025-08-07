@@ -20,7 +20,7 @@ export default function Resume() {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-4 col-md-4 col-xs-12">
-                            <AccountManagment />
+                            <AccountManagment type='resume' />
                         </div>
                         <div className="col-lg-8 col-md-8 col-xs-12">
                             <div className="inner-box my-resume">

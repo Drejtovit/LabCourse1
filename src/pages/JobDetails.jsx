@@ -1,5 +1,5 @@
 import Header from '../components/Header.jsx';
-import ListingSection from '../components/ListingSection.jsx';
+import Job from '../components/Job.jsx';
 
 export default function JobDetails() {
 
@@ -68,12 +68,12 @@ export default function JobDetails() {
                 <div className="container">
                     <h4 className="small-title text-left">Similar Jobs</h4>
                     <div className="row">
-                        <ListingSection company="MizTech" state="New York" employer="John Smith" type="full-time">
+                        <Job company="MizTech" state="New York" employer="John Smith" type="full-time">
                             Software Engineer
-                        </ListingSection>
-                        <ListingSection company="Hunter Inc." state="New York" employer="John Smith" type="part-time">
+                        </Job>
+                        <Job company="Hunter Inc." state="New York" employer="John Smith" type="part-time">
                             Graphic Designer
-                        </ListingSection>
+                        </Job>
                     </div>
                 </div>
             </section>

@@ -1,5 +1,5 @@
 
-export default function ListingSection({children,company, state, employer,type, ...props}) {
+export default function Job({children,company, location, employer,type, ...props}) {
     return (
         <div className="col-lg-6 col-md-12 col-xs-12">
             <a className="job-listings-featured" href="job-details.html">
@@ -12,7 +12,7 @@ export default function ListingSection({children,company, state, employer,type, 
                             <h3>{children}</h3>
                             <span className="company-name">{company}</span>
                             <div className="tags">
-                                <span><i className="lni-map-marker"></i> {state}</span>
+                                <span><i className="lni-map-marker"></i> {location}</span>
                                 <span><i className="lni-user"></i>{employer}</span>
                             </div>
                         </div>

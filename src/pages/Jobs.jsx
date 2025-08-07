@@ -1,5 +1,5 @@
 import Header from '../components/Header.jsx';
-import ListingSection from '../components/ListingSection.jsx'
+import Job from '../components/Job.jsx'
 
 export default function Jobs() {
 
@@ -77,24 +77,24 @@ export default function Jobs() {
                         <p>Hand-picked jobs featured depending on popularity and benifits</p>
                       </div>
                       <div className="row">
-                        <ListingSection company="MizTech" state="New York" employer="John Smith" type="full-time">
+                        <Job company="MizTech" location="New York" employer="John Smith" type="full-time">
                           Software Engineer
-                        </ListingSection>
-                        <ListingSection company="Hunter Inc." state="New York" employer="John Smith" type="part-time">
+                        </Job>
+                        <Job company="Hunter Inc." location="New York" employer="John Smith" type="part-time">
                           Graphic Designer
-                        </ListingSection>
-                        <ListingSection company="MagNews" state="New York" employer="John Smith" type="full-time">
+                        </Job>
+                        <Job company="MagNews" location="New York" employer="John Smith" type="full-time">
                           Managing Director
-                        </ListingSection>
-                        <ListingSection company="AmazeSoft" state="New York" employer="John Smith" type="full-time">
+                        </Job>
+                        <Job company="AmazeSoft" location="New York" employer="John Smith" type="full-time">
                           Software Engineer
-                        </ListingSection>
-                        <ListingSection company="MagNews" state="New York" employer="John Smith" type="part-time">
+                        </Job>
+                        <Job company="MagNews" location="New York" employer="John Smith" type="part-time">
                           Managing Director
-                        </ListingSection>
-                        <ListingSection company="Bingo" state="New York" employer="John Smith" type="full-time">
+                        </Job>
+                        <Job company="Bingo" location="New York" employer="John Smith" type="full-time">
                           Graphic Designer
-                        </ListingSection>
+                        </Job>
                         <div className="col-12 text-center mt-4">
                           <a href="job-page.html" className="btn btn-common">Browse All Jobs</a>
                         </div>

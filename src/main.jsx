@@ -10,6 +10,10 @@ import Jobs from './pages/Jobs.jsx';
 import JobDetails from './pages/JobDetails.jsx';
 import Resume from './pages/Resume.jsx';
 import Contact from './pages/Contact.jsx';
+import Categories from './pages/Categories.jsx';
+import ResumeCreate from './pages/Categories.jsx';
+import ManageResumes from './pages/ManageResumes.jsx';
+import BookMarkedJobs from './/pages/BookMarkedJobs.jsx';
 
 const router = createBrowserRouter([
   {path:'/', element: <App/>},
@@ -18,6 +22,10 @@ const router = createBrowserRouter([
   {path:'/jobs/details', element: <JobDetails/>},
   {path:'/resume', element: <Resume/>},
   {path:'/contact', element: <Contact/>},
+  {path:'/categories', element: <Categories/>},
+  {path:'/resume/create', element: <ResumeCreate/>},
+  {path:'/resume/manage', element: <ManageResumes/>},
+  {path:'/bookmarkedJobs', element: <BookMarkedJobs/>},
 ]);
 
 createRoot(document.getElementById('root')).render(
