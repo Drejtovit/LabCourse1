@@ -1,21 +1,12 @@
 import Header from '../components/Header.jsx';
+import PageHeader from '../components/PageHeader.jsx';
 
 export default function ResumeCreate() {
 
     return (
         <>
             <Header />
-            <div className="page-header">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="inner-header">
-                                <h3>Create Resume</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <PageHeader>Create Resume</PageHeader>
             <section id="content">
         <div className="container">
             <div className="row justify-content-center">

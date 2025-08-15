@@ -1,23 +1,14 @@
 import Header from "../components/Header.jsx";
 import AccountManagment from "../components/AccountManagment.jsx";
 import ResumeCard from "../components/ResumeCard.jsx";
+import PageHeader from "../components/PageHeader.jsx";
 
 export default function ManageResumes() {
 
     return (
         <>
             <Header />
-            <div className="page-header">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="inner-header">
-                                <h3>Manage Resumes</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <PageHeader>Manage Resumes</PageHeader>
             <div id="content">
                 <div className="container">
                     <div className="row">

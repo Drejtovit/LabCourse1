@@ -1,23 +1,14 @@
 import Header from '../components/Header.jsx';
 import BookMarkedJob from '../components/BookMarkedJob.jsx';
 import AccountManagment from '../components/AccountManagment.jsx';
+import PageHeader from '../components/PageHeader.jsx';
 
 export default function BookMarkedJobs() {
 
     return (
         <>
             <Header />
-            <div className="page-header">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="inner-header">
-                                <h3>Bookmarked</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <PageHeader>BookMarked</PageHeader>
             <div id="content">
                 <div className="container">
                     <div className="row">

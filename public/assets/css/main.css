@@ -2475,12 +2475,12 @@ button:focus {
 /* ==========================================================================
    Job Alerts Pages Style
    ========================================================================== */
-.right-sideabr {
+.right-sidebar {
   margin-bottom: 30px;
   box-shadow: 0px 0px 14px rgba(191, 191, 191, 0.24);
 }
 
-.right-sideabr h4 {
+.right-sidebar h4 {
   font-size: 18px;
   color: #333;
   padding: 15px 20px;
@@ -2489,26 +2489,26 @@ button:focus {
   margin-bottom: 0;
 }
 
-.right-sideabr .list-item li {
+.right-sidebar .list-item li {
   padding: 15px 20px;
   border-bottom: 1px solid #f7f7f7;
 }
 
-.right-sideabr .list-item li a {
+.right-sidebar .list-item li a {
   font-size: 14px;
   font-weight: 400;
   color: #9a9a9a;
 }
 
-.right-sideabr .list-item li a:hover {
+.right-sidebar .list-item li a:hover {
   color: #00BCD4;
 }
 
-.right-sideabr .list-item li a.active {
+.right-sidebar .list-item li a.active {
   color: #00BCD4;
 }
 
-.right-sideabr .list-item .notinumber {
+.right-sidebar .list-item .notinumber {
   float: right;
   width: 20px;
   height: 20px;

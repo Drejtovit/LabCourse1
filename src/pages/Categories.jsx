@@ -1,5 +1,6 @@
 import Header from '../components/Header.jsx';
 import Category from '../components/Category.jsx';
+import PageHeader from '../components/PageHeader.jsx';
 
 
 export default function Categories() {
@@ -7,17 +8,7 @@ export default function Categories() {
     return (
         <>
             <Header />
-            <div className="page-header">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="inner-header">
-                                <h3>Categories</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <PageHeader>Categories</PageHeader>
             <section class="category section bg-gray">
                 <div class="container">
                     <div class="row">

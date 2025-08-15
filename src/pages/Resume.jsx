@@ -1,21 +1,12 @@
 import Header from '../components/Header.jsx';
 import AccountManagment from '../components/AccountManagment.jsx';
+import PageHeader from '../components/PageHeader.jsx';
 
 export default function Resume() {
     return (
         <>
             <Header />
-            <div className="page-header">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="inner-header">
-                                <h3>Resume</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <PageHeader>Resume</PageHeader>
             <div className="section">
                 <div className="container">
                     <div className="row">

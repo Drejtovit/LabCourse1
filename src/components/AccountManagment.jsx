@@ -1,7 +1,7 @@
 export default function AccountManagment({ type }) {
 
     return (
-        <div className="right-sideabr">
+        <div className="right-sidebar">
             <h4>Manage Account</h4>
             <ul className="list-item">
                 {/* Fix active class to change */}
