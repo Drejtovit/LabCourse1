@@ -22,7 +22,7 @@ export default function Register() {
                                     <InputLabel icon="lock" type="password" name="password" placeholder="Password" />
                                     <InputLabel icon="lock" type="password" name="confirmPassword" placeholder="Confirm Password" />
                                     <button className="btn btn-common log-btn mt-3">Register</button>
-                                    <p className="text-center">Already have an account?<a href="login.html"> Sign In</a></p>
+                                    <p className="text-center">Already have an account?<a href="/login"> Sign In</a></p>
                                 </form>
                             </div>
                         </div>

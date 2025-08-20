@@ -11,13 +11,14 @@ import JobDetails from './pages/JobDetails.jsx';
 import Resume from './pages/Resume.jsx';
 import Contact from './pages/Contact.jsx';
 import Categories from './pages/Categories.jsx';
-import ResumeCreate from './pages/Categories.jsx';
+import ResumeCreate from './pages/ResumeCreate.jsx';
 import ManageResumes from './pages/ManageResumes.jsx';
 import BookMarkedJobs from './/pages/BookMarkedJobs.jsx';
 import BrowseResumes from './pages/BrowseResumes.jsx';
 import Register from './pages/Register.jsx';
 import ManageApplications from './pages/ManageApplications.jsx';
 import PostJob from './pages/PostJob.jsx';
+import LogIn from './pages/LogIn.jsx';
 
 const router = createBrowserRouter([
   {path:'/', element: <App/>},
@@ -34,7 +35,8 @@ const router = createBrowserRouter([
   {path:'/register', element: <Register/>},
   {path:'/manageapplications', element: <ManageApplications/>},
   {path:'/postjob', element: <PostJob/>},
-
+  {path:'/LogIn', element: <LogIn/>},
+  
 ]);
 
 createRoot(document.getElementById('root')).render(
