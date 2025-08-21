@@ -16,7 +16,7 @@ const jobAlertsData = [
     title: "React Developer",
     location: "Remote",
     keywords: "React, JS, API",
-    type: "Contract",
+    type: "Part Time",
     frequency: "Weekly",
   },
   // add more alerts here if you want
@@ -55,17 +55,16 @@ export default function JobAlerts() {
                 {jobAlertsData.map((alert, i) => (
                   <JobAlertItem key={i} {...alert} />
                 ))}
-
+                <br />
                 {/* pagination */}
                 <ul className="pagination">
-                  <li className="page-item">
-                    <a className="page-link" href="#">1</a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">2</a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">3</a>
+                  <li className="active"><a href="#" className="btn-prev"><i className="lni-angle-left"></i> prev</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li className="active"><a href="#" className="btn-next">Next <i className="lni-angle-right"></i></a>
                   </li>
                 </ul>
               </div>

@@ -10,14 +10,14 @@ export default function ResumeCard({name, specialization, location, wage, status
                         <h5>{specialization}</h5>
                     </div>
                     <div className="manager-meta">
-                        <span className="location"><i className="lni-map-marker"></i> {location}</span>
+                        <span className="location"><i className="lni-map-marker"></i>{location}</span>
                         <span className="rate"><i className="lni-alarm-clock"></i> ${wage} per hour</span>
                     </div>
                 </div>
             </div>
             <div className="update-date">
                 <p className="status">
-                    <strong>Updated on:</strong> {status}
+                    <strong>Updated on:</strong>{status}
                 </p>
                 <div className="action-btn">
                     <a className="btn btn-xs btn-gray" href="#">Hide</a>
