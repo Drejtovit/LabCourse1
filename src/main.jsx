@@ -21,6 +21,7 @@ import PostJob from './pages/PostJob.jsx';
 import LogIn from './pages/LogIn.jsx';
 import JobAlerts from './pages/JobAlerts.jsx';
 import Notifications from './pages/Notifications.jsx';
+import ManageJobs from './pages/ManageJobs.jsx';
 
 const router = createBrowserRouter([
   {path:'/', element: <App/>},
@@ -37,9 +38,10 @@ const router = createBrowserRouter([
   {path:'/register', element: <Register/>},
   {path:'/manageapplications', element: <ManageApplications/>},
   {path:'/postjob', element: <PostJob/>},
-  {path:'/LogIn', element: <LogIn/>},
+  {path:'/login', element: <LogIn/>},
   {path:'/jobalerts', element: <JobAlerts/>},
-  {path:'/notifications', element: <Notifications/>}
+  {path:'/notifications', element: <Notifications/>},
+  {path:'/managejobs', element: <ManageJobs/>}
 ]);
 
 createRoot(document.getElementById('root')).render(
