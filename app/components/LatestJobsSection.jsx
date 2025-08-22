@@ -1,9 +1,11 @@
+import Image from "next/image";
+
 export default function LatestJobsSection({children, company, location, employer,type, ...props}) {
     return (
         <div className="col-lg-6 col-md-12 col-xs-12">
             <div className="jobs-latest">
                 <div className="img-thumb">
-                    {/* <img src="assets/img/features/img-1.jpg" alt="" /> */}
+                    <Image src="/assets/img/features/img-1.jpg" width={80} height={80} alt="" />
                 </div>
                 <div className="content">
                     <h3><a href="job-details.html">{children}</a></h3>

@@ -6,7 +6,7 @@ export default function Register() {
     return (
         <><Header />
 
-           <PageHeader>Create your Account</PageHeader>
+            <PageHeader>Create your Account</PageHeader>
 
             <section id="content" className="section-padding">
                 <div className="container">
@@ -21,8 +21,18 @@ export default function Register() {
                                     <InputLabel icon="envelope" type="email" name="email" placeholder="Email Address" />
                                     <InputLabel icon="lock" type="password" name="password" placeholder="Password" />
                                     <InputLabel icon="lock" type="password" name="confirmPassword" placeholder="Confirm Password" />
-                                    <button className="btn btn-common log-btn mt-3">Register</button>
-                                    <p className="text-center">Already have an account?<a href="/login"> Sign In</a></p>
+                                    <div class="form-group">
+                                        <label for="role-select">Select Role</label>
+                                        <div className="input-icon">
+                                            <i className="lni-chevron-down-circle"></i>
+                                            <select class="form-control" id="role-select" name="role">
+                                                <option name="candidate">Candidate</option>
+                                                <option name="employer">Employer/Company</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <button className="btn btn-common log-btn mt-3">Register</button>
+                                        <p className="text-center">Already have an account?<a href="/login"> Sign In</a></p>
                                 </form>
                             </div>
                         </div>

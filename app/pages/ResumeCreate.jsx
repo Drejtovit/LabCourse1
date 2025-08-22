@@ -131,7 +131,7 @@ export default function ResumeCreate() {
                             <div className="form-group">
                                 <label className="control-label">Description</label>
                             </div>
-                            <section id="editor" style="margin-bottom: 30px;">
+                            <section id="editor" style={{marginBottom: "30px"}}>
                                 <div id="summernote">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem quia aut modi
                                         fugit, ratione saepe perferendis odio optio repellat dolorum voluptas excepturi
