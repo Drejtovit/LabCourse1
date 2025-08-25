@@ -40,7 +40,7 @@ export default function Navbar() {
                                     <li><Link className="dropdown-item" href="/findjob">Job Page</Link></li>
                                     <li><Link className="dropdown-item" href="/jobdetails">Job Details</Link></li>
                                     <li><Link className="dropdown-item" href="/resume">Resume Page</Link></li>
-                                    <li><Link className="dropdown-item" href="/privacypolicy">Privacy Policy</Link></li>
+                                    <li><Link className="dropdown-item" href="/privacy-policy">Privacy Policy</Link></li>
                                     <li><Link className="dropdown-item" href="/contact">Contact</Link></li>
                                 </ul>
                             </li>

@@ -8,9 +8,9 @@ export default function Categories() {
             <Header />
             <PageHeader>Categories</PageHeader>
 
-            <section class="category section bg-gray">
-                <div class="container">
-                    <div class="row">
+            <section className="category section bg-gray">
+                <div className="container">
+                    <div className="row">
                         <Category number="4286" icon="lni-home" icon_number="1">
                             Finance
                         </Category>
@@ -63,16 +63,16 @@ export default function Categories() {
                     </div>
                 </div>
             </section>
-            <section class="all-categories section">
-                <div class="container">
-                    <h2 class="categories-title">Browse All Categories</h2>
-                    <div class="row">
-                        <div class="col-lg-12 col-sm-12 col-xs-12">
-                            <h3 class="cat-title">
+            <section className="all-categories section">
+                <div className="container">
+                    <h2 className="categories-title">Browse All Categories</h2>
+                    <div className="row">
+                        <div className="col-lg-12 col-sm-12 col-xs-12">
+                            <h3 className="cat-title">
                                 Business <span>(33 Sub Categories)</span>
                             </h3>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Accounting & Finance</a>
@@ -100,7 +100,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Debt/Fixed Income</a>
@@ -128,7 +128,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Information Services</a>
@@ -156,7 +156,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Quantitative Analytics</a>
@@ -178,12 +178,12 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <h3 class="cat-title">
+                        <div className="col-md-12 col-sm-12 col-xs-12">
+                            <h3 className="cat-title">
                                 Science <span>(34 Sub Categories)</span>
                             </h3>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Aeronautical Engineering</a>
@@ -214,7 +214,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Climate Sciences</a>
@@ -245,7 +245,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Gelolgy</a>
@@ -276,7 +276,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Nanotechnology</a>
@@ -304,12 +304,12 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-xs-12">
-                            <h3 class="cat-title">
+                        <div className="col-lg-12 col-md-12 col-xs-12">
+                            <h3 className="cat-title">
                                 Sales & Marketing <span>(21 Sub Categories)</span>
                             </h3>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Display Advertising</a>
@@ -325,7 +325,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Marketing Strategy</a>
@@ -341,7 +341,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">SEM - Search Engine Marketing</a>
@@ -354,7 +354,7 @@ export default function Categories() {
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
                                     <a href="#">Climate Sciences</a>

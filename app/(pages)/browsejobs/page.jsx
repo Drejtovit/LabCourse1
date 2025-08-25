@@ -7,9 +7,9 @@ export default function BrowseJobs() {
         <>
             <Header></Header>
             <PageHeader>Browse Jobs</PageHeader>
-            <section class="job-browse section">
-                <div class="container">
-                    <div class="row">
+            <section className="job-browse section">
+                <div className="container">
+                    <div className="row">
                         <div className="col-lg-12 col-md-12 col-xs-12">
                             <div className="wrap-search-filter row">
                                 <div className="col-lg-5 col-md-5 col-xs-12">

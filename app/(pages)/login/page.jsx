@@ -29,8 +29,8 @@ export default function Login() {
                     placeholder="Password"
                   />
                   <div className="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                    <label class="form-check-label" htmlFor="exampleCheck1">Keep Me Signed In</label>
+                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                    <label className="form-check-label" htmlFor="exampleCheck1">Keep Me Signed In</label>
                   </div> 
                   <button className="btn btn-common log-btn mt-3">
                     Submit

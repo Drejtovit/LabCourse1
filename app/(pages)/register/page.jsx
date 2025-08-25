@@ -21,11 +21,11 @@ export default function Register() {
                                     <InputLabel icon="envelope" type="email" name="email" placeholder="Email Address" />
                                     <InputLabel icon="lock" type="password" name="password" placeholder="Password" />
                                     <InputLabel icon="lock" type="password" name="confirmPassword" placeholder="Confirm Password" />
-                                    <div class="form-group">
-                                        <label for="role-select">Select Role</label>
+                                    <div className="mb-3">
+                                        <label htmlFor="role-select">Select Role</label>
                                         <div className="input-icon">
                                             <i className="lni-chevron-down-circle"></i>
-                                            <select class="form-control" id="role-select" name="role">
+                                            <select className="form-control" id="role-select" name="role">
                                                 <option name="candidate">Candidate</option>
                                                 <option name="employer">Employer/Company</option>
                                             </select>
