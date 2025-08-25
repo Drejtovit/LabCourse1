@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function AccountManagment({ type }) {
 
     return (
@@ -6,24 +8,24 @@ export default function AccountManagment({ type }) {
             <ul className="list-item">
                 {/* Fix active class to change */}
                 <li>
-                    <a className={type == 'resume' ? 'active' : ''} href="resume.html">
+                    <Link className={type == 'resume' ? 'active' : ''} href="/resume">
                         My Resume
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="bookmarked.html" className={type == 'bookmarked' ? 'active' : ''}>
+                    <Link href="/bookmarked" className={type == 'bookmarked' ? 'active' : ''}>
                         Bookmarked Jobs
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="notifications.html" className={type == 'notifications' ? 'active' : ''} >
+                    <Link href="/notifications" className={type == 'notifications' ? 'active' : ''} >
                         Notifications <span className="notinumber">2</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="manage-applications.html" className={type == 'applications' ? 'active' : ''}>
+                    <Link href="manage-applications.html" className={type == 'applications' ? 'active' : ''}>
                         Manage Applications
-                    </a>
+                    </Link>
                 </li>
                 {/* Make this so only the employee can see his resumes otherwise there is no manage resumes */}
                 <li>
@@ -37,7 +39,7 @@ export default function AccountManagment({ type }) {
                     </a>
                 </li>
                 <li>
-                    <a href="change-password.html" className={type == 'password' ? 'active' : ''}>
+                    <a href="/change-password" className={type == 'password' ? 'active' : ''}>
                         Change Password
                     </a>
                 </li>

@@ -1,8 +1,8 @@
 import Script from 'next/script';
 
-import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '@/node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '@/public/assets/css/line-icons.css';
-import './global.css';
+import '@/app/global.css';
 import '@/public/assets/css/responsive.css';
 
 export const metadata = {

@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,25 +23,25 @@ export default function Navbar() {
                         >
                             <span className="lni-menu"></span>
                         </button>
-                        <a href="index.html" className="navbar-brand"><img src="/assets/img/logo.png" alt="logo" /></a>
+                        <Link href="/" className="navbar-brand"><Image src="/assets/img/logo.png" alt="logo" loading='eager' width={160} height={32} /></Link>
                     </div>
                     <div className={"collapse navbar-collapse" + (isOpen ? " show" : "")} id="main-navbar">
                         <ul className="navbar-nav mr-auto w-100 justify-content-end">
                             <li className="nav-item active">
-                                <a className="nav-link" href="index.html">Home</a>
+                                <Link className="nav-link" href="/">Home</Link>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
+                                <Link className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                     Pages
-                                </a>
+                                </Link>
                                 <ul className="dropdown-menu">
                                     {/*FIX THE LINKS*/}
-                                    <li><a className="dropdown-item" href="">About</a></li>
-                                    <li><a className="dropdown-item" href="job-page.html">Job Page</a></li>
-                                    <li><a className="dropdown-item" href="job-details.html">Job Details</a></li>
-                                    <li><a className="dropdown-item" href="resume.html">Resume Page</a></li>
-                                    <li><a className="dropdown-item" href="privacy-policy.html">Privacy Policy</a></li>
-                                    <li><a className="dropdown-item" href="contact.html">Contact</a></li>
+                                    <li><Link className="dropdown-item" href="/about">About</Link></li>
+                                    <li><Link className="dropdown-item" href="/findjob">Job Page</Link></li>
+                                    <li><Link className="dropdown-item" href="/jobdetails">Job Details</Link></li>
+                                    <li><Link className="dropdown-item" href="/resume">Resume Page</Link></li>
+                                    <li><Link className="dropdown-item" href="/privacy-policy">Privacy Policy</Link></li>
+                                    <li><Link className="dropdown-item" href="/contact">Contact</Link></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
@@ -47,9 +49,9 @@ export default function Navbar() {
                                     Candidates
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="browse-jobs.html">Browse Jobs</a></li>
-                                    <li><a className="dropdown-item" href="browse-categories.html">Browse Categories</a></li>
-                                    <li><a className="dropdown-item" href="add-resume.html">Add Resume</a></li>
+                                    <li><a className="dropdown-item" href="/browsejobs">Browse Jobs</a></li>
+                                    <li><a className="dropdown-item" href="/categories">Browse Categories</a></li>
+                                    <li><a className="dropdown-item" href="/resume/create">Add Resume</a></li>
                                     <li><a className="dropdown-item" href="manage-resumes.html">Manage Resumes</a></li>
                                     <li><a className="dropdown-item" href="job-alerts.html">Job Alerts</a></li>
                                 </ul>
@@ -66,10 +68,10 @@ export default function Navbar() {
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="contact.html">Contact</a>
+                                <a className="nav-link" href="/contact">Contact</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="login.html">Sign In</a>
+                                <a className="nav-link" href="/register">Sign In</a>
                             </li>
                             <li className="button-group">
                                 <a href="post-job.html" className="button btn btn-common">Post a Job</a>

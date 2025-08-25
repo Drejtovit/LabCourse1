@@ -1,8 +1,7 @@
-import Header from '../components/Header.jsx';
-import Job from '../components/Job.jsx';
+import Header from "@/app/components/Header.jsx";
+import Job from "@/app/components/Job.jsx";
 
 export default function JobDetails() {
-
     return (
         <>
             <Header />
@@ -41,12 +40,24 @@ export default function JobDetails() {
             {/* Detail job section */}
             <section className="job-detail section">
                 <div className="container">
-                    <div className="row justify-content-between">
+                    <div className="row justify-content: center;">
                         <div className="col-lg-8 col-md-12 col-xs-12">
                             <div className="content-area">
                                 <h4>Job Description</h4>
-                                <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi umsan ipsum velit.</p>
-                                <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi umsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
+                                <p>
+                                    Proin gravida nibh vel velit auctor aliquet. Aenean
+                                    sollicitudin, lorem quis bibendum auctor, nisi elit consequat
+                                    ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
+                                    nibh vulputate cursus a sit amet mauris. Morbi umsan ipsum
+                                    velit.
+                                </p>
+                                <p>
+                                    Proin gravida nibh vel velit auctor aliquet. Aenean
+                                    sollicitudin, lorem quis bibendum auctor, nisi elit consequat
+                                    ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
+                                    nibh vulputate cursus a sit amet mauris. Morbi umsan ipsum
+                                    velit. Nam nec tellus a odio tincidunt auctor a ornare odio.
+                                </p>
                                 <h5>What You Need for this Position</h5>
                                 <ul>
                                     <li>- Objective-C</li>
@@ -56,8 +67,15 @@ export default function JobDetails() {
                                     <li>- ClojureScript</li>
                                 </ul>
                                 <h5>How To Apply</h5>
-                                <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.</p>
-                                <a href="#" className="btn btn-common">Apply job</a>
+                                <p>
+                                    Proin gravida nibh vel velit auctor aliquet. Aenean
+                                    sollicitudin, lorem quis bibendum auctor, nisi elit consequat
+                                    ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
+                                    nibh vulputate cursus a sit amet mauris.
+                                </p>
+                                <a href="#" className="btn btn-common">
+                                    Apply job
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -68,15 +86,25 @@ export default function JobDetails() {
                 <div className="container">
                     <h4 className="small-title text-left">Similar Jobs</h4>
                     <div className="row">
-                        <Job company="MizTech" state="New York" employer="John Smith" type="full-time">
+                        <Job
+                            company="MizTech"
+                            state="New York"
+                            employer="John Smith"
+                            type="full-time"
+                        >
                             Software Engineer
                         </Job>
-                        <Job company="Hunter Inc." state="New York" employer="John Smith" type="part-time">
+                        <Job
+                            company="Hunter Inc."
+                            state="New York"
+                            employer="John Smith"
+                            type="part-time"
+                        >
                             Graphic Designer
                         </Job>
                     </div>
                 </div>
             </section>
         </>
-    )
+    );
 }
