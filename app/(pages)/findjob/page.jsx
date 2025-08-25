@@ -1,5 +1,5 @@
-import Header from "@/app/components/Header.jsx";
-import Job from "@/app/components/Job.jsx";
+import Header from "@/components/Header.jsx";
+import Job from "@/components/Job.jsx";
 
 export default function Jobs() {
     return (

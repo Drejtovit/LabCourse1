@@ -1,7 +1,7 @@
-import Header from "@/app/components/Header";
-import PageHeader from "@/app/components/PageHeader";
-import AccountManagement from "@/app/components/AccountManagment";
-import NotificationsItem from "@/app/components/NotificationsItem";
+import Header from "@/components/Header";
+import PageHeader from "@/components/PageHeader";
+import AccountManagement from "@/components/AccountManagment";
+import NotificationsItem from "@/components/NotificationsItem";
 
 const notificationsData = [
   {

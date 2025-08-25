@@ -1,7 +1,7 @@
-import Header from "@/app/components/Header.jsx";
-import BookMarkedJob from "@/app/components/BookMarkedJob.jsx";
-import AccountManagment from "@/app/components/AccountManagment.jsx";
-import PageHeader from "@/app/components/PageHeader.jsx";
+import Header from "@/components/Header.jsx";
+import BookMarkedJob from "@/components/BookMarkedJob.jsx";
+import AccountManagment from "@/components/AccountManagment.jsx";
+import PageHeader from "@/components/PageHeader.jsx";
 
 export default function BookMarkedJobs() {
     return (

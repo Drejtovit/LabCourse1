@@ -1,5 +1,5 @@
-import Header from '../components/Header.jsx';
-import PageHeader from '../components/PageHeader.jsx';
+import Header from '@/components/Header.jsx';
+import PageHeader from '@/components/PageHeader.jsx';
 
 export default function Contact() {
 

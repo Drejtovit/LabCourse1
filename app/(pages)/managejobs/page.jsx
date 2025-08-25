@@ -1,8 +1,8 @@
-import Header from "../components/Header";
-import PageHeader from "../components/PageHeader";
-import JobItem from "../components/JobItem";
-import AccountManagment from "../components/AccountManagment";
-import Pagination from "../components/Pagination";
+import Header from "@/components/Header";
+import PageHeader from "@/components/PageHeader";
+import JobItem from "@/components/JobItem";
+import AccountManagment from "@/components/AccountManagment";
+import Pagination from "@/components/Pagination";
 
 export default function ManageJobs() {
   const jobs = [

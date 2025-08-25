@@ -1,6 +1,6 @@
-import Header from '@/app/components/Header.jsx';
-import PageHeader from '@/app/components/PageHeader.jsx';
-import AccountManagment from '@/app/components/AccountManagment.jsx';
+import Header from '@/components/Header.jsx';
+import PageHeader from '@/components/PageHeader.jsx';
+import AccountManagment from '@/components/AccountManagment.jsx';
 import Link from 'next/link';
 
 export default function ChangePassword() {

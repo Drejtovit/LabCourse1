@@ -1,8 +1,8 @@
-import Header from '../components/Header';
-import Application from '../components/Application';
-import AccountManagment from '../components/AccountManagment';
-import PageHeader from '../components/PageHeader.jsx';
-import Pagination from '../components/Pagination.jsx';
+import Header from '@/components/Header';
+import Application from '@/components/Application';
+import AccountManagment from '@/components/AccountManagment';
+import PageHeader from '@/components/PageHeader.jsx';
+import Pagination from '@/components/Pagination.jsx';
 export default function ManageApplications() {
 
     return (

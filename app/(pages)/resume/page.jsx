@@ -1,6 +1,6 @@
-import Header from "@/app/components/Header.jsx";
-import AccountManagment from "@/app/components/AccountManagment.jsx";
-import PageHeader from "@/app/components/PageHeader.jsx";
+import Header from "@/components/Header.jsx";
+import AccountManagment from "@/components/AccountManagment.jsx";
+import PageHeader from "@/components/PageHeader.jsx";
 
 export default function Resume() {
     return (

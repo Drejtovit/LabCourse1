@@ -40,7 +40,7 @@ export default function Navbar() {
                                     <li><Link className="dropdown-item" href="/findjob">Job Page</Link></li>
                                     <li><Link className="dropdown-item" href="/jobdetails">Job Details</Link></li>
                                     <li><Link className="dropdown-item" href="/resume">Resume Page</Link></li>
-                                    <li><Link className="dropdown-item" href="/privacy-policy">Privacy Policy</Link></li>
+                                    <li><Link className="dropdown-item" href="/privacypolicy">Privacy Policy</Link></li>
                                     <li><Link className="dropdown-item" href="/contact">Contact</Link></li>
                                 </ul>
                             </li>
@@ -49,11 +49,11 @@ export default function Navbar() {
                                     Candidates
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="/browsejobs">Browse Jobs</a></li>
-                                    <li><a className="dropdown-item" href="/categories">Browse Categories</a></li>
-                                    <li><a className="dropdown-item" href="/resume/create">Add Resume</a></li>
-                                    <li><a className="dropdown-item" href="manage-resumes.html">Manage Resumes</a></li>
-                                    <li><a className="dropdown-item" href="job-alerts.html">Job Alerts</a></li>
+                                    <li><Link className="dropdown-item" href="/browsejobs">Browse Jobs</Link></li>
+                                    <li><Link className="dropdown-item" href="/categories">Browse Categories</Link></li>
+                                    <li><Link className="dropdown-item" href="/resume/create">Add Resume</Link></li>
+                                    <li><Link className="dropdown-item" href="/manageresumes">Manage Resumes</Link></li>
+                                    <li><Link className="dropdown-item" href="/jobalerts">Job Alerts</Link></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
@@ -61,20 +61,20 @@ export default function Navbar() {
                                     Employers
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="post-job.html">Add Job</a></li>
-                                    <li><a className="dropdown-item" href="manage-jobs.html">Manage Jobs</a></li>
-                                    <li><a className="dropdown-item" href="manage-applications.html">Manage Applications</a></li>
-                                    <li><a className="dropdown-item" href="browse-resumes.html">Browse Resumes</a></li>
+                                    <li><Link className="dropdown-item" href="/postjob">Add Job</Link></li>
+                                    <li><Link className="dropdown-item" href="/managejobs">Manage Jobs</Link></li>
+                                    <li><Link className="dropdown-item" href="/manageapplications">Manage Applications</Link></li>
+                                    <li><Link className="dropdown-item" href="/browseresumes">Browse Resumes</Link></li>
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/contact">Contact</a>
+                                <Link className="nav-link" href="/contact">Contact</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/register">Sign In</a>
+                                <Link className="nav-link" href="/register">Sign In</Link>
                             </li>
                             <li className="button-group">
-                                <a href="post-job.html" className="button btn btn-common">Post a Job</a>
+                                <Link className="button btn btn-common" href="/postjob" >Post a Job</Link>
                             </li>
                         </ul>
                     </div>

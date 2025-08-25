@@ -1,8 +1,8 @@
 // src/pages/JobAlerts.jsx
-import Header from "../components/Header.jsx";
-import PageHeader from "../components/PageHeader.jsx";
-import AccountManagement from "../components/AccountManagment.jsx";
-import JobAlertItem from "../components/JobAlertsItem.jsx";
+import Header from "@/components/Header.jsx";
+import PageHeader from "@/components/PageHeader.jsx";
+import AccountManagement from "@/components/AccountManagment.jsx";
+import JobAlertItem from "@/components/JobAlertsItem.jsx";
 
 const jobAlertsData = [
   {

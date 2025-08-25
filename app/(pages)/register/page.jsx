@@ -1,6 +1,6 @@
-import Header from "../components/Header"
-import InputLabel from "../components/InputLabel"
-import PageHeader from "../components/PageHeader.jsx";
+import Header from "@/components/Header"
+import InputLabel from "@/components/InputLabel"
+import PageHeader from "@/components/PageHeader.jsx";
 export default function Register() {
 
     return (

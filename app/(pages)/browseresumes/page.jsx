@@ -1,6 +1,6 @@
-import Header from "../components/Header";
-import BrowseResume from "../components/BrowseResume";
-import PageHeader from "../components/PageHeader.jsx";
+import Header from "@/components/Header";
+import BrowseResume from "@/components/BrowseResume";
+import PageHeader from "@/components/PageHeader.jsx";
 export default function BrowseResumes() {
   return (
     <>

@@ -1,8 +1,8 @@
-import Header from "@/app/components/Header.jsx";
-import HowItWorks from "@/app/components/HowItWorks.jsx";
-import Testimonal from "@/app/components/Testimonal.jsx";
-import Counter from "@/app/components/Counter.jsx";
-import PageHeader from "@/app/components/PageHeader.jsx";
+import Header from "@/components/Header.jsx";
+import HowItWorks from "@/components/HowItWorks.jsx";
+import Testimonal from "@/components/Testimonal.jsx";
+import Counter from "@/components/Counter.jsx";
+import PageHeader from "@/components/PageHeader.jsx";
 
 export default function About() {
     return (
