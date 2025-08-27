@@ -170,6 +170,7 @@ a:not([href]):not([tabindex]):hover {
 
 .btn-common:hover {
   color: #fff;
+  background: #00d5f1;
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.15), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 

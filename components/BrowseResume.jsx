@@ -21,13 +21,13 @@ export default function BrowseResumes({children,name,position, location, rate, s
                         <p>{children}</p>
                     </div>
                     <div className="resume-skills">
-                        <div className="tag-list float-left">
+                        <div className="tag-list float-start">
                             <span>{skills[0]}</span>
                             <span>{skills[1]}</span>
                             <span>{skills[2]}</span>
                             <span>{skills[3]}</span>
                         </div>
-                        <div className="resume-exp float-right">
+                        <div className="resume-exp float-end">
                             <a href="#" className="btn btn-common btn-xs">Exp. {experience}</a>
                         </div>
                     </div>

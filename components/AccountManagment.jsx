@@ -13,7 +13,7 @@ export default function AccountManagment({ type }) {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/bookmarked" className={type == 'bookmarked' ? 'active' : ''}>
+                    <Link href="/bookmarkedjobs" className={type == 'bookmarked' ? 'active' : ''}>
                         Bookmarked Jobs
                     </Link>
                 </li>
@@ -23,18 +23,24 @@ export default function AccountManagment({ type }) {
                     </Link>
                 </li>
                 <li>
-                    <Link href="manage-applications.html" className={type == 'applications' ? 'active' : ''}>
+                {/* Make this so only the employer can see his jobs posted otherwise there is no manage jobs */}
+                    <Link href="/managejobs" className={type == 'jobs' ? 'active' : ''}>
+                        Manage Jobs
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/manageapplications" className={type == 'applications' ? 'active' : ''}>
                         Manage Applications
                     </Link>
                 </li>
                 {/* Make this so only the employee can see his resumes otherwise there is no manage resumes */}
                 <li>
-                    <a href="manage-resumes.html" className={type == 'resumes' ? 'active' : ''}>
+                    <a href="/manageresumes" className={type == 'resumes' ? 'active' : ''}>
                         Manage Resumes
                     </a>
                 </li>
                 <li>
-                    <a href="job-alerts.html" className={type == 'jobalerts' ? 'active' : ''}>
+                    <a href="/jobalerts" className={type == 'jobalerts' ? 'active' : ''}>
                         Job Alerts
                     </a>
                 </li>
@@ -44,7 +50,7 @@ export default function AccountManagment({ type }) {
                     </a>
                 </li>
                 <li>
-                    <a href="index.html">
+                    <a href="/">
                         Sign Out
                     </a>
                 </li>

@@ -1,4 +1,4 @@
-export default function JobItem({ title, location, type, img, featured }) {
+export default function JobItem({ title, location, type, featured }) {
   return (
     <div className="alerts-content">
       <div className="row">
@@ -15,11 +15,11 @@ export default function JobItem({ title, location, type, img, featured }) {
           </p>
         </div>
         <div className="col-lg-3 col-md-2 col-xs-12">
-          <div className="can-img">
+          {/* <div className="can-img">
             <a href="#">
               <img src={img} alt="" />
             </a>
-          </div>
+          </div> */}
         </div>
         <div className="col-lg-3 col-md-2 col-xs-12">
           <p>{featured ? <i className="lni-star"></i> : null}</p>

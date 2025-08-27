@@ -1,4 +1,3 @@
-import Script from 'next/script';
 
 import '@/node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '@/public/assets/css/line-icons.css';

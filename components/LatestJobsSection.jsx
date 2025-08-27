@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function LatestJobsSection({children, company, location, employer,type, ...props}) {
+export default function LatestJobsSection({children, company, location, employer,type}) {
     return (
         <div className="col-lg-6 col-md-12 col-xs-12">
             <div className="jobs-latest">

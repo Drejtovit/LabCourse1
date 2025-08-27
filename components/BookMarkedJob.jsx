@@ -1,4 +1,4 @@
-export default function BookMarkedJob({children,company, location,type, props}) {
+export default function BookMarkedJob({children,company, location,type}) {
     return (
         <a className="job-listings" href="job-details.html">
             <div className="row">

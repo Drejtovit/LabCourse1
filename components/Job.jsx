@@ -4,7 +4,6 @@ export default function Job({
   location,
   employer,
   type,
-  ...props
 }) {
   return (
     <div className="col-lg-6 col-md-12 col-xs-12">
