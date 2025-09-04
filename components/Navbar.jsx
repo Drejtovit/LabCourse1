@@ -2,10 +2,16 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation'
 
 export default function Navbar() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(open => !open);
+
+    const pages = ["/about", "/findjob", "/jobdetails", "/resume", "/privacy-policy"];
+    const candidates = ["/browsejobs", "/categories", "/resume/create", "/manageresumes", "/jobalerts"];
+    const employers = ["/postjob", "/managejobs", "/manageapplications", "/browseresumes"];
 
     return (
         <nav className="navbar navbar-expand-lg fixed-top scrolling-navbar">
@@ -27,10 +33,10 @@ export default function Navbar() {
                     </div>
                     <div className={"collapse navbar-collapse" + (isOpen ? " show" : "")} id="main-navbar">
                         <ul className="navbar-nav mr-auto w-100 justify-content-end">
-                            <li className="nav-item active">
+                            <li className={`nav-item ${pathname === '/' ? 'active' : undefined}`}>
                                 <Link className="nav-link" href="/">Home</Link>
                             </li>
-                            <li className="nav-item dropdown">
+                            <li className={`nav-item dropdown ${pages.includes(pathname) ? 'active' : undefined}`}>
                                 <Link className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                     Pages
                                 </Link>
@@ -41,10 +47,9 @@ export default function Navbar() {
                                     <li><Link className="dropdown-item" href="/jobdetails">Job Details</Link></li>
                                     <li><Link className="dropdown-item" href="/resume">Resume Page</Link></li>
                                     <li><Link className="dropdown-item" href="/privacy-policy">Privacy Policy</Link></li>
-                                    <li><Link className="dropdown-item" href="/contact">Contact</Link></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown">
+                            <li className={`nav-item dropdown ${candidates.includes(pathname) ? 'active' : undefined}`} >
                                 <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                     Candidates
                                 </a>
@@ -56,7 +61,7 @@ export default function Navbar() {
                                     <li><Link className="dropdown-item" href="/jobalerts">Job Alerts</Link></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown">
+                            <li className={`nav-item dropdown ${employers.includes(pathname) ? 'active' : undefined}`}>
                                 <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                     Employers
                                 </a>
@@ -67,11 +72,11 @@ export default function Navbar() {
                                     <li><Link className="dropdown-item" href="/browseresumes">Browse Resumes</Link></li>
                                 </ul>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${pathname === '/contact' ? 'active' : undefined}`}>
                                 <Link className="nav-link" href="/contact">Contact</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" href="/register">Sign In</Link>
+                            <li className={`nav-item ${pathname === '/signin' ? 'active' : undefined}`}>
+                                <Link className="nav-link" href="/signin">Sign In</Link>
                             </li>
                             <li className="button-group">
                                 <Link className="button btn btn-common" href="/postjob" >Post a Job</Link>

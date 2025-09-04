@@ -71,12 +71,28 @@ model Location {
 }
 
 model Candidate {
-  candidateId String @id
-  user        User   @relation(fields: [candidateId], references: [id])
+  candidateId String        @id
+  user        User          @relation(fields: [candidateId], references: [id])
+  birthDate   DateTime      @db.Date
+  zip         Int
+  city        String
+  state       String
+  Resume      Resume[]
+  Application Application[]
+}
+
+model Resume {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  salary      Float?
+  profession  String
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [candidateId])
 }
 
 model Job {
-  id           String   @id @default(cuid())
+  id           String        @id @default(cuid())
   title        String
   type         String
   description  String
@@ -87,6 +103,18 @@ model Job {
   startDate    DateTime
   closingDate  DateTime
   // Notifications Notifications[]
+  Application  Application[]
+}
+
+model Application {
+  jobId       String
+  candidateId String
+  appliedAt   DateTime  @default(now())
+  status      Status    @default(PENDING)
+  job         Job       @relation(fields: [jobId], references: [id])
+  candidate   Candidate @relation(fields: [candidateId], references: [candidateId])
+
+  @@id([jobId, candidateId])
 }
 
 model Notifications {
