@@ -1,9 +1,9 @@
-import HowItWorks from '@/components/HowItWorks.jsx'
-import Testimonal from '@/components/Testimonal.jsx'
-import Category from '@/components/Category.jsx'
-import Job from '@/components/Job.jsx'
-import LatestJobsSection from '@/components/LatestJobsSection.jsx';
-import Navbar from '@/components/Navbar.jsx';
+import HowItWorks from '@/app/components/HowItWorks.jsx'
+import Testimonal from '@/app/components/Testimonal.jsx'
+import Category from '@/app/components/Category.jsx'
+import Job from '@/app/components/Job.jsx'
+import LatestJobsSection from '@/app/components/LatestJobsSection.jsx';
+import Navbar from '@/app/components/Navbar.jsx';
 
 
 export default function Home() {

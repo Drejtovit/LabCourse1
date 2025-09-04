@@ -29,10 +29,10 @@ export default function Register() {
                                                 <option name="candidate">Candidate</option>
                                                 <option name="employer">Employer/Company</option>
                                             </select>
-                                            </div>
                                         </div>
-                                        <button className="btn btn-common log-btn mt-3">Register</button>
-                                        <p className="text-center">Already have an account?<a href="/login"> Sign In</a></p>
+                                    </div>
+                                    <button className="btn btn-common log-btn mt-3">Register</button>
+                                    <p className="text-center">Already have an account?<a href="/signin"> Sign In</a></p>
                                 </form>
                             </div>
                         </div>
