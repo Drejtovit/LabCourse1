@@ -27,7 +27,7 @@ export default function Register() {
     async function handleSubmit(formData) {
 
         setErrors([]);
-        const response = await fetch("/api/auth/user", {
+        const response = await fetch("/api/user", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

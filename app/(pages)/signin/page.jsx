@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import InputLabel from "@/components/InputLabel";
 import PageHeader from "@/components/PageHeader.jsx";
-import { signIn } from "@/lib/auth";
+import { signIn } from "next-auth";
 import Image from "next/image";
 
 export default function Login() {
@@ -17,12 +17,17 @@ export default function Login() {
             <div className="col-lg-5 col-md-6 col-xs-12">
               <div className="page-login-form box">
                 <h3>Login</h3>
-                <form className="login-form">
+                <form className="login-form" action={async (formData) => {
+                  "use server"
+                  const email = formData.get("email");
+                  const password = formData.get("password");
+                  await signIn("credentials", { email, password });
+                }}>
                   <InputLabel
                     icon="user"
                     type="email"
                     name="email"
-                    placeholder="Username"
+                    placeholder="Email"
                   />
                   <InputLabel
                     icon="lock"
@@ -30,14 +35,14 @@ export default function Login() {
                     name="password"
                     placeholder="Password"
                   />
-                  <button className="btn btn-common log-btn mt-3">
+                  <button className="btn btn-common log-btn mt-3" type="submit">
                     Submit
                   </button>
                   <p className="text-center">
                     <a href="/register">Don't have an account?</a>
                   </p>
                 </form>
-                <hr className="mt-5 mb-4 border-secondary-subtle"></hr>
+                {/* <hr className="mt-5 mb-4 border-secondary-subtle"></hr>
                 <p className="mt-3 mb-3">Or continue with</p>
                 <div className="d-flex gap-2 gap-sm-3 justify-content-center">
                   <form action={async () => {
@@ -62,7 +67,7 @@ export default function Login() {
                       </span>
                     </button>
                   </form>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
