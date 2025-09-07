@@ -4,10 +4,12 @@ import InputLabel from "@/components/InputLabel"
 import PageHeader from "@/components/PageHeader.jsx";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+// import { useActionState } from "react";
 
 export default function Register() {
     const router = useRouter();
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
+    // const [state, formAction, isLoading] = useActionState(createUser, { errors: {} });
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
@@ -25,8 +27,7 @@ export default function Register() {
     }
 
     async function handleSubmit(formData) {
-
-        setErrors([]);
+        setErrors({});
         const response = await fetch("/api/user", {
             method: "POST",
             headers: {
@@ -41,13 +42,14 @@ export default function Register() {
                 phoneNumber: formData.get("phoneNumber"),
             })
         })
-        const data = await response.json();
 
+        const data = await response.json();
 
         if (response.ok) {
             router.push("/");
+            alert(data.message);
         } else {
-            setErrors(data.errors || { general: data.message });
+            setErrors(data.errors);
         }
     }
 
@@ -86,8 +88,11 @@ export default function Register() {
                                         </div>
                                     </div>
                                     {errors.role && <p className="text-danger">{errors.role}</p>}
+                                    {errors.all && <p className="text-danger">{errors.all}</p>}
                                     {errors.general && <p className="text-danger">{errors.general}</p>}
-                                    <button className="btn btn-common log-btn mt-3">Register</button>
+                                    <button className="btn btn-common log-btn mt-3">
+                                        Create Account
+                                    </button>
                                     <p className="text-center">Already have an account?<a href="/signin"> Sign In</a></p>
                                 </form>
                             </div>
