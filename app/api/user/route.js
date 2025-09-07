@@ -14,7 +14,19 @@ export async function POST(request) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    const { name, email, password, confirmPassword, role, phoneNumber } = body;
+    const {
+      name,
+      email,
+      password,
+      confirmPassword,
+      role,
+      phoneNumber,
+      zip,
+      city,
+      state,
+      ...userRelation
+    } = body;
+
     const userExists = await prisma.user.findUnique({
       where: { email: email },
     });
@@ -39,6 +51,32 @@ export async function POST(request) {
             number: phoneNumber,
           },
         },
+        ...(role === "candidate"
+          ? {
+              candidate: {
+                create: {
+                  birthDate: new Date(userRelation.birthDate),
+                  zip,
+                  city,
+                  state,
+                },
+              },
+            }
+          : {
+              employer: {
+                create: {
+                  description: userRelation.description,
+                  websiteUrl: userRelation.websiteUrl,
+                  location: {
+                    create: {
+                      zip,
+                      city,
+                      state,
+                    },
+                  },
+                },
+              },
+            }),
       },
     });
     const { password: newUserPassword, ...rest } = newUser;
