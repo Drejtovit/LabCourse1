@@ -1,10 +1,47 @@
+"use client";
 import Header from "@/components/Header";
 import InputLabel from "@/components/InputLabel";
 import PageHeader from "@/components/PageHeader.jsx";
-import { signIn } from "next-auth";
-import Image from "next/image";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function Login() {
+  const router = useRouter();
+  const [error, setError] = useState({});
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  function handleInputChange(e) {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value
+    })
+  }
+  async function handleSubmit(formData) {
+    setError({});
+    setIsLoading(true);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    const signInResult = await signIn("credentials", {
+      email,
+      password,
+      redirect: false
+    });
+    if (signInResult?.error) {
+      setError({ general: "Invalid email or password" });
+      setIsLoading(false);
+    }
+    else {
+      router.push("/");
+    }
+  }
+
   return (
     <>
       <Header />
@@ -17,26 +54,29 @@ export default function Login() {
             <div className="col-lg-5 col-md-6 col-xs-12">
               <div className="page-login-form box">
                 <h3>Login</h3>
-                <form className="login-form" action={async (formData) => {
-                  "use server"
-                  const email = formData.get("email");
-                  const password = formData.get("password");
-                  await signIn("credentials", { email, password });
+                <form className="login-form" onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmit(new FormData(e.target));
                 }}>
                   <InputLabel
                     icon="user"
                     type="email"
                     name="email"
                     placeholder="Email"
+                    value={formValues.email}
+                    onChange={handleInputChange}
                   />
                   <InputLabel
                     icon="lock"
                     type="password"
                     name="password"
                     placeholder="Password"
+                    value={formValues.password}
+                    onChange={handleInputChange}
                   />
-                  <button className="btn btn-common log-btn mt-3" type="submit">
-                    Submit
+                  {error.general && <p className="text-danger">{error.general}</p>}
+                  <button className="btn btn-common log-btn mt-3" type="submit" disabled={isLoading}>
+                    {isLoading ? "Loading..." : "Login"}
                   </button>
                   <p className="text-center">
                     <a href="/register">Don't have an account?</a>
