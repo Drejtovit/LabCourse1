@@ -4459,3 +4459,28 @@ footer .menu li .small-title {
   margin-bottom: 10px;
   margin-top: -5px;
 }
+
+.custom-bg {
+  background: linear-gradient(to right, #73dae7, #00BCD4);
+}
+
+.custom-btn:hover {
+  background-color: #038799 !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  .custom-bg {
+    background: linear-gradient(to right, #00BCD4, #01899b);
+    color: white !important;
+  }
+
+  .custom-btn {
+    background-color: #174a51 !important;
+    color: white !important;
+  }
+
+  .custom-btn:hover {
+    background-color: #07606c !important;
+  }
+}
