@@ -1,4 +1,4 @@
-
+/* eslint-disable react-refresh/only-export-components */
 import '@/node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '@/public/assets/css/line-icons.css';
 import '@/app/global.css';
@@ -19,8 +19,6 @@ export const viewport = {
   initialScale: 1,
   shrinkToFit: false,
 };
-
-
 
 export default function RootLayout({ children }) {
   return (
@@ -93,12 +91,10 @@ export default function RootLayout({ children }) {
             </div>
           </div>
         </footer>
-{/* 
+        {/* 
         <a href="#" class="back-to-top">
           <i class="lni-arrow-up"></i>
         </a> */}
-
-        
       </body>
     </html>
   );
