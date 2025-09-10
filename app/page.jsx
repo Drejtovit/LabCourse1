@@ -3,7 +3,7 @@ import Testimonal from '@/components/Testimonal.jsx'
 import Category from '@/components/Category.jsx'
 import Job from '@/components/Job.jsx'
 import LatestJobsSection from '@/components/LatestJobsSection.jsx';
-import Navbar from '@/components/Navbar.jsx';
+import Navbar from '@/components/navbar/Navbar.jsx';
 
 
 export default function Home() {

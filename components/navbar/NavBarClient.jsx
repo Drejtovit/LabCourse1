@@ -3,8 +3,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation'
+import { signOut } from "next-auth/react";
 
-export default function Navbar() {
+export default function NavBarClient({ session }) {
+
+    console.log("NavClient", session);
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(open => !open);
@@ -50,7 +53,7 @@ export default function Navbar() {
                                 </ul>
                             </li>
                             <li className={`nav-item dropdown ${candidates.includes(pathname) ? 'active' : undefined}`} >
-                                <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
+                                <a className="nav-link dropdown-toggle " href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                     Candidates
                                 </a>
                                 <ul className="dropdown-menu">
@@ -65,7 +68,7 @@ export default function Navbar() {
                                 <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                     Employers
                                 </a>
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu ">
                                     <li><Link className="dropdown-item" href="/postjob">Add Job</Link></li>
                                     <li><Link className="dropdown-item" href="/managejobs">Manage Jobs</Link></li>
                                     <li><Link className="dropdown-item" href="/manageapplications">Manage Applications</Link></li>
@@ -75,9 +78,42 @@ export default function Navbar() {
                             <li className={`nav-item ${pathname === '/contact' ? 'active' : undefined}`}>
                                 <Link className="nav-link" href="/contact">Contact</Link>
                             </li>
-                            <li className={`nav-item ${pathname === '/signin' ? 'active' : undefined}`}>
-                                <Link className="nav-link" href="/signin">Sign In</Link>
-                            </li>
+                            {!session?.user ? (
+                                <li className={`nav-item ${pathname === '/signin' ? 'active' : undefined}`}>
+                                    <Link className="nav-link" href="/signin">Sign In</Link>
+                                </li>) : (
+                                <li className="nav-item dropdown">
+                                    <a
+                                        className="nav-link dropdown-toggle d-flex align-items-center"
+                                        href="#"
+                                        onClick={(e) => e.preventDefault()}
+                                        role="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <i className="lni lni-user me-2"></i>
+                                        {session.user.name || "Account"}
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <Link className="dropdown-item" href="/settings">
+                                                <i className="lni lni-user me-2"></i> Profile
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <button
+                                                onClick={async () => {
+                                                    await signOut({ callbackUrl: "/" });
+                                                }}
+                                                className="dropdown-item text-danger"
+                                            >
+                                                <i className="lni lni-exit me-2" style={{ marginLeft: '-3px' }}></i> Sign Out
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            )
+                            }
                             <li className="button-group">
                                 <Link className="button btn btn-common" href="/postjob" >Post a Job</Link>
                             </li>
@@ -87,6 +123,6 @@ export default function Navbar() {
             </div>
             {/* <DropDownMenu></DropDownMenu> */}
             {/* <div className="mobile-menu" data-logo="assets/img/logo-mobile.png"></div> */}
-        </nav>
+        </nav >
     )
 }
