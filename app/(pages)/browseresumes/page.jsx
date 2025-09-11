@@ -1,10 +1,9 @@
-import Header from "@/components/Header";
 import BrowseResume from "@/components/BrowseResume";
 import PageHeader from "@/components/PageHeader.jsx";
+import Link from "next/link";
 export default function BrowseResumes() {
   return (
     <>
-      <Header></Header>
       <PageHeader>Browse Resumes</PageHeader>
       {/* CandidateResumeCard */}
 
@@ -56,29 +55,29 @@ export default function BrowseResumes() {
       {/* Start Pagination  */}
       <ul className="pagination">
         <li className="active">
-          <a href="#" className="btn btn-common">
+          <Link href="#" className="btn btn-common">
             <i className="ti-angle-left"></i> prev
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#">1</a>
+          <Link href="#">1</Link>
         </li>
         <li>
-          <a href="#">2</a>
+          <Link href="#">2</Link>
         </li>
         <li>
-          <a href="#">3</a>
+          <Link href="#">3</Link>
         </li>
         <li>
-          <a href="#">4</a>
+          <Link href="#">4</Link>
         </li>
         <li>
-          <a href="#">5</a>
+          <Link href="#">5</Link>
         </li>
         <li className="active">
-          <a href="#" className="btn btn-common">
+          <Link href="#" className="btn btn-common">
             Next <i className="ti-angle-right"></i>
-          </a>
+          </Link>
         </li>
       </ul>
       {/* <!-- End Pagination --> */}

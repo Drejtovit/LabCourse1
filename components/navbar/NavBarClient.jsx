@@ -7,7 +7,6 @@ import { signOut } from "next-auth/react";
 
 export default function NavBarClient({ session }) {
 
-    console.log("NavClient", session);
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(open => !open);
@@ -20,7 +19,6 @@ export default function NavBarClient({ session }) {
         <nav className="navbar navbar-expand-lg fixed-top scrolling-navbar">
             <div className="container">
                 <div className="theme-header clearfix">
-                    {/* Brand and toggle get grouped for better mobile display */}
                     <div className="navbar-header">
                         <button
                             className="navbar-toggler"
@@ -37,7 +35,7 @@ export default function NavBarClient({ session }) {
                     <div className={"collapse navbar-collapse" + (isOpen ? " show" : "")} id="main-navbar">
                         <ul className="navbar-nav mr-auto w-100 justify-content-end">
                             <li className={`nav-item ${pathname === '/' ? 'active' : undefined}`}>
-                                <Link className="nav-link" href="/">Home</Link>
+                                <Link className="nav-link" href="/" onClick={() => setIsOpen(false)}>Home</Link>
                             </li>
                             <li className={`nav-item dropdown ${pages.includes(pathname) ? 'active' : undefined}`}>
                                 <Link className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
@@ -45,11 +43,11 @@ export default function NavBarClient({ session }) {
                                 </Link>
                                 <ul className="dropdown-menu">
                                     {/*FIX THE LINKS*/}
-                                    <li><Link className="dropdown-item" href="/about">About</Link></li>
-                                    <li><Link className="dropdown-item" href="/findjob">Job Page</Link></li>
-                                    <li><Link className="dropdown-item" href="/jobdetails">Job Details</Link></li>
-                                    <li><Link className="dropdown-item" href="/resume">Resume Page</Link></li>
-                                    <li><Link className="dropdown-item" href="/privacy-policy">Privacy Policy</Link></li>
+                                    <li><Link className="dropdown-item" href="/about" onClick={() => setIsOpen(false)}>About</Link></li>
+                                    <li><Link className="dropdown-item" href="/findjob" onClick={() => setIsOpen(false)}>Job Page</Link></li>
+                                    <li><Link className="dropdown-item" href="/jobdetails" onClick={() => setIsOpen(false)}>Job Details</Link></li>
+                                    <li><Link className="dropdown-item" href="/resume" onClick={() => setIsOpen(false)}>Resume Page</Link></li>
+                                    <li><Link className="dropdown-item" href="/privacy-policy" onClick={() => setIsOpen(false)}>Privacy Policy</Link></li>
                                 </ul>
                             </li>
                             <li className={`nav-item dropdown ${candidates.includes(pathname) ? 'active' : undefined}`} >
@@ -57,11 +55,11 @@ export default function NavBarClient({ session }) {
                                     Candidates
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" href="/browsejobs">Browse Jobs</Link></li>
-                                    <li><Link className="dropdown-item" href="/categories">Browse Categories</Link></li>
-                                    <li><Link className="dropdown-item" href="/resume/create">Add Resume</Link></li>
-                                    <li><Link className="dropdown-item" href="/manageresumes">Manage Resumes</Link></li>
-                                    <li><Link className="dropdown-item" href="/jobalerts">Job Alerts</Link></li>
+                                    <li><Link className="dropdown-item" href="/browsejobs" onClick={() => setIsOpen(false)}>Browse Jobs</Link></li>
+                                    <li><Link className="dropdown-item" href="/categories" onClick={() => setIsOpen(false)}>Browse Categories</Link></li>
+                                    <li><Link className="dropdown-item" href="/resume/create" onClick={() => setIsOpen(false)}>Add Resume</Link></li>
+                                    <li><Link className="dropdown-item" href="/manageresumes" onClick={() => setIsOpen(false)}>Manage Resumes</Link></li>
+                                    <li><Link className="dropdown-item" href="/jobalerts" onClick={() => setIsOpen(false)}>Job Alerts</Link></li>
                                 </ul>
                             </li>
                             <li className={`nav-item dropdown ${employers.includes(pathname) ? 'active' : undefined}`}>
@@ -69,18 +67,18 @@ export default function NavBarClient({ session }) {
                                     Employers
                                 </a>
                                 <ul className="dropdown-menu ">
-                                    <li><Link className="dropdown-item" href="/postjob">Add Job</Link></li>
-                                    <li><Link className="dropdown-item" href="/managejobs">Manage Jobs</Link></li>
-                                    <li><Link className="dropdown-item" href="/manageapplications">Manage Applications</Link></li>
-                                    <li><Link className="dropdown-item" href="/browseresumes">Browse Resumes</Link></li>
+                                    <li><Link className="dropdown-item" href="/postjob" onClick={() => setIsOpen(false)}>Add Job</Link></li>
+                                    <li><Link className="dropdown-item" href="/managejobs" onClick={() => setIsOpen(false)}>Manage Jobs</Link></li>
+                                    <li><Link className="dropdown-item" href="/manageapplications" onClick={() => setIsOpen(false)}>Manage Applications</Link></li>
+                                    <li><Link className="dropdown-item" href="/browseresumes" onClick={() => setIsOpen(false)}>Browse Resumes</Link></li>
                                 </ul>
                             </li>
                             <li className={`nav-item ${pathname === '/contact' ? 'active' : undefined}`}>
-                                <Link className="nav-link" href="/contact">Contact</Link>
+                                <Link className="nav-link" href="/contact" onClick={() => setIsOpen(false)}>Contact</Link >
                             </li>
                             {!session?.user ? (
                                 <li className={`nav-item ${pathname === '/signin' ? 'active' : undefined}`}>
-                                    <Link className="nav-link" href="/signin">Sign In</Link>
+                                    <Link className="nav-link" href="/signin" onClick={() => setIsOpen(false)} >Sign In</Link>
                                 </li>) : (
                                 <li className="nav-item dropdown">
                                     <a
@@ -92,11 +90,11 @@ export default function NavBarClient({ session }) {
                                         aria-expanded="false"
                                     >
                                         <i className="lni lni-user me-2"></i>
-                                        {session.user.name || "Account"}
+                                        {session?.user.name || "Account"}
                                     </a>
                                     <ul className="dropdown-menu">
                                         <li>
-                                            <Link className="dropdown-item" href="/settings">
+                                            <Link className="dropdown-item" href="/settings" onClick={() => setIsOpen(false)}>
                                                 <i className="lni lni-user me-2"></i> Profile
                                             </Link>
                                         </li>

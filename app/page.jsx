@@ -1,10 +1,9 @@
 import HowItWorks from '@/components/HowItWorks.jsx'
-import Testimonal from '@/components/Testimonal.jsx'
 import Category from '@/components/Category.jsx'
 import Job from '@/components/Job.jsx'
 import LatestJobsSection from '@/components/LatestJobsSection.jsx';
 import Navbar from '@/components/navbar/Navbar.jsx';
-
+import Link from 'next/link';
 
 export default function Home() {
     return (
@@ -124,7 +123,7 @@ export default function Home() {
                             Graphic Designer
                         </Job>
                         <div className="col-12 text-center mt-4">
-                            <a href="job-page.html" className="btn btn-common">Browse All Jobs</a>
+                            <Link href="/browsejobs" className="btn btn-common">Browse All Jobs</Link>
                         </div>
                     </div>
                 </div>
@@ -187,7 +186,7 @@ export default function Home() {
                             Graphic Designer
                         </LatestJobsSection>
                         <div className="col-12 text-center mt-4">
-                            <a href="job-page.html" className="btn btn-common">Browse All Jobs</a>
+                            <Link href="/browsejobs" className="btn btn-common">Browse All Jobs</Link>
                         </div>
                     </div>
                 </div>

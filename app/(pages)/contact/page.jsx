@@ -1,11 +1,9 @@
-import Header from '@/components/Header.jsx';
 import PageHeader from '@/components/PageHeader.jsx';
 
 export default function Contact() {
 
     return (
         <>
-            <Header />
             <PageHeader>Contact</PageHeader>
             <section id="contact" className="section">
                 <div className="contact-form">

@@ -1,8 +1,8 @@
-import NavBarClient from './navbar/NavBarClient.jsx';
+import Navbar from './navbar/Navbar.jsx';
 
 export default function Header() {
     return (
         <header id="home" className="hero-area">
-            <NavBarClient />
+            <Navbar />
         </header>)
 }

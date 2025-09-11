@@ -1,13 +1,10 @@
-import Header from "@/components/Header.jsx";
 import HowItWorks from "@/components/HowItWorks.jsx";
-import Testimonal from "@/components/Testimonal.jsx";
 import Counter from "@/components/Counter.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
-
+import Link from "next/link";
 export default function About() {
     return (
         <>
-            <Header />
             <PageHeader>About</PageHeader>
 
             <div className="about section">
@@ -29,9 +26,9 @@ export default function About() {
                                     doloremque tenetur incidunt officiis explicabo optio
                                     perferendis.
                                 </p>
-                                <a href="#" className="btn btn-common">
+                                <Link href="#" className="btn btn-common">
                                     Learn More
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6 col-xs-12">

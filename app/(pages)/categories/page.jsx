@@ -1,11 +1,10 @@
-import Header from "@/components/Header.jsx";
 import Category from "@/components/Category.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
+import Link from "next/link";
 
 export default function Categories() {
     return (
         <>
-            <Header />
             <PageHeader>Categories</PageHeader>
 
             <section className="category section bg-gray">
@@ -75,106 +74,106 @@ export default function Categories() {
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">Accounting & Finance</a>
+                                    <Link href="#">Accounting & Finance</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Asset Management</a>
+                                    <Link href="#">Asset Management</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Capital Markets</a>
+                                    <Link href="#">Capital Markets</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Commercial Banking</a>
+                                    <Link href="#">Commercial Banking</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Commodities</a>
+                                    <Link href="#">Commodities</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Consultiong</a>
+                                    <Link href="#">Consultiong</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Corporate</a>
+                                    <Link href="#">Corporate</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Credit</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-xs-12">
-                            <ul>
-                                <li>
-                                    <a href="#">Debt/Fixed Income</a>
-                                </li>
-                                <li>
-                                    <a href="#">Derivatives</a>
-                                </li>
-                                <li>
-                                    <a href="#">Equities</a>
-                                </li>
-                                <li>
-                                    <a href="#">FX & Money Markets</a>
-                                </li>
-                                <li>
-                                    <a href="#">Global Custody</a>
-                                </li>
-                                <li>
-                                    <a href="#">Covernment</a>
-                                </li>
-                                <li>
-                                    <a href="#">Graduates & Internships</a>
-                                </li>
-                                <li>
-                                    <a href="#">Hedge Funds</a>
+                                    <Link href="#">Credit</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">Information Services</a>
+                                    <Link href="#">Debt/Fixed Income</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Insurance</a>
+                                    <Link href="#">Derivatives</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Investment Consulting</a>
+                                    <Link href="#">Equities</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Investment Banking</a>
+                                    <Link href="#">FX & Money Markets</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Islamic Finance</a>
+                                    <Link href="#">Global Custody</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Operations</a>
+                                    <Link href="#">Covernment</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Private Banking</a>
+                                    <Link href="#">Graduates & Internships</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Private Equity & Venture Capital</a>
+                                    <Link href="#">Hedge Funds</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">Quantitative Analytics</a>
+                                    <Link href="#">Information Services</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Real Estate</a>
+                                    <Link href="#">Insurance</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Research</a>
+                                    <Link href="#">Investment Consulting</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Retail Banking</a>
+                                    <Link href="#">Investment Banking</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Risk Management</a>
+                                    <Link href="#">Islamic Finance</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Trading</a>
+                                    <Link href="#">Operations</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Private Banking</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Private Equity & Venture Capital</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-xs-12">
+                            <ul>
+                                <li>
+                                    <Link href="#">Quantitative Analytics</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Real Estate</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Research</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Retail Banking</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Risk Management</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Trading</Link>
                                 </li>
                             </ul>
                         </div>
@@ -186,121 +185,121 @@ export default function Categories() {
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">Aeronautical Engineering</a>
+                                    <Link href="#">Aeronautical Engineering</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Aerospace Engineering</a>
+                                    <Link href="#">Aerospace Engineering</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Algorthm</a>
+                                    <Link href="#">Algorthm</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Biology</a>
+                                    <Link href="#">Biology</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Broadcast Engineering</a>
+                                    <Link href="#">Broadcast Engineering</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Circuit Design</a>
+                                    <Link href="#">Circuit Design</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Civil Engineering</a>
+                                    <Link href="#">Civil Engineering</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Clean Technology</a>
+                                    <Link href="#">Clean Technology</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Construction Monitoring</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-xs-12">
-                            <ul>
-                                <li>
-                                    <a href="#">Climate Sciences</a>
-                                </li>
-                                <li>
-                                    <a href="#">Cryptography</a>
-                                </li>
-                                <li>
-                                    <a href="#">Data Mining</a>
-                                </li>
-                                <li>
-                                    <a href="#">Data Science</a>
-                                </li>
-                                <li>
-                                    <a href="#">Digital Design</a>
-                                </li>
-                                <li>
-                                    <a href="#">Drones</a>
-                                </li>
-                                <li>
-                                    <a href="#">Electrical Engineering</a>
-                                </li>
-                                <li>
-                                    <a href="#">Electronics</a>
-                                </li>
-                                <li>
-                                    <a href="#">Engineering</a>
+                                    <Link href="#">Construction Monitoring</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">Gelolgy</a>
+                                    <Link href="#">Climate Sciences</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Human Science</a>
+                                    <Link href="#">Cryptography</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Imaging</a>
+                                    <Link href="#">Data Mining</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Industrial Engineering</a>
+                                    <Link href="#">Data Science</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Instrumentation</a>
+                                    <Link href="#">Digital Design</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Machine Learning</a>
+                                    <Link href="#">Drones</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Mathematics</a>
+                                    <Link href="#">Electrical Engineering</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Machanical Engineering</a>
+                                    <Link href="#">Electronics</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Medical</a>
+                                    <Link href="#">Engineering</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">Nanotechnology</a>
+                                    <Link href="#">Gelolgy</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Natural Language</a>
+                                    <Link href="#">Human Science</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Physics</a>
+                                    <Link href="#">Imaging</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Quantum</a>
+                                    <Link href="#">Industrial Engineering</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Remote Sensing</a>
+                                    <Link href="#">Instrumentation</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Robotics</a>
+                                    <Link href="#">Machine Learning</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Statistics</a>
+                                    <Link href="#">Mathematics</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Wireless</a>
+                                    <Link href="#">Machanical Engineering</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Medical</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-xs-12">
+                            <ul>
+                                <li>
+                                    <Link href="#">Nanotechnology</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Natural Language</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Physics</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Quantum</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Remote Sensing</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Robotics</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Statistics</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Wireless</Link>
                                 </li>
                             </ul>
                         </div>
@@ -312,61 +311,61 @@ export default function Categories() {
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">Display Advertising</a>
+                                    <Link href="#">Display Advertising</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Email Marketing</a>
+                                    <Link href="#">Email Marketing</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Lead Generation</a>
+                                    <Link href="#">Lead Generation</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Market &amp; Customer Research</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-xs-12">
-                            <ul>
-                                <li>
-                                    <a href="#">Marketing Strategy</a>
-                                </li>
-                                <li>
-                                    <a href="#">Public Relations</a>
-                                </li>
-                                <li>
-                                    <a href="#">Telemarketing &amp; Telesales</a>
-                                </li>
-                                <li>
-                                    <a href="#">Other - Sales &amp; Marketing</a>
+                                    <Link href="#">Market &amp; Customer Research</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">SEM - Search Engine Marketing</a>
+                                    <Link href="#">Marketing Strategy</Link>
                                 </li>
                                 <li>
-                                    <a href="#">SEO - Search Engine Optimization</a>
+                                    <Link href="#">Public Relations</Link>
                                 </li>
                                 <li>
-                                    <a href="#">SMM - Social Media Marketing</a>
+                                    <Link href="#">Telemarketing &amp; Telesales</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Other - Sales &amp; Marketing</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 col-xs-12">
                             <ul>
                                 <li>
-                                    <a href="#">Climate Sciences</a>
+                                    <Link href="#">SEM - Search Engine Marketing</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Cryptography</a>
+                                    <Link href="#">SEO - Search Engine Optimization</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Data Mining</a>
+                                    <Link href="#">SMM - Social Media Marketing</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-xs-12">
+                            <ul>
+                                <li>
+                                    <Link href="#">Climate Sciences</Link>
                                 </li>
                                 <li>
-                                    <a href="#">Digital Design</a>
+                                    <Link href="#">Cryptography</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Data Mining</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Digital Design</Link>
                                 </li>
                             </ul>
                         </div>

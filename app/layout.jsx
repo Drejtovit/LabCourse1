@@ -3,6 +3,9 @@ import '@/node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '@/public/assets/css/line-icons.css';
 import '@/app/global.css';
 import '@/public/assets/css/responsive.css';
+import { SessionProvider } from 'next-auth/react';
+import SessionRefresher from '@/lib/sessionRefresh.js';
+import Link from 'next/link';
 
 export const metadata = {
   title: "Job Portal",
@@ -24,8 +27,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <SessionProvider>
+          <SessionRefresher />
+          {children}
+        </SessionProvider>
 
-        {children}
         <footer>
           <section className="footer-Content">
             <div className="container">
@@ -43,16 +49,16 @@ export default function RootLayout({ children }) {
                   <div className="widget">
                     <h3 className="block-title">Quick Links</h3>
                     <ul className="menu">
-                      <li><a href="#">About Us</a></li>
-                      <li><a href="#">Support</a></li>
-                      <li><a href="#">License</a></li>
-                      <li><a href="#">Contact</a></li>
+                      <li><Link href="/about">About Us</Link></li>
+                      <li><Link href="#">Support</Link></li>
+                      <li><Link href="#">License</Link></li>
+                      <li><Link href="/contact">Contact</Link></li>
                     </ul>
                     <ul className="menu">
-                      <li><a href="#">Terms & Conditions</a></li>
-                      <li><a href="#">Privacy</a></li>
-                      <li><a href="#">Refferal Terms</a></li>
-                      <li><a href="#">Product License</a></li>
+                      <li><Link href="#">Terms & Conditions</Link></li>
+                      <li><Link href="/privacy-policy">Privacy</Link></li>
+                      <li><Link href="#">Refferal Terms</Link></li>
+                      <li><Link href="#">Product License</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -85,7 +91,7 @@ export default function RootLayout({ children }) {
               <div className="row">
                 <div className="col-md-12">
                   <div className="site-info text-center">
-                    <p>Designed and Developed by <a href="https://uideck.com" rel="nofollow">UIdeck</a></p>
+                    <p>Designed and Developed by <Link href="https://uideck.com" rel="nofollow">UIdeck</Link></p>
                   </div>
                 </div>
               </div>

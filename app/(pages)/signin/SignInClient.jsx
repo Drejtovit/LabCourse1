@@ -1,5 +1,4 @@
 "use client";
-import Header from "@/components/Header";
 import InputLabel from "@/components/InputLabel";
 import PageHeader from "@/components/PageHeader.jsx";
 import { signIn } from "next-auth/react";
@@ -38,14 +37,12 @@ export default function Login() {
             setIsLoading(false);
         }
         else {
-            router.push("/");
+            router.replace("/");
         }
     }
 
     return (
         <>
-            <Header />
-
             <PageHeader>Signin</PageHeader>
 
             <section id="content" className="section-padding">

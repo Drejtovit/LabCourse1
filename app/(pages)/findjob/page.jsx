@@ -1,10 +1,8 @@
-import Header from "@/components/Header.jsx";
 import Job from "@/components/Job.jsx";
 
 export default function Jobs() {
     return (
         <>
-            <Header />
             <div className="page-header">
                 <div className="container">
                     <div className="row">
