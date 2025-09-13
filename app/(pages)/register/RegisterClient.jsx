@@ -1,6 +1,5 @@
 "use client"
-import Header from "@/components/Header"
-import InputLabel from "@/components/InputLabel"
+import InputLabel from "@/components/InputLabel.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -67,7 +66,7 @@ export default function RegisterClient() {
 
         const data = await response.json();
 
-        if (response.ok) {
+        if (response.ok && data.success) {
             await signIn("credentials", {
                 email: formValues.email,
                 password: formValues.password,
@@ -82,8 +81,7 @@ export default function RegisterClient() {
     }
 
     return (
-        <><Header />
-
+        <>
             <PageHeader>Create your Account</PageHeader>
 
             <section id="content" className="section-padding">

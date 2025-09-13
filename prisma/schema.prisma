@@ -18,7 +18,7 @@ model User {
   name        String
   email       String        @unique
   password    String
-  // image         String?
+  image       String?       @db.Text
   phoneNumber PhoneNumber[]
   role        Role
 

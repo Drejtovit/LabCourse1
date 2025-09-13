@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { signOut } from "next-auth/react";
 
 export default function NavBarClient({ session }) {
-
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(open => !open);
@@ -50,29 +49,33 @@ export default function NavBarClient({ session }) {
                                     <li><Link className="dropdown-item" href="/privacy-policy" onClick={() => setIsOpen(false)}>Privacy Policy</Link></li>
                                 </ul>
                             </li>
-                            <li className={`nav-item dropdown ${candidates.includes(pathname) ? 'active' : undefined}`} >
-                                <a className="nav-link dropdown-toggle " href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
-                                    Candidates
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" href="/browsejobs" onClick={() => setIsOpen(false)}>Browse Jobs</Link></li>
-                                    <li><Link className="dropdown-item" href="/categories" onClick={() => setIsOpen(false)}>Browse Categories</Link></li>
-                                    <li><Link className="dropdown-item" href="/resume/create" onClick={() => setIsOpen(false)}>Add Resume</Link></li>
-                                    <li><Link className="dropdown-item" href="/manageresumes" onClick={() => setIsOpen(false)}>Manage Resumes</Link></li>
-                                    <li><Link className="dropdown-item" href="/jobalerts" onClick={() => setIsOpen(false)}>Job Alerts</Link></li>
-                                </ul>
-                            </li>
-                            <li className={`nav-item dropdown ${employers.includes(pathname) ? 'active' : undefined}`}>
-                                <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
-                                    Employers
-                                </a>
-                                <ul className="dropdown-menu ">
-                                    <li><Link className="dropdown-item" href="/postjob" onClick={() => setIsOpen(false)}>Add Job</Link></li>
-                                    <li><Link className="dropdown-item" href="/managejobs" onClick={() => setIsOpen(false)}>Manage Jobs</Link></li>
-                                    <li><Link className="dropdown-item" href="/manageapplications" onClick={() => setIsOpen(false)}>Manage Applications</Link></li>
-                                    <li><Link className="dropdown-item" href="/browseresumes" onClick={() => setIsOpen(false)}>Browse Resumes</Link></li>
-                                </ul>
-                            </li>
+                            {session?.user.role === 'CANDIDATE' && (
+                                <li className={`nav-item dropdown ${candidates.includes(pathname) ? 'active' : undefined}`} >
+                                    <a className="nav-link dropdown-toggle " href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
+                                        Candidates
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        <li><Link className="dropdown-item" href="/browsejobs" onClick={() => setIsOpen(false)}>Browse Jobs</Link></li>
+                                        <li><Link className="dropdown-item" href="/categories" onClick={() => setIsOpen(false)}>Browse Categories</Link></li>
+                                        <li><Link className="dropdown-item" href="/resume/create" onClick={() => setIsOpen(false)}>Add Resume</Link></li>
+                                        <li><Link className="dropdown-item" href="/manageresumes" onClick={() => setIsOpen(false)}>Manage Resumes</Link></li>
+                                        <li><Link className="dropdown-item" href="/jobalerts" onClick={() => setIsOpen(false)}>Job Alerts</Link></li>
+                                    </ul>
+                                </li>
+                            )}
+                            {session?.user.role === 'EMPLOYER' && (
+                                <li className={`nav-item dropdown ${employers.includes(pathname) ? 'active' : undefined}`}>
+                                    <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
+                                        Employers
+                                    </a>
+                                    <ul className="dropdown-menu ">
+                                        <li><Link className="dropdown-item" href="/postjob" onClick={() => setIsOpen(false)}>Add Job</Link></li>
+                                        <li><Link className="dropdown-item" href="/managejobs" onClick={() => setIsOpen(false)}>Manage Jobs</Link></li>
+                                        <li><Link className="dropdown-item" href="/manageapplications" onClick={() => setIsOpen(false)}>Manage Applications</Link></li>
+                                        <li><Link className="dropdown-item" href="/browseresumes" onClick={() => setIsOpen(false)}>Browse Resumes</Link></li>
+                                    </ul>
+                                </li>
+                            )}
                             <li className={`nav-item ${pathname === '/contact' ? 'active' : undefined}`}>
                                 <Link className="nav-link" href="/contact" onClick={() => setIsOpen(false)}>Contact</Link >
                             </li>
@@ -88,13 +91,21 @@ export default function NavBarClient({ session }) {
                                         role="button"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
-                                    >
-                                        <i className="lni lni-user me-2"></i>
+                                    > {session?.user.image ? (
+                                        <Image
+                                            src={session.user.image}
+                                            alt="profile-avatar"
+                                            width={30}
+                                            height={30}
+                                            className="rounded-circle me-2"
+                                            style={{ objectFit: "cover" }}
+                                        />) : (
+                                        <i className="lni lni-user me-2"></i>)}{" "}
                                         {session?.user.name || "Account"}
                                     </a>
                                     <ul className="dropdown-menu">
                                         <li>
-                                            <Link className="dropdown-item" href="/settings" onClick={() => setIsOpen(false)}>
+                                            <Link className="dropdown-item" href="/profile" onClick={() => setIsOpen(false)}>
                                                 <i className="lni lni-user me-2"></i> Profile
                                             </Link>
                                         </li>
