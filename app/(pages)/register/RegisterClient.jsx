@@ -3,12 +3,10 @@ import InputLabel from "@/components/InputLabel.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-// import { useActionState } from "react";
 
 export default function RegisterClient() {
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    // const [state, formAction, isLoading] = useActionState(createUser, { errors: {} });
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",

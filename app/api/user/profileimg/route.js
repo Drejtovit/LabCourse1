@@ -9,7 +9,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 export async function POST(request) {
-  const errors = {}; //TODO
   const session = await auth();
 
   if (!session) {
@@ -50,7 +49,6 @@ export async function POST(request) {
       const uploadStream = cloudinary.uploader.upload_stream(
         { folder: "profile_pictures" },
         (error, result) => {
-          console.log("Cloudinary result:", result, "Error:", error);
           if (error) return reject(error);
           resolve(result);
         }
