@@ -2801,6 +2801,12 @@ button:focus {
   font-size: 12px;
 }
 
+.btn-xs-slim {
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+
 .manager-resumes-item .btn-gray {
   color: #818a91;
 }

@@ -74,24 +74,27 @@ model Location {
 }
 
 model Candidate {
-  candidateId String        @id
-  user        User          @relation(fields: [candidateId], references: [id], onDelete: Cascade)
-  birthDate   DateTime      @db.Date
-  zip         String        @db.VarChar(20)
-  city        String
-  state       String
-  Resume      Resume[]
-  Application Application[]
+  candidateId  String        @id
+  user         User          @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  birthDate    DateTime      @db.Date
+  zip          String        @db.VarChar(20)
+  city         String
+  state        String
+  resumes      Resume[]
+  applications Application[]
 }
 
 model Resume {
   id          Int       @id @default(autoincrement())
+  profession  String
+  salary      Float?
+  age         Int?
+  details     String?   @db.Text
+  candidateId String
+  isActive    Boolean   @default(false)
+  candidate   Candidate @relation(fields: [candidateId], references: [candidateId], onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  salary      Float?
-  profession  String
-  candidateId String
-  candidate   Candidate @relation(fields: [candidateId], references: [candidateId], onDelete: Cascade)
 }
 
 model Job {

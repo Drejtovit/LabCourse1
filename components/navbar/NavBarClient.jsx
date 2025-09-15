@@ -100,7 +100,7 @@ export default function NavBarClient({ session }) {
                                             className="rounded-circle me-2"
                                             style={{ objectFit: "cover" }}
                                         />) : (
-                                        <i className="lni lni-user me-2"></i>)}{" "}
+                                        <i className="lni lni-user me-2"></i>)}
                                         {session?.user.name || "Account"}
                                     </a>
                                     <ul className="dropdown-menu">
@@ -109,6 +109,18 @@ export default function NavBarClient({ session }) {
                                                 <i className="lni lni-user me-2"></i> Profile
                                             </Link>
                                         </li>
+
+                                        {session?.user?.role === "CANDIDATE" && <li>
+                                            <Link className="dropdown-item" href="/resume" onClick={() => setIsOpen(false)}>
+                                                <i className="lni lni-briefcase me-2"></i> Resume
+                                            </Link>
+                                        </li>}
+                                        {session?.user?.role === "EMPLOYER" && <li>
+                                            <Link className="dropdown-item" href="/managejobs" onClick={() => setIsOpen(false)}>
+                                                <i className="lni lni-briefcase me-2"></i> Manage Jobs
+                                            </Link>
+                                        </li>}
+
                                         <li>
                                             <button
                                                 onClick={async () => {
@@ -123,9 +135,10 @@ export default function NavBarClient({ session }) {
                                 </li>
                             )
                             }
-                            <li className="button-group">
+                            {session?.user?.role === "EMPLOYER" && <li className="button-group">
                                 <Link className="button btn btn-common" href="/postjob" >Post a Job</Link>
-                            </li>
+                            </li>}
+
                         </ul>
                     </div>
                 </div>

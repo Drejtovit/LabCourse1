@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useState, useRef } from "react";
-import { readonly } from "zod";
 
 export default function ProfilePageClient({ session, user }) {
 
@@ -14,7 +13,7 @@ export default function ProfilePageClient({ session, user }) {
     const [formValues, setFormValues] = useState({
         name: user.name,
         email: user.email,
-        phoneNumber: user.phoneNumber[0].number,//TODO FIX FOR EMPLOYEE
+        phoneNumber: user.phoneNumber[0]?.number,//TODO FIX FOR EMPLOYEE
         zip: user.role === "CANDIDATE" ? user.candidate?.zip : user.employer?.location.zip,
         city: user.role === "CANDIDATE" ? user.candidate?.city : user.employer?.location.city,
         state: user.role === "CANDIDATE" ? user.candidate?.state : user.employer?.location.state,
@@ -120,7 +119,7 @@ export default function ProfilePageClient({ session, user }) {
                                     JPG or PNG or WEBP no larger than 5 MB
                                 </div>
                                 <input type="file" ref={fileInputRef} style={{ display: "none", marginBottom: "10px" }} disabled={isUploading} onChange={handleImageUpload} />
-                                {(errorMessage?.image || errorMessage?.details) && <p className="text-danger">{errorMessage.image || errorMessage.details}</p>}
+                                {(errorMessage?.image || errorMessage?.details) && <p className="text-danger">{errorMessage?.image || errorMessage?.details}</p>}
                                 <button className="btn btn-primary"
                                     style={{ backgroundColor: "#00BCD4" }} type="button" onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
                                     {isUploading ? "Uploading..." : "Upload new image"}
@@ -149,7 +148,7 @@ export default function ProfilePageClient({ session, user }) {
                                             onChange={handleInputChange}
                                             placeholder={user?.role === 'EMPLOYER' ? "Enter your company name" : "Enter your full name"}
                                             readOnly={!editButton}
-                                            style={errorMessage.name ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                            style={errorMessage?.name ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
                                         />
                                         {errorMessage?.name && <p className="text-danger">{errorMessage.name}</p>}
                                     </div>
@@ -166,7 +165,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 placeholder="Enter your email"
                                                 value={formValues.email}
                                                 readOnly={true}
-                                                style={errorMessage.email ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: "#e3f2fd" }}
+                                                style={{ backgroundColor: "#e3f2fd" }}
 
                                             />
                                             {errorMessage?.email && <p className="text-danger">{errorMessage.email}</p>}
@@ -184,7 +183,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 onChange={handleInputChange}
                                                 placeholder="Enter your phone number"
                                                 readOnly={!editButton}
-                                                style={errorMessage.phoneNumber ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                                style={errorMessage?.phoneNumber ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
                                             />
                                             {errorMessage?.phoneNumber && <p className="text-danger">{errorMessage.phoneNumber}</p>}
                                         </div>
@@ -203,7 +202,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 onChange={handleInputChange}
                                                 placeholder="Enter your zip code"
                                                 readOnly={!editButton}
-                                                style={errorMessage.zip ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                                style={errorMessage?.zip ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
                                             />
                                             {errorMessage?.zip && <p className="text-danger">{errorMessage.zip}</p>}
                                         </div>
@@ -220,7 +219,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 onChange={handleInputChange}
                                                 placeholder="City"
                                                 readOnly={!editButton}
-                                                style={errorMessage.city ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                                style={errorMessage?.city ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
 
                                             />
                                             {errorMessage?.city && <p className="text-danger">{errorMessage.city}</p>}
@@ -239,7 +238,7 @@ export default function ProfilePageClient({ session, user }) {
                                             onChange={handleInputChange}
                                             placeholder="State"
                                             readOnly={!editButton}
-                                            style={errorMessage.state ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                            style={errorMessage?.state ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
                                         />
                                         {errorMessage?.state && <p className="text-danger">{errorMessage.state}</p>}
                                     </div>
@@ -268,7 +267,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 onChange={handleInputChange}
                                                 placeholder="Enter your birthday"
                                                 readOnly={!editButton}
-                                                style={errorMessage.birthDate ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                                style={errorMessage?.birthDate ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
                                             />
                                             {errorMessage?.birthDate && <p className="text-danger">{errorMessage.birthDate}</p>}
                                         </div>

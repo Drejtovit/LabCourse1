@@ -1,9 +1,47 @@
-export default function ResumeCard({name, specialization, location, wage, status}) {
+"use client"
+import Image from 'next/image';
+import { useState } from 'react';
+export default function ResumeCard({ name, specialization, location, wage, status, image, active, resumeId, candidate }) {
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    async function handleSetActive() {
+        setIsLoading(true);
+        const res = await fetch("/api/resume/activate", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                resumeId: resumeId,
+                candidateId: candidate,
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) {
+            alert(data.error);
+        }
+        setIsLoading(false);
+        window.location.reload();
+    }
+
+    async function handleDelete() {
+        const confirmDelete = confirm("Are you sure you want to delete this resume? This action cannot be undone.");
+        if (!confirmDelete) return;
+        const res = await fetch(`/api/resume/${resumeId}`, {
+            method: "DELETE",
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) {
+            alert(data.error);
+        }
+        window.location.reload();
+    }
+
     return (
         <div className="manager-resumes-item">
             <div className="manager-content">
-                <a href="resume.html"><img className="resume-thumb" src="assets/img/jobs/avatar-1.jpg"
-                    alt="" /></a>
+                <Image src={image} alt={`${name}'s resume`} width={80} height={70} className="resume-thumb " style={{ maxWidth: "80px" }} />
                 <div className="manager-info">
                     <div className="manager-name">
                         <h4>{name}</h4>
@@ -15,14 +53,28 @@ export default function ResumeCard({name, specialization, location, wage, status
                     </div>
                 </div>
             </div>
-            <div className="update-date">
+            <div className="update-date d-flex flex-column flex-md-row align-items-md-center justify-content-between">
                 <p className="status">
-                    <strong>Updated on:</strong>{status}
+                    <strong className='me-1'>Updated on:</strong>{status}
                 </p>
-                <div className="action-btn">
-                    <a className="btn btn-xs btn-gray" href="#">Hide</a>
-                    <a className="btn btn-xs btn-gray" href="#">Edit</a>
-                    <a className="btn btn-xs btn-danger" href="#">Delete</a>
+                <div className="action-btn d-flex flex-wrap flex-md-row  mt-2 mt-md-0 justify-content-between align-items-center gap-2">
+                    <div className='d-flex align-items-center gap-1'>
+                        <span className={`badge ${active ? "bg-success" : "bg-secondary"}`}>
+                            {active ? "Active" : "Inactive"}
+                        </span>
+                        {!active &&
+                            <button
+                                className={`btn btn-xs-slim  btn-light border border-dark text-dark`}
+                                onClick={!active ? () => handleSetActive() : undefined}
+                                disabled={isLoading || active}
+                                title={active ? "This resume is currently active" : "Set this resume as active"}
+                                style={{ cursor: isLoading || active ? "not-allowed" : "pointer" }}
+                            >
+                                {isLoading ? "Activating..." : " Set Active"}
+                            </button>}
+                    </div>
+                    <a className="btn btn-xs btn-secondary " href="#">Edit</a>
+                    <button className="btn btn-xs btn-danger" onClick={handleDelete}>Delete</button>
                 </div>
             </div>
         </div>

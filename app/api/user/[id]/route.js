@@ -1,4 +1,3 @@
-"use server";
 import prisma from "@/lib/db.js";
 import { NextResponse } from "next/server";
 import { validateProfileData } from "@/lib/validator/user";
