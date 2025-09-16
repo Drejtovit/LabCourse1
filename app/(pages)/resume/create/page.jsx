@@ -14,10 +14,11 @@ export default async function ResumeCreate() {
 
     const userData = await res.json();
     if (!res.ok || userData.error) {
-        alert(userData.error);
         redirect('/');
     }
-
+    if (userData.user.candidate.resumes.length === 5) {
+        redirect('/resume/manage');
+    }
     return (
         <ResumeCreateClient session={session} user={userData.user} />
     );

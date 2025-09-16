@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 export default function ResumeCard({ name, specialization, location, wage, status, image, active, resumeId, candidate }) {
 
@@ -19,7 +20,7 @@ export default function ResumeCard({ name, specialization, location, wage, statu
         });
         const data = await res.json();
         if (!res.ok || data.error) {
-            alert(data.error);
+            alert(data.errors.general);
         }
         setIsLoading(false);
         window.location.reload();
@@ -73,8 +74,8 @@ export default function ResumeCard({ name, specialization, location, wage, statu
                                 {isLoading ? "Activating..." : " Set Active"}
                             </button>}
                     </div>
-                    <a className="btn btn-xs btn-secondary " href="#">Edit</a>
-                    <button className="btn btn-xs btn-danger" onClick={handleDelete}>Delete</button>
+                    <Link className="btn btn-xs btn-secondary " href={`/resume/edit/${resumeId}`}>Edit</Link>
+                    <button className="btn btn-xs btn-danger" onClick={handleDelete} disabled={active}>Delete</button>
                 </div>
             </div>
         </div>

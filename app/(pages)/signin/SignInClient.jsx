@@ -4,6 +4,7 @@ import PageHeader from "@/components/PageHeader.jsx";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { handleInputChange } from "@/lib/utils/helpers.js";
 
 
 export default function Login() {
@@ -15,12 +16,6 @@ export default function Login() {
     });
     const [isLoading, setIsLoading] = useState(false);
 
-    function handleInputChange(e) {
-        setFormValues({
-            ...formValues,
-            [e.target.name]: e.target.value
-        })
-    }
     async function handleSubmit(formData) {
         setError({});
         setIsLoading(true);
@@ -61,7 +56,8 @@ export default function Login() {
                                         name="email"
                                         placeholder="Email"
                                         value={formValues.email}
-                                        onChange={handleInputChange}
+                                        onChange={(e) => handleInputChange({ setList: setFormValues, e })}
+                                        style={error.general ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                     />
                                     <InputLabel
                                         icon="lock"
@@ -69,7 +65,8 @@ export default function Login() {
                                         name="password"
                                         placeholder="Password"
                                         value={formValues.password}
-                                        onChange={handleInputChange}
+                                        onChange={(e) => handleInputChange({ setList: setFormValues, e })}
+                                        style={error.general ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                     />
                                     {error.general && <p className="text-danger">{error.general}</p>}
                                     <button className="btn btn-common log-btn mt-3" type="submit" disabled={isLoading}>

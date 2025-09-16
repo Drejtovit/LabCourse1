@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addItem, handleInputChange, removeItem, updateItem } from '@/lib/utils/helpers.js';
 
-export default function ResumeCreateClient({ session, user }) {
+export default function ResumeEditClient({ session, resume }) {
     const [errorMessage, setErrorMessage] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [formValues, setFormValues] = useState({
-        profession: '',
-        salary: '',
-        age: user.candidate ? new Date().getFullYear() - new Date(user.candidate.birthDate).getFullYear() : '',
-        details: '',
+        profession: resume?.profession || '',
+        salary: resume?.salary || '',
+        age: resume?.age || '',
+        details: resume?.details || '',
     });
     const router = useRouter();
     const [educations, setEducations] = useState([
@@ -27,21 +27,20 @@ export default function ResumeCreateClient({ session, user }) {
     async function handleSubmit(formData) {
         setErrorMessage({});
         setIsLoading(true);
-        const res = await fetch('/api/resume', {
-            method: 'POST',
+        const res = await fetch(`/api/resume/${resume.id}`, {
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 profession: formData.get('profession'),
                 salary: formData.get('salary'),
-                candidateId: user.candidate.candidateId,
                 age: formData.get('age'),
                 details: formData.get('details'),
             })
         });
         const data = await res.json();
         if (res.ok && data.success) {
-            alert("Resume created successfully!");
-            router.push("/resume");
+            alert("Resume updated successfully!");
+            router.replace("/resume");
         }
         setErrorMessage(data.errors);
         setIsLoading(false);
@@ -61,18 +60,31 @@ export default function ResumeCreateClient({ session, user }) {
                                     <h3>Basic information</h3>
                                     <div className="mb-3">
                                         <label className="control-label">Name</label>
-                                        <input type="text" name='name' value={user.name} readOnly={true} className="form-control" placeholder="Name"
-                                            style={{ backgroundColor: "#e3f2fd" }} />
+                                        <input type="text"
+                                            name='name'
+                                            value={resume?.candidate?.user?.name}
+                                            readOnly={true}
+                                            className="form-control"
+                                            placeholder="Name"
+                                            style={{ backgroundColor: "#e3f2fd" }}
+                                        />
                                     </div>
                                     <div className="mb-3">
                                         <label className="control-label"></label>
                                         <label className="control-label">Email</label>
-                                        <input type="text" name='email' value={user.email} readOnly={true} className="form-control" placeholder="Your@domain.com"
-                                            style={{ backgroundColor: "#e3f2fd" }} />
+                                        <input type="text"
+                                            name='email'
+                                            value={resume?.candidate?.user?.email}
+                                            readOnly={true}
+                                            className="form-control"
+                                            placeholder="Your@domain.com"
+                                            style={{ backgroundColor: "#e3f2fd" }}
+                                        />
                                     </div>
                                     <div className="mb-3">
                                         <label className="control-label">Profession Title</label>
-                                        <input type="text" className="form-control"
+                                        <input type="text"
+                                            className="form-control"
                                             name='profession'
                                             placeholder="Headline (e.g. Front-end developer)"
                                             value={formValues.profession}
@@ -82,10 +94,11 @@ export default function ResumeCreateClient({ session, user }) {
                                     </div>
                                     <div className="mb-3">
                                         <label className="control-label">Location</label>
-                                        <input type="text" name='location' className="form-control"
+                                        <input type="text" name='location'
+                                            className="form-control"
                                             placeholder="Location, e.g"
                                             readOnly={true}
-                                            value={user.candidate.city + ", " + user.candidate.state}
+                                            value={resume?.candidate?.city + ", " + resume?.candidate?.state}
                                             style={{ backgroundColor: "#e3f2fd" }}
                                         />
                                     </div>
@@ -121,7 +134,6 @@ export default function ResumeCreateClient({ session, user }) {
                                         {errorMessage?.details && <p className="text-danger mt-2">{errorMessage.details}</p>}
                                     </div>
                                     <hr className='mt-4 border border-dark border-3' />
-
                                     <div className="divider">
                                         <h3>Education</h3>
                                     </div>
@@ -346,7 +358,7 @@ export default function ResumeCreateClient({ session, user }) {
                                     {errorMessage?.maxResumes && <p className="text-danger mt-2">{errorMessage.maxResumes}</p>}
 
                                     <button className="btn btn-common mt-4" type="submit" disabled={isLoading}>
-                                        {isLoading ? 'Creating...' : 'Create Resume'}
+                                        {isLoading ? 'Editing...' : 'Edit Resume'}
                                     </button>
                                 </form>
                             </div>

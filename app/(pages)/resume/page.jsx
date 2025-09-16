@@ -10,12 +10,13 @@ export default async function Resume() {
         redirect("/");
     }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/resume?candidateId=${session.user.id}&isActive=true`, { cache: 'no-store' });
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/resume/activate?candidateId=${session.user.id}&isActive=true`, { cache: 'no-store' });
     const resumeData = await res.json();
     if (!res.ok || resumeData.errors) {
-        redirect("resume/create");
+        redirect("/resume/create");
     }
-    const resume = resumeData?.resumes?.[0];
+    const resume = resumeData?.resume;
     return (
         <>
             <PageHeader>Resume</PageHeader>

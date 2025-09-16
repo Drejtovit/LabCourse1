@@ -27,6 +27,7 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+    const isActive = numberOfResumes === 0;
 
     const newResume = await prisma.resume.create({
       data: {
@@ -35,6 +36,7 @@ export async function POST(request) {
         candidate: { connect: { candidateId } },
         age: parseInt(age, 10) || null,
         details: details || null,
+        isActive,
       },
     });
 
@@ -54,18 +56,16 @@ export async function GET(request) {
   try {
     const url = new URL(request.url);
     const candidateId = url.searchParams.get("candidateId");
-    const isActive = url.searchParams.get("isActive");
-    const where = {};
 
-    if (candidateId) {
-      where.candidateId = candidateId;
-    }
-    if (isActive === "true") {
-      where.isActive = true;
+    if (!candidateId) {
+      return NextResponse.json(
+        { success: false, errors: { candidateId: "Candidate ID is required" } },
+        { status: 400 }
+      );
     }
 
     const resumes = await prisma.resume.findMany({
-      where,
+      where: { candidateId },
       orderBy: { updatedAt: "desc" },
       include: {
         candidate: {

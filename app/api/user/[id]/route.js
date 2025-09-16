@@ -13,7 +13,11 @@ export async function GET(request, { params }) {
         phoneNumber: true,
         ...(role === "CANDIDATE"
           ? {
-              candidate: true,
+              candidate: {
+                include: {
+                  resumes: true,
+                },
+              },
             }
           : {
               employer: true,

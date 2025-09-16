@@ -58,7 +58,7 @@ export default function NavBarClient({ session }) {
                                         <li><Link className="dropdown-item" href="/browsejobs" onClick={() => setIsOpen(false)}>Browse Jobs</Link></li>
                                         <li><Link className="dropdown-item" href="/categories" onClick={() => setIsOpen(false)}>Browse Categories</Link></li>
                                         <li><Link className="dropdown-item" href="/resume/create" onClick={() => setIsOpen(false)}>Add Resume</Link></li>
-                                        <li><Link className="dropdown-item" href="/manageresumes" onClick={() => setIsOpen(false)}>Manage Resumes</Link></li>
+                                        <li><Link className="dropdown-item" href="/resume/manage" onClick={() => setIsOpen(false)}>Manage Resumes</Link></li>
                                         <li><Link className="dropdown-item" href="/jobalerts" onClick={() => setIsOpen(false)}>Job Alerts</Link></li>
                                     </ul>
                                 </li>

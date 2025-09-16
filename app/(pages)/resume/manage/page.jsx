@@ -15,7 +15,7 @@ export default async function ManageResumes() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/resume?candidateId=${session.user.id}`, { cache: 'no-store' });
     const resumeData = await res.json();
     if (!res.ok || resumeData.errors) {
-        redirect("resume/create");
+        redirect("/resume/create");
     }
 
     const resumes = resumeData?.resumes;
@@ -53,9 +53,13 @@ export default async function ManageResumes() {
                                         ></ResumeCard>
                                     )
                                 })}
-                                <div className="text-center">
-                                    <Link className="btn btn-common mt-3 " href="/resume/create">Add Resume</Link>
-                                </div>
+                                {resumes?.length === 5 ? (
+                                    <p className="text-center text-danger fw-bold">You have reached the maximum limit of 5 resumes. Please delete an existing resume to add a new one.</p>
+                                ) : (
+                                    <div className="text-center">
+                                        <Link className="btn btn-common mt-3 " href="/resume/create" >Add Resume</Link>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

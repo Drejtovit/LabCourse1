@@ -1,6 +1,59 @@
 import prisma from "@/lib/db.js";
 import { NextResponse } from "next/server";
 
+export async function GET(request) {
+  try {
+    const url = new URL(request.url);
+    const candidateId = url.searchParams.get("candidateId");
+
+    if (!candidateId) {
+      return NextResponse.json(
+        { success: false, errors: { candidateId: "Candidate ID is required" } },
+        { status: 400 }
+      );
+    }
+
+    const resume = await prisma.resume.findFirst({
+      where: {
+        candidateId,
+        isActive: true,
+      },
+      orderBy: { updatedAt: "desc" },
+      include: {
+        candidate: {
+          include: {
+            user: {
+              select: {
+                name: true,
+                email: true,
+                image: true,
+                phoneNumber: {
+                  select: { number: true },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+    if (!resume) {
+      return NextResponse.json(
+        {
+          success: false,
+          errors: { general: "There is no resume available." },
+        },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json({ success: true, resume }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, errors: { general: error.message } },
+      { status: 500 }
+    );
+  }
+}
+
 export async function PUT(request) {
   try {
     const body = await request.json();

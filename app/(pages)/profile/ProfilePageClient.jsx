@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, useRef } from "react";
+import { handleInputChange } from "@/lib/utils/helpers.js";
 
 export default function ProfilePageClient({ session, user }) {
 
@@ -21,13 +22,6 @@ export default function ProfilePageClient({ session, user }) {
         description: user.employer?.description,
         websiteUrl: user.employer?.websiteUrl,
     })
-
-    function handleInputChange(e) {
-        setFormValues({
-            ...formValues,
-            [e.target.name]: e.target.value
-        })
-    }
 
     async function handleImageUpload(e) {
         const image = e.target.files[0];
@@ -50,6 +44,7 @@ export default function ProfilePageClient({ session, user }) {
         setIsUploading(false);
         window.location.reload();
     }
+
     async function handleSubmit(formData) {
         setErrorMessage({});
         setIsLoading(true);
@@ -118,7 +113,12 @@ export default function ProfilePageClient({ session, user }) {
                                 <div className="small font-italic text-muted mb-4">
                                     JPG or PNG or WEBP no larger than 5 MB
                                 </div>
-                                <input type="file" ref={fileInputRef} style={{ display: "none", marginBottom: "10px" }} disabled={isUploading} onChange={handleImageUpload} />
+                                <input type="file"
+                                    ref={fileInputRef}
+                                    style={{ display: "none", marginBottom: "10px" }}
+                                    disabled={isUploading}
+                                    onChange={handleImageUpload}
+                                />
                                 {(errorMessage?.image || errorMessage?.details) && <p className="text-danger">{errorMessage?.image || errorMessage?.details}</p>}
                                 <button className="btn btn-primary"
                                     style={{ backgroundColor: "#00BCD4" }} type="button" onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
@@ -145,7 +145,7 @@ export default function ProfilePageClient({ session, user }) {
                                             name="name"
                                             type="text"
                                             value={formValues.name}
-                                            onChange={handleInputChange}
+                                            onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                             placeholder={user?.role === 'EMPLOYER' ? "Enter your company name" : "Enter your full name"}
                                             readOnly={!editButton}
                                             style={errorMessage?.name ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
@@ -180,7 +180,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 name="phoneNumber"
                                                 type="text"
                                                 value={formValues.phoneNumber}
-                                                onChange={handleInputChange}
+                                                onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                                 placeholder="Enter your phone number"
                                                 readOnly={!editButton}
                                                 style={errorMessage?.phoneNumber ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
@@ -199,7 +199,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 name="zip"
                                                 type="text"
                                                 value={formValues.zip}
-                                                onChange={handleInputChange}
+                                                onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                                 placeholder="Enter your zip code"
                                                 readOnly={!editButton}
                                                 style={errorMessage?.zip ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
@@ -216,7 +216,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 name="city"
                                                 type="text"
                                                 value={formValues.city}
-                                                onChange={handleInputChange}
+                                                onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                                 placeholder="City"
                                                 readOnly={!editButton}
                                                 style={errorMessage?.city ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
@@ -235,7 +235,7 @@ export default function ProfilePageClient({ session, user }) {
                                             name="state"
                                             type="text"
                                             value={formValues.state}
-                                            onChange={handleInputChange}
+                                            onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                             placeholder="State"
                                             readOnly={!editButton}
                                             style={errorMessage?.state ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
@@ -264,7 +264,7 @@ export default function ProfilePageClient({ session, user }) {
                                                 type="date"
                                                 name="birthDate"
                                                 value={formValues.birthDate.split("T")[0]}
-                                                onChange={handleInputChange}
+                                                onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                                 placeholder="Enter your birthday"
                                                 readOnly={!editButton}
                                                 style={errorMessage?.birthDate ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
@@ -274,7 +274,7 @@ export default function ProfilePageClient({ session, user }) {
                                     </div>
                                     {errorMessage?.general && <p className="text-danger">{errorMessage.general}</p>}
                                     {errorMessage?.message && <p className="text-info">{errorMessage.message}</p>}
-                                    <button className="btn btn-primary" style={{ backgroundColor: "#00BCD4" }} type="submit" disabled={isLoading}>
+                                    <button className="btn btn-primary" style={{ backgroundColor: "#00BCD4" }} type="submit" disabled={isLoading || !editButton}>
                                         {isLoading ? "Saving..." : "Save Changes"}
                                     </button>
                                     {!editButton && <button className="btn btn-secondary" style={{ marginLeft: "10px" }} type="button" onClick={() => setEditButton(true)} disabled={editButton}>
