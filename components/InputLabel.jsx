@@ -1,4 +1,4 @@
-export default function InputLabel({ icon, type, name = undefined, placeholder, value = '', ...props }) {
+export default function InputLabel({ icon, type, name = "", placeholder, value = '', ...props }) {
     return (
         <div className="mb-3">
             <div className="input-icon">

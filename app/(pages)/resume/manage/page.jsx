@@ -1,24 +1,37 @@
 import AccountManagment from "@/components/AccountManagment.jsx";
 import ResumeCard from "@/components/ResumeCard.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
-import { formatDate, formatSalary } from "@/lib/utils/helpers.js";
+import SignInNotice from "@/components/SignInNotice.jsx";
+import { formatDate } from "@/lib/utils/helpers.js";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import Link from "next/link";
 
 export default async function ManageResumes() {
     const session = await auth();
-    if (!session || session.user.role !== "CANDIDATE") {
-        redirect("/");
+    if (!session) {
+        return (
+            <SignInNotice />
+        );
     }
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/resume?candidateId=${session.user.id}`, { cache: 'no-store' });
+    if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
+        redirect("/");//Todo make a 403 notice also make other pages like this one more secure
+    }
+    const header = await headers();
+    const cookie = header.get('cookie') || '';
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/resume?candidateId=${session.user.id}`, { cache: 'no-store', headers: { cookie } });
     const resumeData = await res.json();
-    if (!res.ok || resumeData.errors) {
-        redirect("/resume/create");
-    }
 
+    if (!res.ok || resumeData.errors) {
+        if (resumeData.errors.resume) {
+            redirect("/resume/create");
+        } else {
+            redirect("/");
+        }
+    }
     const resumes = resumeData?.resumes;
+
     return (
         <>
             <PageHeader>Manage Resumes</PageHeader>
@@ -45,7 +58,6 @@ export default async function ManageResumes() {
                                             candidate={resume?.candidateId}
                                             name={resume?.candidate?.user?.name}
                                             specialization={resume?.profession}
-                                            wage={formatSalary(resume?.salary)}
                                             status={formatDate(resume?.updatedAt)}
                                             location={resume?.candidate?.city + ", " + resume?.candidate?.state}
                                             image={resume?.candidate?.user?.image}

@@ -5,8 +5,13 @@ import { headers } from 'next/headers';
 
 export default async function ResumeEdit({ params }) {
     const session = await auth();
+    if (!session) {
+        return (
+            <SignInNotice />
+        );
+    }
 
-    if (!session || (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN")) {
+    if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
         redirect('/');
     }
     const header = await headers();
@@ -21,11 +26,10 @@ export default async function ResumeEdit({ params }) {
 
     const resumeData = await res.json();
     if (!res.ok || resumeData.error) {
-        console.log(resumeData.error);
         redirect('/');
     }
-    if (session.user.role !== "CANDIDATE" && resumeData.resume.candidateId !== session.user.id) {
-        redirect('/');
+    if (session.user.role === "CANDIDATE" && resumeData.resume.candidateId !== session.user.id) {
+        redirect('/');//TODO make a 403 notice
     }
 
     return (

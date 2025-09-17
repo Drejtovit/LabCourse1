@@ -1,10 +1,26 @@
 import prisma from "@/lib/db.js";
+import { auth } from "@/lib/auth.js";
 import { NextResponse } from "next/server";
 import { validateResumeData } from "@/lib/validator/resume.js";
 
 export async function POST(request) {
   try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { success: false, errors: { general: "Authentication required." } },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
+
+    // if(session.user.id !== body.candidateId && session.user.role !== "ADMIN") {
+    //   return NextResponse.json(
+    //     { success: false, errors: { general: "Forbidden, you are not allowed." } },
+    //     { status: 403 }
+    //   );
+    // } //TODO when admin
 
     const errors = validateResumeData(body);
 
@@ -12,8 +28,7 @@ export async function POST(request) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    const { profession, salary, candidateId, age, details } = body;
-    const salaryFloat = parseFloat(salary.trim().replace(/,/g, ""));
+    const { profession, candidateId, age, details } = body;
 
     const numberOfResumes = await prisma.resume.count({
       where: { candidateId },
@@ -32,7 +47,6 @@ export async function POST(request) {
     const newResume = await prisma.resume.create({
       data: {
         profession,
-        salary: salaryFloat,
         candidate: { connect: { candidateId } },
         age: parseInt(age, 10) || null,
         details: details || null,
@@ -54,12 +68,19 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { success: false, errors: { general: "Authentication required." } },
+        { status: 401 }
+      );
+    }
     const url = new URL(request.url);
     const candidateId = url.searchParams.get("candidateId");
 
     if (!candidateId) {
       return NextResponse.json(
-        { success: false, errors: { candidateId: "Candidate ID is required" } },
+        { success: false, errors: { general: "Candidate ID is required" } },
         { status: 400 }
       );
     }
@@ -89,7 +110,7 @@ export async function GET(request) {
       return NextResponse.json(
         {
           success: false,
-          errors: { general: "There are no resumes available." },
+          errors: { resume: "There are no resumes available." },
         },
         { status: 404 }
       );

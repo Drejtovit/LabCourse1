@@ -87,7 +87,6 @@ model Candidate {
 model Resume {
   id          Int       @id @default(autoincrement())
   profession  String
-  salary      Float?
   age         Int?
   details     String?   @db.Text
   candidateId String

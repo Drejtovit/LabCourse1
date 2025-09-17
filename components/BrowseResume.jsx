@@ -1,4 +1,6 @@
-export default function BrowseResumes({children,name,position, location, rate, skills, experience}) {
+import Link from "next/link";
+
+export default function BrowseResumes({ children, id, name, profession, location, skills, experience, email }) {
     return (
         <div className="col-lg-6 col-md-6 col-xs-12">
             <div className="manager-resumes-item">
@@ -8,11 +10,11 @@ export default function BrowseResumes({children,name,position, location, rate, s
                     <div className="manager-info">
                         <div className="manager-name">
                             <h4><a href="#">{name}</a></h4>
-                            <h5>{position}</h5>
+                            <h5>{profession}</h5>
                         </div>
                         <div className="manager-meta">
-                            <span className="location"><i className="ti-location-pin"></i>{location}</span>
-                            <span className="rate"><i className="ti-time"></i> ${rate} per hour</span>
+                            <span className="location"><i className="lni lni-map-marker me-2 pt-2"></i>{location}</span>
+                            <span className="email"><i className="lni lni-envelope me-2 pt-2"></i>{email}</span>
                         </div>
                     </div>
                 </div>
@@ -20,15 +22,21 @@ export default function BrowseResumes({children,name,position, location, rate, s
                     <div className="content">
                         <p>{children}</p>
                     </div>
-                    <div className="resume-skills">
-                        <div className="tag-list float-start">
-                            <span>{skills[0]}</span>
-                            <span>{skills[1]}</span>
-                            <span>{skills[2]}</span>
-                            <span>{skills[3]}</span>
+                    <div className="row ">
+                        <div className="resume-skills">
+                            <div className="tag-list float-start">
+                                <span>{skills[0]}</span>
+                                <span>{skills[1]}</span>
+                                <span>{skills[2]}</span>
+                                <span>{skills[3]}</span>
+                            </div>
+                            <div className="resume-exp float-end">
+                                <span className="btn btn-secondary btn-xs" style={{ cursor: 'default' }}>Exp. {experience}</span>
+                            </div>
                         </div>
-                        <div className="resume-exp float-end">
-                            <a href="#" className="btn btn-common btn-xs">Exp. {experience}</a>
+                        <div className="item-footer my-2">
+                            <Link href={`/resume/browse/${id}`} className="btn btn-common btn-sm float-end"
+                            >View details</Link>
                         </div>
                     </div>
                 </div>

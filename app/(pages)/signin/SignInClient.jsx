@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { handleInputChange } from "@/lib/utils/helpers.js";
 
 
-export default function Login() {
+export default function SignIn() {
     const router = useRouter();
     const [error, setError] = useState({});
     const [formValues, setFormValues] = useState({
@@ -38,14 +38,14 @@ export default function Login() {
 
     return (
         <>
-            <PageHeader>Signin</PageHeader>
+            <PageHeader>Sign In</PageHeader>
 
             <section id="content" className="section-padding">
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-5 col-md-6 col-xs-12">
                             <div className="page-login-form box">
-                                <h3>Login</h3>
+                                <h3>Sign In</h3>
                                 <form className="login-form" onSubmit={(e) => {
                                     e.preventDefault();
                                     handleSubmit(new FormData(e.target));
@@ -70,7 +70,7 @@ export default function Login() {
                                     />
                                     {error.general && <p className="text-danger">{error.general}</p>}
                                     <button className="btn btn-common log-btn mt-3" type="submit" disabled={isLoading}>
-                                        {isLoading ? "Loading..." : "Login"}
+                                        {isLoading ? "Loading..." : "Sign In"}
                                     </button>
                                     <p className="text-center">
                                         <a href="/register">Don't have an account?</a>

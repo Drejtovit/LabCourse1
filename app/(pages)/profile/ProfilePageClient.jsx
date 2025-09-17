@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 import { handleInputChange } from "@/lib/utils/helpers.js";
+import { toast } from 'react-toastify';
 
 export default function ProfilePageClient({ session, user }) {
 
@@ -79,10 +80,14 @@ export default function ProfilePageClient({ session, user }) {
         const data = await response.json();
 
         if (response.ok && data.success) {
-            alert(data.message);
-            window.location.reload();
+            toast.success(data.message, { toastId: 'profile-update-success' });
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+
         } else {
             setIsLoading(false);
+            toast.error('Please provide valid information', { toastId: 'profile-update-error' });
             setErrorMessage(data.errors);
         }
 
@@ -90,6 +95,7 @@ export default function ProfilePageClient({ session, user }) {
 
 
     return (
+
         <div
             className="d-flex justify-content-center align-items-center min-vh-100 mt-5"
             style={{

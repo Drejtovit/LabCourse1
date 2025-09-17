@@ -3,13 +3,13 @@ import PageHeader from '@/components/PageHeader.jsx';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addItem, handleInputChange, removeItem, updateItem } from '@/lib/utils/helpers.js';
+import { toast } from 'react-toastify';
 
 export default function ResumeEditClient({ session, resume }) {
     const [errorMessage, setErrorMessage] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [formValues, setFormValues] = useState({
         profession: resume?.profession || '',
-        salary: resume?.salary || '',
         age: resume?.age || '',
         details: resume?.details || '',
     });
@@ -32,14 +32,13 @@ export default function ResumeEditClient({ session, resume }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 profession: formData.get('profession'),
-                salary: formData.get('salary'),
                 age: formData.get('age'),
                 details: formData.get('details'),
             })
         });
         const data = await res.json();
         if (res.ok && data.success) {
-            alert("Resume updated successfully!");
+            toast.success(data.message, { toastId: `success-edit-resume` });
             router.replace("/resume");
         }
         setErrorMessage(data.errors);
@@ -47,7 +46,7 @@ export default function ResumeEditClient({ session, resume }) {
     }
     return (
         <>
-            <PageHeader>Create Resume</PageHeader>
+            <PageHeader>{resume?.candidate?.user?.name} <br /> Here you can edit the details of the resume:</PageHeader>
             <section id="content">
                 <div className="container">
                     <div className="row justify-content-center">
@@ -101,16 +100,6 @@ export default function ResumeEditClient({ session, resume }) {
                                             value={resume?.candidate?.city + ", " + resume?.candidate?.state}
                                             style={{ backgroundColor: "#e3f2fd" }}
                                         />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="control-label">Salary</label>
-                                        <input type="text" name="salary" className="form-control"
-                                            placeholder="Salary"
-                                            value={formValues.salary}
-                                            onChange={(e) => handleInputChange({ setList: setFormValues, e })}
-                                            style={errorMessage?.salary ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
-                                        />
-                                        {errorMessage?.salary && <p className="text-danger mt-2">{errorMessage.salary}</p>}
                                     </div>
                                     <div className="mb-3">
                                         <label className="control-label">Age(Optional)</label>
@@ -355,7 +344,6 @@ export default function ResumeEditClient({ session, resume }) {
                                     </div>
 
                                     {errorMessage?.general && <p className="text-danger mt-2">{errorMessage.general}</p>}
-                                    {errorMessage?.maxResumes && <p className="text-danger mt-2">{errorMessage.maxResumes}</p>}
 
                                     <button className="btn btn-common mt-4" type="submit" disabled={isLoading}>
                                         {isLoading ? 'Editing...' : 'Edit Resume'}

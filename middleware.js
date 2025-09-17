@@ -9,8 +9,7 @@ export default async function middleware(req) {
   // }
   if (
     (userauth && req.nextUrl.pathname === "/register") ||
-    (userauth && req.nextUrl.pathname === "/signin") ||
-    (!userauth && req.nextUrl.pathname === "/profile")
+    (userauth && req.nextUrl.pathname === "/signin")
   ) {
     return NextResponse.redirect(new URL("/", req.url));
   }
@@ -18,5 +17,5 @@ export default async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/register", "/signin", "/profile"],
+  matcher: ["/register", "/signin"],
 };

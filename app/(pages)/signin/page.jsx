@@ -5,7 +5,7 @@ import SignInClient from "./signinclient.jsx";
 export default async function SignInPage() {
   const session = await auth();
   if (session) {
-    redirect("/"); // Redirect logged-in users
+    redirect("/");
   }
   return <SignInClient />;
 }

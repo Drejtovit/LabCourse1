@@ -40,7 +40,9 @@ export async function GET(request) {
       return NextResponse.json(
         {
           success: false,
-          errors: { general: "There is no resume available." },
+          errors: {
+            resume: "There is no resume available. Please create one.",
+          },
         },
         { status: 404 }
       );
@@ -61,7 +63,7 @@ export async function PUT(request) {
 
     if (!resumeId || !candidateId) {
       return NextResponse.json(
-        { success: false, error: "There is no resume selected." },
+        { success: false, errors: { general: "There is no resume selected." } },
         { status: 400 }
       );
     }
@@ -82,7 +84,7 @@ export async function PUT(request) {
     );
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, errors: { general: error.message } },
       { status: 500 }
     );
   }

@@ -3,13 +3,13 @@ import PageHeader from '@/components/PageHeader.jsx';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addItem, handleInputChange, removeItem, updateItem } from '@/lib/utils/helpers.js';
+import { toast } from 'react-toastify';
 
 export default function ResumeCreateClient({ session, user }) {
     const [errorMessage, setErrorMessage] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [formValues, setFormValues] = useState({
         profession: '',
-        salary: '',
         age: user.candidate ? new Date().getFullYear() - new Date(user.candidate.birthDate).getFullYear() : '',
         details: '',
     });
@@ -32,7 +32,6 @@ export default function ResumeCreateClient({ session, user }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 profession: formData.get('profession'),
-                salary: formData.get('salary'),
                 candidateId: user.candidate.candidateId,
                 age: formData.get('age'),
                 details: formData.get('details'),
@@ -40,7 +39,7 @@ export default function ResumeCreateClient({ session, user }) {
         });
         const data = await res.json();
         if (res.ok && data.success) {
-            alert("Resume created successfully!");
+            toast.success("Resume created successfully!", { toastId: "resume-create-success" });
             router.push("/resume");
         }
         setErrorMessage(data.errors);
@@ -88,16 +87,6 @@ export default function ResumeCreateClient({ session, user }) {
                                             value={user.candidate.city + ", " + user.candidate.state}
                                             style={{ backgroundColor: "#e3f2fd" }}
                                         />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="control-label">Salary</label>
-                                        <input type="text" name="salary" className="form-control"
-                                            placeholder="Salary"
-                                            value={formValues.salary}
-                                            onChange={(e) => handleInputChange({ setList: setFormValues, e })}
-                                            style={errorMessage?.salary ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
-                                        />
-                                        {errorMessage?.salary && <p className="text-danger mt-2">{errorMessage.salary}</p>}
                                     </div>
                                     <div className="mb-3">
                                         <label className="control-label">Age(Optional)</label>

@@ -64,7 +64,7 @@ export async function GET(request, { params }) {
     return NextResponse.json({ success: true, resume }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, errors: { general: error.message } },
       { status: 500 }
     );
   }
@@ -80,15 +80,15 @@ export async function PUT(request, { params }) {
         { status: 401 }
       );
     }
-
+    const { id } = await params;
+    const resumeId = parseInt(id);
     const permissionError = await resumePermission(
       session.user.id,
-      params.id,
+      resumeId,
       session.user.role
     );
 
     if (permissionError) return permissionError;
-    const { id } = await params;
     const body = await request.json();
 
     const errors = validateResumeData(body);
@@ -97,26 +97,24 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    const { profession, salary, age, details } = body;
-    const salaryFloat = parseFloat(salary.trim().replace(/,/g, ""));
+    const { profession, age, details } = body;
 
     const updatedResume = await prisma.resume.update({
       where: { id: parseInt(id) },
       data: {
         profession,
-        salary: salaryFloat,
         age: parseInt(age, 10),
         details: details,
       },
     });
 
     return NextResponse.json(
-      { success: true, resume: updatedResume },
+      { success: true, message: "Resume updated successfully!" },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, errors: { general: error.message } },
       { status: 500 }
     );
   }

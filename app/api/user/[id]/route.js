@@ -1,9 +1,17 @@
 import prisma from "@/lib/db.js";
+import { auth } from "@/lib/auth.js";
 import { NextResponse } from "next/server";
 import { validateProfileData } from "@/lib/validator/user";
 
 export async function GET(request, { params }) {
   try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { success: false, errors: { general: "Unauthorized" } },
+        { status: 401 }
+      );
+    }
     const url = new URL(request.url);
     const role = url.searchParams.get("role");
     const { id } = await params;
@@ -27,7 +35,7 @@ export async function GET(request, { params }) {
 
     if (!user) {
       return NextResponse.json(
-        { success: false, error: "User not found" },
+        { success: false, errors: { general: "User not found" } },
         { status: 404 }
       );
     }
@@ -40,7 +48,7 @@ export async function GET(request, { params }) {
     );
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, errors: { general: error.message } },
       { status: 500 }
     );
   }
@@ -48,7 +56,22 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { success: false, errors: { general: "Unauthorized" } },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
+
+    if (session.user.id !== id) {
+      return NextResponse.json(
+        { success: false, errors: { general: "Forbidden" } },
+        { status: 403 }
+      );
+    }
 
     const body = await request.json();
 
@@ -114,7 +137,7 @@ export async function PUT(request, { params }) {
     });
 
     return NextResponse.json(
-      { success: true, message: "User updated successfully" },
+      { success: true, message: "Profile updated successfully" },
       { status: 200 }
     );
   } catch (error) {

@@ -33,10 +33,10 @@ export default function NavBarClient({ session }) {
                     </div>
                     <div className={"collapse navbar-collapse" + (isOpen ? " show" : "")} id="main-navbar">
                         <ul className="navbar-nav mr-auto w-100 justify-content-end">
-                            <li className={`nav-item ${pathname === '/' ? 'active' : undefined}`}>
+                            <li className={`nav-item ${pathname === '/' ? 'active' : ''}`}>
                                 <Link className="nav-link" href="/" onClick={() => setIsOpen(false)}>Home</Link>
                             </li>
-                            <li className={`nav-item dropdown ${pages.includes(pathname) ? 'active' : undefined}`}>
+                            <li className={`nav-item dropdown ${pages.includes(pathname) ? 'active' : ''}`}>
                                 <Link className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                     Pages
                                 </Link>
@@ -50,7 +50,7 @@ export default function NavBarClient({ session }) {
                                 </ul>
                             </li>
                             {session?.user.role === 'CANDIDATE' && (
-                                <li className={`nav-item dropdown ${candidates.includes(pathname) ? 'active' : undefined}`} >
+                                <li className={`nav-item dropdown ${candidates.includes(pathname) ? 'active' : ''}`} >
                                     <a className="nav-link dropdown-toggle " href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                         Candidates
                                     </a>
@@ -64,7 +64,7 @@ export default function NavBarClient({ session }) {
                                 </li>
                             )}
                             {session?.user.role === 'EMPLOYER' && (
-                                <li className={`nav-item dropdown ${employers.includes(pathname) ? 'active' : undefined}`}>
+                                <li className={`nav-item dropdown ${employers.includes(pathname) ? 'active' : ''}`}>
                                     <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                         Employers
                                     </a>
@@ -72,15 +72,15 @@ export default function NavBarClient({ session }) {
                                         <li><Link className="dropdown-item" href="/postjob" onClick={() => setIsOpen(false)}>Add Job</Link></li>
                                         <li><Link className="dropdown-item" href="/managejobs" onClick={() => setIsOpen(false)}>Manage Jobs</Link></li>
                                         <li><Link className="dropdown-item" href="/manageapplications" onClick={() => setIsOpen(false)}>Manage Applications</Link></li>
-                                        <li><Link className="dropdown-item" href="/browseresumes" onClick={() => setIsOpen(false)}>Browse Resumes</Link></li>
+                                        <li><Link className="dropdown-item" href="/resume/browse" onClick={() => setIsOpen(false)}>Browse Resumes</Link></li>
                                     </ul>
                                 </li>
                             )}
-                            <li className={`nav-item ${pathname === '/contact' ? 'active' : undefined}`}>
+                            <li className={`nav-item ${pathname === '/contact' ? 'active' : ''}`}>
                                 <Link className="nav-link" href="/contact" onClick={() => setIsOpen(false)}>Contact</Link >
                             </li>
                             {!session?.user ? (
-                                <li className={`nav-item ${pathname === '/signin' ? 'active' : undefined}`}>
+                                <li className={`nav-item ${pathname === '/signin' ? 'active' : ''}`}>
                                     <Link className="nav-link" href="/signin" onClick={() => setIsOpen(false)} >Sign In</Link>
                                 </li>) : (
                                 <li className="nav-item dropdown">

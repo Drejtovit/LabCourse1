@@ -103,7 +103,6 @@ export default function RegisterClient() {
                                             </select>
                                             {errors?.role && <p className="text-danger">{errors.role}</p>}
                                         </div>
-
                                     </div>
                                     <InputLabel icon="user" type="text"
                                         name="name"

@@ -35,6 +35,19 @@ Domain Path:      /languages/
 /* ==========================================================================
    GENERAL
    ========================================================================== */
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100%;
+}
+
+footer {
+  margin-top: auto;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   color: #9a9a9a;
@@ -1335,10 +1348,6 @@ button:focus {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 15px;
-}
-
-.services-item p {
-  margin: 0;
 }
 
 .feature-content {
@@ -4356,15 +4365,15 @@ footer .menu li .small-title {
   background-color: #3b5998;
 }
 
-.footer-social li .twitter {
+.contact-social li .twitter:hover {
   background-color: #55acee;
 }
 
-.footer-social li .linkedin {
+.contact-social li .linkedin:hover {
   background-color: #007bb5;
 }
 
-.footer-social li .google-plus {
+.contact-social li .google-plus:hover {
   background-color: #dd4b39;
 }
 
@@ -4446,7 +4455,7 @@ footer .menu li .small-title {
   font-weight: 400;
 }
 
-.btn-google {
+/* .btn-google {
   color: #545454;
   background-color: #ffffff;
   box-shadow: 0 1px 2px 1px #ddd;
@@ -4461,7 +4470,7 @@ footer .menu li .small-title {
 
 .btn-google:hover {
   background-color: #f1f1f1;
-}
+} */
 
 .text-danger {
   font-size: small;
@@ -4470,6 +4479,7 @@ footer .menu li .small-title {
   margin-bottom: 10px;
   margin-top: -5px;
 }
+
 
 .custom-bg {
   background: linear-gradient(to right, #73dae7, #00BCD4);
@@ -4494,4 +4504,74 @@ footer .menu li .small-title {
   .custom-btn:hover {
     background-color: #07606c !important;
   }
+}
+
+/* ==========================================================================
+  Toastify Notification
+  ========================================================================== */
+
+.Toastify__toast--success {
+  border-left-color: #43a047 !important;
+  background: #e8f5e9 !important;
+}
+
+.Toastify__toast--error {
+  border-left-color: #e53935 !important;
+  background: #ffebee !important;
+}
+
+.Toastify__toast--info {
+  border-left-color: #00BCD4 !important;
+  background: #e0f7fa !important;
+}
+
+.Toastify__toast--warning {
+  border-left-color: #fbc02d !important;
+  background: #fffde7 !important;
+}
+
+.Toastify__toast-icon {
+  font-size: 1.5rem !important;
+  margin-right: 18px;
+}
+
+.Toastify__close-button {
+  top: 18px !important;
+  right: 18px !important;
+  color: #888 !important;
+  opacity: 0.7;
+  transition: color 0.2s;
+}
+
+.Toastify__close-button:hover {
+  color: #00BCD4 !important;
+  opacity: 1;
+}
+
+/* ==========================================================================
+  Resume Detail Page
+  ========================================================================== */
+.resume-detail .content-area {
+  padding: 15px 20px;
+  box-shadow: 0px 0px 14px rgba(191, 191, 191, 0.24);
+}
+
+.resume-detail .content-area h4 {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.resume-detail .content-area p {
+  margin-bottom: 15px;
+}
+
+.resume-detail .content-area h5 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 15px 0;
+}
+
+.resume-detail .content-area ul li {
+  margin-bottom: 10px;
 }
