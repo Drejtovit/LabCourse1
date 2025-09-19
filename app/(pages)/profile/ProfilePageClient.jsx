@@ -1,8 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useState, useRef } from "react";
-import { handleInputChange } from "@/lib/utils/helpers.js";
+import { handleInputChange, updateItem, addItem, removeItem } from "@/lib/utils/helpers.js";
 import { toast } from 'react-toastify';
+
+
+
 
 export default function ProfilePageClient({ session, user }) {
 
@@ -15,14 +18,16 @@ export default function ProfilePageClient({ session, user }) {
     const [formValues, setFormValues] = useState({
         name: user.name,
         email: user.email,
-        phoneNumber: user.phoneNumber[0]?.number,//TODO FIX FOR EMPLOYEE
-        zip: user.role === "CANDIDATE" ? user.candidate?.zip : user.employer?.location.zip,
-        city: user.role === "CANDIDATE" ? user.candidate?.city : user.employer?.location.city,
-        state: user.role === "CANDIDATE" ? user.candidate?.state : user.employer?.location.state,
+        // phoneNumber: user.phoneNumber[0]?.number,//TODO FIX FOR EMPLOYEE
+        zip: user.role === "CANDIDATE" ? user.candidate?.zip : user.employer?.zip,
+        city: user.role === "CANDIDATE" ? user.candidate?.city : user.employer?.city,
+        state: user.role === "CANDIDATE" ? user.candidate?.state : user.employer?.state,
         birthDate: user.candidate?.birthDate,
         description: user.employer?.description,
         websiteUrl: user.employer?.websiteUrl,
     })
+    const [phoneNumbers, setPhoneNumbers] = useState(user?.phoneNumber || [{ number: "" }]);
+    console.log("PHONE NUMBERS:", phoneNumbers);
 
     async function handleImageUpload(e) {
         const image = e.target.files[0];
@@ -68,8 +73,9 @@ export default function ProfilePageClient({ session, user }) {
             body: JSON.stringify({
                 name: formData.get("name"),
                 role: user.role,
-                phoneId: user.role === "CANDIDATE" ? user.phoneNumber[0]?.id : user.phoneNumber?.id,//TODO FIX WHICH [] POSITION IS THE ID OF THE PHONE NUMBER
-                phoneNumber: formData.get("phoneNumber"),
+                // phoneId: user.role === "CANDIDATE" ? user.phoneNumber[0]?.id : user.phoneNumber?.id,//TODO FIX WHICH [] POSITION IS THE ID OF THE PHONE NUMBER
+                // phoneNumber: formData.get("phoneNumber"),
+                phoneNumbers: phoneNumbers,
                 zip: formData.get("zip"),
                 city: formData.get("city"),
                 state: formData.get("state"),
@@ -92,7 +98,21 @@ export default function ProfilePageClient({ session, user }) {
         }
 
     }
+    async function handleDeletePhoneNumber({ id, index }) {
+        const res = await fetch('/api/user/phonenumber', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }),
+        });
 
+        if (res.ok) {
+            removeItem(phoneNumbers, setPhoneNumbers, index);
+        } else {
+            toast.error('Failed to delete phone number', { toastId: 'delete-phone-error' });
+        }
+    }
 
     return (
 
@@ -176,23 +196,51 @@ export default function ProfilePageClient({ session, user }) {
                                             />
                                             {errorMessage?.email && <p className="text-danger">{errorMessage.email}</p>}
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="small mb-1" htmlFor="phoneNumber">
-                                                Phone Number
-                                            </label>
-                                            <input
-                                                className="form-control"
-                                                id="phoneNumber"
-                                                name="phoneNumber"
-                                                type="text"
-                                                value={formValues.phoneNumber}
-                                                onChange={(e) => handleInputChange({ setList: setFormValues, e })}
-                                                placeholder="Enter your phone number"
-                                                readOnly={!editButton}
-                                                style={errorMessage?.phoneNumber ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
-                                            />
-                                            {errorMessage?.phoneNumber && <p className="text-danger">{errorMessage.phoneNumber}</p>}
-                                        </div>
+
+                                        {phoneNumbers.map((phone, index) => (
+                                            <div className="col-md-6" key={index}>
+                                                <label className="small mb-1" htmlFor="phoneNumber">
+                                                    Phone Number
+                                                </label>
+                                                <input
+                                                    className="form-control"
+                                                    id="phoneNumber"
+                                                    name="number"
+                                                    type="text"
+                                                    value={phone.number}
+                                                    onChange={(e) => updateItem(phoneNumbers, setPhoneNumbers, index, e)}
+                                                    placeholder="Enter your phone number"
+                                                    readOnly={!editButton}
+                                                    style={errorMessage?.phoneNumber ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                                />
+
+                                                {errorMessage?.phoneNumber && <p className="text-danger">{errorMessage.phoneNumber}</p>}
+                                                {(index > 0 && editButton) && <div className="add-post-btn">
+                                                    <div className="float-end">
+                                                        <button className='btn-delete'
+                                                            type="button"
+                                                            disabled={index === 0 || !editButton}
+                                                            onClick={() => handleDeletePhoneNumber({ id: phone.id, index })}>
+                                                            Delete This
+                                                        </button>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        ))}
+
+                                        {(phoneNumbers.length < 3 && editButton) && <div className="add-post-btn">
+                                            <div className="float-end">
+                                                <button className='btn-added' type="button"
+                                                    disabled={phoneNumbers.length >= 3 || !editButton}
+                                                    onClick={() => addItem(phoneNumbers, setPhoneNumbers,
+                                                        { number: "" })}>
+                                                    <i>Add New Phone Number</i>
+                                                </button>
+                                            </div>
+                                        </div>}
+
+
+
                                     </div>
                                     <div className="row gx-3 mb-3">
                                         <div className="col-md-6">
@@ -249,35 +297,69 @@ export default function ProfilePageClient({ session, user }) {
                                         {errorMessage?.state && <p className="text-danger">{errorMessage.state}</p>}
                                     </div>
                                     <div className="row gx-3 mb-3">
-                                        {/* <div className="col-md-6">
-                                            <label className="small mb-1" htmlFor="inputPhone">
-                                                Phone number
-                                            </label>
-                                            <input
-                                                className="form-control"
-                                                id="inputPhone"
-                                                type="tel"
-                                                placeholder="Enter your phone number"
-                                            />
-                                        </div> */}
-                                        <div className="col-md-6">
-                                            <label className="small mb-1" htmlFor="birthDate">
-                                                Birthday
-                                            </label>
-                                            <input
-                                                className="form-control"
-                                                id="birthDate"
-                                                type="date"
-                                                name="birthDate"
-                                                value={formValues.birthDate.split("T")[0]}
-                                                onChange={(e) => handleInputChange({ setList: setFormValues, e })}
-                                                placeholder="Enter your birthday"
-                                                readOnly={!editButton}
-                                                style={errorMessage?.birthDate ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
-                                            />
-                                            {errorMessage?.birthDate && <p className="text-danger">{errorMessage.birthDate}</p>}
-                                        </div>
+
+                                        {user?.role === "CANDIDATE" && (
+                                            <div className="col-md-6">
+                                                <label className="small mb-1" htmlFor="birthDate">
+                                                    Birthday
+                                                </label>
+                                                <input
+                                                    className="form-control"
+                                                    id="birthDate"
+                                                    type="date"
+                                                    name="birthDate"
+                                                    value={formValues.birthDate.split("T")[0]}
+                                                    onChange={(e) => handleInputChange({ setList: setFormValues, e })}
+                                                    placeholder="Enter your birthday"
+                                                    readOnly={!editButton}
+                                                    style={errorMessage?.birthDate ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                                />
+                                                {errorMessage?.birthDate && <p className="text-danger">{errorMessage.birthDate}</p>}
+                                            </div>
+                                        )}
+
+                                        {/* -------------------------------------------------------- */}
+
+                                        {user?.role === "EMPLOYER" && (
+                                            <>
+                                                <div className="col-md-6">
+                                                    <label className="small mb-1" htmlFor="description">
+                                                        Description
+                                                    </label>
+                                                    <input
+                                                        className="form-control"
+                                                        id="description"
+                                                        name="description"
+                                                        type="text"
+                                                        placeholder="Enter a brief description"
+                                                        value={formValues.description || ""}
+                                                        onChange={(e) => handleInputChange({ setList: setFormValues, e })}
+                                                        readOnly={!editButton}
+                                                        style={errorMessage?.description ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                                    />
+                                                    {errorMessage?.description && <p className="text-danger">{errorMessage.description}</p>}
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <label className="small mb-1" htmlFor="websiteUrl">
+                                                        Website URL(Optional)
+                                                    </label>
+                                                    <input
+                                                        className="form-control"
+                                                        id="websiteUrl"
+                                                        name="websiteUrl"
+                                                        type="text"
+                                                        placeholder="Enter your website URL"
+                                                        value={formValues.websiteUrl || ""}
+                                                        onChange={(e) => handleInputChange({ setList: setFormValues, e })}
+                                                        readOnly={!editButton}
+                                                        style={errorMessage?.websiteUrl ? { borderColor: "red", backgroundColor: "#ffe6e6", marginBottom: "10px" } : { backgroundColor: !editButton ? "#e3f2fd" : "#fff" }}
+                                                    />
+                                                    {errorMessage?.websiteUrl && <p className="text-danger">{errorMessage.websiteUrl}</p>}
+                                                </div>
+                                            </>
+                                        )}
                                     </div>
+
                                     {errorMessage?.general && <p className="text-danger">{errorMessage.general}</p>}
                                     {errorMessage?.message && <p className="text-info">{errorMessage.message}</p>}
                                     <button className="btn btn-primary" style={{ backgroundColor: "#00BCD4" }} type="submit" disabled={isLoading || !editButton}>
@@ -291,7 +373,7 @@ export default function ProfilePageClient({ session, user }) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </div >
     );
 }

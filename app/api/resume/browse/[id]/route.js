@@ -33,7 +33,6 @@ export async function GET(request, { params }) {
 
     const resume = await prisma.resume.findUnique({
       where: { id: parseInt(id) },
-      orderBy: { updatedAt: "desc" },
       include: {
         candidate: {
           include: {

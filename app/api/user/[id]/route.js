@@ -21,15 +21,15 @@ export async function GET(request, { params }) {
         phoneNumber: true,
         ...(role === "CANDIDATE"
           ? {
-              candidate: {
-                include: {
-                  resumes: true,
-                },
+            candidate: {
+              include: {
+                resumes: true,
               },
-            }
+            },
+          }
           : {
-              employer: true,
-            }),
+            employer: true,
+          }),
       },
     });
 
@@ -85,7 +85,7 @@ export async function PUT(request, { params }) {
       name,
       role,
       phoneId,
-      phoneNumber,
+      phoneNumbers,
       zip,
       city,
       state,
@@ -97,42 +97,35 @@ export async function PUT(request, { params }) {
       data: {
         name,
         phoneNumber: {
-          update: {
-            where: {
-              id: phoneId,
-            },
-            data: {
-              number: phoneNumber,
-            },
-          },
+          upsert: phoneNumbers.map((phone) => ({
+            where: { id: phone.id ?? 0 },
+            update: { number: phone.number },
+            create: { number: phone.number },
+          })),
         },
         ...(role === "CANDIDATE"
           ? {
-              candidate: {
-                update: {
-                  birthDate: new Date(userRelation.birthDate),
-                  zip,
-                  city,
-                  state,
-                },
+            candidate: {
+              update: {
+                birthDate: new Date(userRelation.birthDate),
+                zip,
+                city,
+                state,
               },
-            }
+            },
+          }
           : {
-              //FIX EMPLOYER
-              employer: {
-                update: {
-                  description: userRelation.description,
-                  websiteUrl: userRelation.websiteUrl,
-                  location: {
-                    create: {
-                      zip,
-                      city,
-                      state,
-                    },
-                  },
-                },
+            employer: {
+              update: {
+                description: userRelation.description,
+                websiteUrl: userRelation.websiteUrl,
+                zip,
+                city,
+                state,
+
               },
-            }),
+            },
+          }),
       },
     });
 

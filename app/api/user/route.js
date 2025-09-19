@@ -52,30 +52,26 @@ export async function POST(request) {
         },
         ...(role === "candidate"
           ? {
-              candidate: {
-                create: {
-                  birthDate: new Date(userRelation.birthDate),
-                  zip,
-                  city,
-                  state,
-                },
+            candidate: {
+              create: {
+                birthDate: new Date(userRelation.birthDate),
+                zip,
+                city,
+                state,
               },
-            }
+            },
+          }
           : {
-              employer: {
-                create: {
-                  description: userRelation.description,
-                  websiteUrl: userRelation.websiteUrl,
-                  location: {
-                    create: {
-                      zip,
-                      city,
-                      state,
-                    },
-                  },
-                },
+            employer: {
+              create: {
+                description: userRelation.description,
+                websiteUrl: userRelation.websiteUrl,
+                zip,
+                city,
+                state,
               },
-            }),
+            },
+          }),
       },
     });
     const { password: newUserPassword, ...rest } = newUser;
