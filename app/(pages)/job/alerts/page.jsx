@@ -1,5 +1,3 @@
-// src/pages/JobAlerts.jsx
-import Header from "@/components/Header.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
 import AccountManagement from "@/components/AccountManagment.jsx";
 import JobAlertItem from "@/components/JobAlertsItem.jsx";
@@ -25,7 +23,7 @@ const jobAlertsData = [
 export default function JobAlerts() {
   return (
     <>
-      <Header />
+
       <PageHeader>Job Alerts</PageHeader>
 
       <div id="content">
