@@ -3,6 +3,7 @@ import ResumeCard from "@/components/ResumeCard.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
 import SignInNotice from "@/components/SignInNotice.jsx";
 import { formatDate } from "@/lib/utils/helpers.js";
+import { formatDistanceToNow } from "date-fns";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
@@ -19,7 +20,7 @@ export default async function ManageResumes() {
         redirect("/");//Todo make a 403 notice also make other pages like this one more secure
     }
     const header = await headers();
-    const cookie = header.get('cookie') || '';
+    const cookie = header.get('cookie');
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/resume?candidateId=${session.user.id}`, { cache: 'no-store', headers: { cookie } });
     const resumeData = await res.json();
 
@@ -58,7 +59,7 @@ export default async function ManageResumes() {
                                             candidate={resume?.candidateId}
                                             name={resume?.candidate?.user?.name}
                                             specialization={resume?.profession}
-                                            status={formatDate(resume?.updatedAt)}
+                                            status={formatDistanceToNow(resume?.updatedAt, { addSuffix: true })}
                                             location={resume?.candidate?.city + ", " + resume?.candidate?.state}
                                             image={resume?.candidate?.user?.image}
                                             active={resume?.isActive}

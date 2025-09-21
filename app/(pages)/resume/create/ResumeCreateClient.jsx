@@ -15,10 +15,10 @@ export default function ResumeCreateClient({ session, user }) {
     });
     const router = useRouter();
     const [educations, setEducations] = useState([
-        { degree: "", fieldOfStudy: "", school: "", from: "", to: "", description: "" }
+        { degree: "", fieldOfStudy: "", school: "", startDate: "", endDate: "", description: "" }
     ]);
     const [experiences, setExperiences] = useState([
-        { companyName: "", professionTitle: "", from: "", to: "", description: "" }
+        { companyName: "", professionTitle: "", startDate: "", endDate: "", description: "" }
     ]);
     const [skills, setSkills] = useState([
         { name: "", proficiency: "" }
@@ -35,6 +35,9 @@ export default function ResumeCreateClient({ session, user }) {
                 candidateId: user.candidate.candidateId,
                 age: formData.get('age'),
                 details: formData.get('details'),
+                educations,
+                experiences,
+                skills
             })
         });
         const data = await res.json();
@@ -123,6 +126,7 @@ export default function ResumeCreateClient({ session, user }) {
                                                     placeholder="Degree, e.g. Bachelor"
                                                     value={education.degree || ""}
                                                     onChange={(e) => updateItem(educations, setEducations, index, e)}
+                                                    style={errorMessage?.educations ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                 />
                                             </div>
                                             <div className="mb-3">
@@ -132,6 +136,7 @@ export default function ResumeCreateClient({ session, user }) {
                                                     placeholder="Major, e.g Computer Science"
                                                     value={education.fieldOfStudy || ""}
                                                     onChange={(e) => updateItem(educations, setEducations, index, e)}
+                                                    style={errorMessage?.educations ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                 />
                                             </div>
                                             <div className="mb-3">
@@ -141,43 +146,48 @@ export default function ResumeCreateClient({ session, user }) {
                                                     placeholder="School name, e.g. Massachusetts Institute of Technology"
                                                     value={education.school || ""}
                                                     onChange={(e) => updateItem(educations, setEducations, index, e)}
+                                                    style={errorMessage?.educations ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                 />
                                             </div>
                                             <div className="mb-3">
                                                 <div className="row">
                                                     <div className="col-md-6">
                                                         <label className="control-label">From</label>
-                                                        <input type="text" className="form-control"
-                                                            name='from'
+                                                        <input type="number" className="form-control"
+                                                            name='startDate'
                                                             placeholder="e.g 2014"
-                                                            value={education.from || ""}
+                                                            value={education.startDate || ""}
                                                             onChange={(e) => updateItem(educations, setEducations, index, e)}
+                                                            style={errorMessage?.educations ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                         />
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <label className="control-label">To</label>
-                                                        <input type="text" className="form-control"
-                                                            name='to'
+                                                        <label className="control-label mt-lg-0 mt-md-0 mt-2">To(Optional)</label>
+                                                        <input type="number" className="form-control"
+                                                            name='endDate'
                                                             placeholder="e.g 2020"
-                                                            value={education.to || ""}
+                                                            value={education.endDate || ""}
                                                             onChange={(e) => updateItem(educations, setEducations, index, e)}
+                                                            style={education.endDate !== "" && errorMessage?.educations ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="mb-3">
-                                                <label className="control-label">Description</label>
+                                                <label className="control-label">Description(Optional)</label>
                                                 <textarea className="form-control"
                                                     name='description'
                                                     rows="7"
                                                     value={education.description || ""}
                                                     onChange={(e) => updateItem(educations, setEducations, index, e)}
+                                                    style={education.description !== "" && errorMessage?.educations ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                 ></textarea>
                                             </div>
 
                                             {index > 0 && <div className="add-post-btn">
                                                 <div className="float-end">
                                                     <button className='btn-delete'
+                                                        type='button'
                                                         disabled={index === 0}
                                                         onClick={() => removeItem(educations, setEducations, index)}>
                                                         Delete This
@@ -191,6 +201,7 @@ export default function ResumeCreateClient({ session, user }) {
                                         <div className="add-post-btn">
                                             <div className="float-end">
                                                 <button className='btn-added'
+                                                    type='button'
                                                     disabled={educations.length >= 5}
                                                     onClick={() => addItem(educations, setEducations,
                                                         { degree: "", fieldOfStudy: "", school: "", from: "", to: "", description: "" })}>
@@ -213,6 +224,7 @@ export default function ResumeCreateClient({ session, user }) {
                                                     name="companyName"
                                                     value={experience.companyName || ""}
                                                     onChange={(e) => updateItem(experiences, setExperiences, index, e)}
+                                                    style={errorMessage?.experiences ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                 />
                                             </div>
                                             <div className="mb-3">
@@ -222,26 +234,30 @@ export default function ResumeCreateClient({ session, user }) {
                                                     name="professionTitle"
                                                     value={experience.professionTitle || ""}
                                                     onChange={(e) => updateItem(experiences, setExperiences, index, e)}
+                                                    style={errorMessage?.experiences ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
+
                                                 />
                                             </div>
                                             <div className="mb-3">
                                                 <div className="row">
                                                     <div className="col-md-6">
-                                                        <label className="control-label">Date From</label>
-                                                        <input type="text" className="form-control"
+                                                        <label className="control-label">From</label>
+                                                        <input type="number" className="form-control"
                                                             placeholder="e.g 2014"
-                                                            name="from"
-                                                            value={experience.from || ""}
-                                                            onChange={(e) => updateItem(experience, setExperiences, index, e)}
+                                                            name="startDate"
+                                                            value={experience.startDate || ""}
+                                                            onChange={(e) => updateItem(experiences, setExperiences, index, e)}
+                                                            style={errorMessage?.experiences ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                         />
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <label className="control-label">Date To</label>
-                                                        <input type="text" className="form-control"
+                                                        <label className="control-label">To</label>
+                                                        <input type="number" className="form-control"
                                                             placeholder="e.g 2020"
-                                                            name="to"
-                                                            value={experience.to || ""}
+                                                            name="endDate"
+                                                            value={experience.endDate || ""}
                                                             onChange={(e) => updateItem(experiences, setExperiences, index, e)}
+                                                            style={experience.endDate !== "" && errorMessage?.experiences ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                         />
                                                     </div>
                                                 </div>
@@ -253,12 +269,14 @@ export default function ResumeCreateClient({ session, user }) {
                                                     name="description"
                                                     value={experience.description || ""}
                                                     onChange={(e) => updateItem(experiences, setExperiences, index, e)}
+                                                    style={experience.description !== "" && errorMessage?.experiences ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                 ></textarea>
                                             </div>
 
                                             <div className="add-post-btn">
                                                 <div className="float-end">
                                                     <button className='btn-delete'
+                                                        type='button'
                                                         onClick={() => removeItem(experiences, setExperiences, index)}>
                                                         Delete This
                                                     </button>
@@ -270,6 +288,7 @@ export default function ResumeCreateClient({ session, user }) {
                                     <div className="add-post-btn">
                                         <div className="float-end">
                                             <button className='btn-added'
+                                                type='button'
                                                 onClick={() => addItem(experiences, setExperiences,
                                                     { companyName: "", professionTitle: "", from: "", to: "", description: "" })}>
                                                 <i>Add New Experience</i>
@@ -290,19 +309,21 @@ export default function ResumeCreateClient({ session, user }) {
                                                         <input className="form-control"
                                                             placeholder="Skill name, e.g. HTML"
                                                             type="text"
-                                                            name="name"
-                                                            value={skill.name || ""}
+                                                            name="skillName"
+                                                            value={skill.skillName || ""}
                                                             onChange={(e) => updateItem(skills, setSkills, index, e)}
+                                                            style={errorMessage?.skills ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                         />
                                                     </div>
                                                     <div className="col-md-6">
                                                         <label className="control-label">% (1-100)</label>
                                                         <input className="form-control"
                                                             placeholder="Skill proficiency, e.g. 90"
-                                                            type="text"
+                                                            type="number"
                                                             name="proficiency"
                                                             value={skill.proficiency || ""}
                                                             onChange={(e) => updateItem(skills, setSkills, index, e)}
+                                                            style={errorMessage?.skills ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}}
                                                         />
                                                     </div>
                                                 </div>
@@ -311,6 +332,7 @@ export default function ResumeCreateClient({ session, user }) {
                                                 (<div className="add-post-btn">
                                                     <div className="float-end">
                                                         <button className='btn-delete'
+                                                            type='button'
                                                             disabled={index === 0}
                                                             onClick={() => removeItem(skills, setSkills, index)}>
                                                             Delete This
@@ -323,6 +345,7 @@ export default function ResumeCreateClient({ session, user }) {
                                     <div className="add-post-btn">
                                         <div className="float-end">
                                             <button className='btn-added'
+                                                type='button'
                                                 onClick={() => addItem(skills, setSkills,
                                                     { name: "", proficiency: "" }
                                                 )}>
@@ -333,7 +356,9 @@ export default function ResumeCreateClient({ session, user }) {
 
                                     {errorMessage?.general && <p className="text-danger mt-2">{errorMessage.general}</p>}
                                     {errorMessage?.maxResumes && <p className="text-danger mt-2">{errorMessage.maxResumes}</p>}
-
+                                    {errorMessage?.educations && <p className="text-danger mt-2">{errorMessage.educations}</p>}
+                                    {errorMessage?.experiences && <p className="text-danger mt-2">{errorMessage.experiences}</p>}
+                                    {errorMessage?.skills && <p className="text-danger mt-2">{errorMessage.skills}</p>}
                                     <button className="btn btn-common mt-4" type="submit" disabled={isLoading}>
                                         {isLoading ? 'Creating...' : 'Create Resume'}
                                     </button>

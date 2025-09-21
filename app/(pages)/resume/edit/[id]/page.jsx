@@ -2,6 +2,7 @@ import ResumeEditClient from './ResumeEditClient.jsx';
 import { auth } from '@/lib/auth.js';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
+import SignInNotice from '@/components/SignInNotice.jsx';
 
 export default async function ResumeEdit({ params }) {
     const session = await auth();
@@ -15,7 +16,7 @@ export default async function ResumeEdit({ params }) {
         redirect('/');
     }
     const header = await headers();
-    const cookie = header.get('cookie') || '';
+    const cookie = header.get('cookie');
 
     const { id } = await params;
 
@@ -25,7 +26,7 @@ export default async function ResumeEdit({ params }) {
     });
 
     const resumeData = await res.json();
-    if (!res.ok || resumeData.error) {
+    if (!res.ok || resumeData.errors) {
         redirect('/');
     }
     if (session.user.role === "CANDIDATE" && resumeData.resume.candidateId !== session.user.id) {

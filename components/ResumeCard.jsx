@@ -73,14 +73,15 @@ export default function ResumeCard({ name, specialization, location, status, ima
         if (!res.ok || data.errors) {
             toast.error(data.errors.general, { toastId: `error-delete-resume` });
             router.replace("/");//Re look at this
+        } else {
+            window.location.reload();
         }
-        window.location.reload();
     }
 
     return (
         <div className="manager-resumes-item">
             <div className="manager-content">
-                <Image src={image} alt={`${name}'s resume`} width={80} height={70} className="resume-thumb " style={{ maxWidth: "80px" }} />
+                <Image src={image || "/assets/img/default-avatar.png"} alt={`${name}'s resume`} width={80} height={70} className="resume-thumb " style={{ maxWidth: "80px" }} />
                 <div className="manager-info">
                     <div className="manager-name">
                         <h4>{name}</h4>

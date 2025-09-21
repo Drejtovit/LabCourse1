@@ -15,7 +15,7 @@ export default async function ResumeCreate() {
         redirect('/');
     }
     const header = await headers();
-    const cookie = header.get('cookie') || '';
+    const cookie = header.get('cookie');
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session.user.id}?role=${session.user.role}`, { cache: 'no-store', headers: { cookie } });
 
     const userData = await res.json();

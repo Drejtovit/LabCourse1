@@ -12,9 +12,9 @@ export default async function BrowseResumes() {
             <SignInNotice />
         );
     }
-    // if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-    //   redirect('/');
-    // }//TODO make a 403 notice when admin 
+    if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
+        redirect('/');
+    }//TODO make a 403 notice when admin 
     const header = await headers();
     const cookie = header.get('cookie');
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/resume/browse`, { cache: 'no-store', headers: { cookie } });

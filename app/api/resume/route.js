@@ -28,7 +28,15 @@ export async function POST(request) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    const { profession, candidateId, age, details } = body;
+    const {
+      profession,
+      candidateId,
+      age,
+      details,
+      educations,
+      experiences,
+      skills,
+    } = body;
 
     const numberOfResumes = await prisma.resume.count({
       where: { candidateId },
@@ -51,6 +59,36 @@ export async function POST(request) {
         age: parseInt(age, 10) || null,
         details: details || null,
         isActive,
+        educations: {
+          create: educations.map((education) => ({
+            degree: education.degree,
+            fieldOfStudy: education.fieldOfStudy,
+            school: education.school,
+            startDate: parseInt(education.startDate, 10),
+            endDate: parseInt(education.endDate, 10) || null,
+            description: education.description || null,
+          })),
+        },
+        experiences: {
+          create: experiences.map((experience) => ({
+            companyName: experience.companyName,
+            professionTitle: experience.professionTitle,
+            startDate: parseInt(experience.startDate, 10),
+            endDate: parseInt(experience.endDate, 10) || null,
+            description: experience.description || null,
+          })),
+        },
+        SkillsOnResumes: {
+          create: skills.map((skill) => ({
+            skill: {
+              connectOrCreate: {
+                where: { name: skill.skillName },
+                create: { name: skill.skillName },
+              },
+            },
+            proficiencyLevel: parseInt(skill.proficiency, 10),
+          })),
+        },
       },
     });
 
@@ -102,6 +140,15 @@ export async function GET(request) {
               },
             },
           },
+        },
+        educations: {
+          orderBy: [{ endDate: "desc" }, { startDate: "desc" }],
+        },
+        experiences: {
+          orderBy: [{ endDate: "desc" }, { startDate: "desc" }],
+        },
+        SkillsOnResumes: {
+          include: { skill: true },
         },
       },
     });

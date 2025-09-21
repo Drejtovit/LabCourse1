@@ -21,7 +21,7 @@ export default async function Resume() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/resume/activate?candidateId=${session.user.id}`, { cache: 'no-store' });
     const resumeData = await res.json();
     const resume = resumeData?.resume;
-
+    console.log(resume);
     return (
 
         <>
@@ -48,9 +48,12 @@ export default async function Resume() {
                                                     <span className="address me-4">
                                                         <i className="lni-map-marker me-2"></i>{resume?.candidate?.city + ", " + resume?.candidate?.state + "," + resume?.candidate?.zip}{" "}
                                                     </span>
-                                                    <span>
-                                                        <i className="lni lni-phone-handset me-2 pt-2"></i>{(resume?.candidate?.user?.phoneNumber[0]?.number)}
-                                                    </span>
+                                                    {resume?.candidate?.user?.phoneNumber &&
+                                                        resume?.candidate?.user?.phoneNumber.map((phone, index) => (
+                                                            <span key={index} className="me-4">
+                                                                <i className="lni lni-phone-handset me-2 pt-2"></i>{phone.number}
+                                                            </span>
+                                                        ))}
                                                     <br />
                                                     <span><i className="lni lni-envelope me-2"></i>{(resume?.candidate?.user?.email)}</span>
                                                 </p>
@@ -66,52 +69,45 @@ export default async function Resume() {
                                             </div>)
                                         }
 
-                                        {/* TODO WORK EXPERIENCE */}
-                                        <p>Work Experience</p>
-                                        {resume?.experience &&
-                                            (<div className="work-experence item">
+                                        {resume?.experiences &&
+                                            <div className="work-experience item">
                                                 <h3>Work Experience</h3>
-                                                <h4>UI/UX Designer</h4>
-                                                <h5>Bannana INC.</h5>
-                                                <span className="date">Fab 2017-Present(5year)</span>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                    Libero vero, dolores, officia quibusdam architecto sapiente
-                                                    eos voluptas odit ab veniam porro quae possimus itaque,
-                                                    quas! Tempora sequi nobis, atque incidunt!
-                                                </p>
-                                                <p>
-                                                    <a href="#">4 Projects</a>
-                                                </p>
-                                                <h4>UI Designer</h4>
-                                                <h5>Whale Creative</h5>
-                                                <span className="date">Fab 2017-Present(2year)</span>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                    Libero vero, dolores, officia quibusdam architecto sapiente
-                                                    eos voluptas odit ab veniam porro quae possimus itaque,
-                                                    quas! Tempora sequi nobis, atque incidunt!
-                                                </p>
-                                                <p>
-                                                    <a href="#">4 Projects</a>
-                                                </p>
-                                            </div>)
-                                        }
+                                                {resume?.experiences.map((experience) => (
+                                                    <div key={experience.id}>
+                                                        <h4><i className="lni lni-briefcase me-2" style={{
+                                                            opacity: '0.6'
+                                                        }}></i>{experience?.professionTitle}</h4>
+                                                        <h5><i className="lni lni-apartment me-2" style={{
+                                                            opacity: '0.6'
+                                                        }}></i>{experience?.companyName}</h5>
+                                                        <span className="date"><i className="lni lni-calendar me-2"></i>{experience?.startDate} - {experience?.endDate ? experience?.endDate : 'Present'} {experience?.endDate ? " (" + experience?.endDate - experience?.startDate + " years)" : ""}</span>
+                                                        {experience?.description && <p>{experience?.description}</p>}
+                                                        <hr className="border border-dark" />
+                                                    </div>
+                                                ))}
+                                            </div>}
 
-                                        {/* TODO EDUCATION */}
-                                        <p>Education</p>
-                                        {resume?.education &&
-                                            (<div className="education item">
-                                                <h3>Education</h3>
-                                                <h4>Massachusetts Institute Of Technology</h4>
-                                                <p>Bachelor of Computer Science</p>
-                                                <span className="date">2010-2014</span>
-                                                <h4>Massachusetts Institute Of Technology</h4>
-                                                <p>Bachelor of Computer Science</p>
-                                                <span className="date">2010-2014</span>
-                                            </div>)
-                                        }
-
+                                        {resume?.educations && <div className="education item">
+                                            <h3>Education</h3>
+                                            {resume?.educations.map((education) => (
+                                                <div key={education.id}>
+                                                    <h4><i className="lni lni-graduation me-2" style={{
+                                                        opacity: '0.6'
+                                                    }}></i>{education?.school}</h4>
+                                                    <p><i className="lni lni-book me-2"></i>{education?.degree} {education?.fieldOfStudy ? 'in' : ''} {education?.fieldOfStudy}</p>
+                                                    <span className="date"><i className="lni lni-calendar me-2"></i>{education?.startDate} - {education?.endDate ? education?.endDate : 'Present'} </span>
+                                                    <hr className="border border-dark" />
+                                                </div>))
+                                            }
+                                        </div>}
+                                        {resume?.SkillsOnResumes?.length > 0 && (
+                                            <div className="skills item">
+                                                <h3>Skills</h3>
+                                                {resume?.SkillsOnResumes?.map((s, index) => (
+                                                    <span key={index} className="me-2 badge bg-secondary px-4 py-2 mb-1">
+                                                        {s.skill.name + ": " + s.proficiencyLevel + "%"}</span>
+                                                ))}
+                                            </div>)}
                                     </div>
                                 </div>
                             </div>

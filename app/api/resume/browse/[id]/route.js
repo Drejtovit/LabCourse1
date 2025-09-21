@@ -4,23 +4,23 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
-    // const session = await auth();
-    // if (!session) {
-    //   return NextResponse.json(
-    //     { success: false, errors: { general: "Authentication required." } },
-    //     { status: 401 }
-    //   );
-    // }
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { success: false, errors: { general: "Authentication required." } },
+        { status: 401 }
+      );
+    }
 
-    // if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-    //   return NextResponse.json(
-    //     {
-    //       success: false,
-    //       errors: { general: "Forbidden, you are not allowed." },
-    //     },
-    //     { status: 403 }
-    //   );
-    // } //TODO when amdin 403
+    if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
+      return NextResponse.json(
+        {
+          success: false,
+          errors: { general: "Forbidden, you are not allowed." },
+        },
+        { status: 403 }
+      );
+    } //TODO when amdin 403
 
     const { id } = await params;
 
@@ -44,6 +44,17 @@ export async function GET(request, { params }) {
                 phoneNumber: {
                   select: { number: true },
                 },
+              },
+            },
+          },
+        },
+        educations: true,
+        experiences: true,
+        SkillsOnResumes: {
+          include: {
+            skill: {
+              select: {
+                name: true,
               },
             },
           },

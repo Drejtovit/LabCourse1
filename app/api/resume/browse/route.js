@@ -1,7 +1,6 @@
 import prisma from "@/lib/db.js";
 import { auth } from "@/lib/auth.js";
 import { NextResponse } from "next/server";
-import is from "zod/v4/locales/is.cjs";
 
 export async function GET(request) {
   try {
@@ -13,15 +12,15 @@ export async function GET(request) {
       );
     }
 
-    // if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-    //   return NextResponse.json(
-    //     {
-    //       success: false,
-    //       errors: { general: "Forbidden, you are not allowed." },
-    //     },
-    //     { status: 403 }
-    //   );
-    // } //TODO when amdin 403
+    if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
+      return NextResponse.json(
+        {
+          success: false,
+          errors: { general: "Forbidden, you are not allowed." },
+        },
+        { status: 403 }
+      );
+    } //TODO when amdin 403
 
     const url = new URL(request.url);
     let sort = url.searchParams.get("sort") || "Newest";
@@ -48,6 +47,15 @@ export async function GET(request) {
                 phoneNumber: {
                   select: { number: true },
                 },
+              },
+            },
+          },
+        },
+        SkillsOnResumes: {
+          include: {
+            skill: {
+              select: {
+                name: true,
               },
             },
           },
