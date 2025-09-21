@@ -2,6 +2,7 @@ import prisma from "@/lib/db.js";
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth.js";
 import { jobPermission } from "@/lib/actions/job";
+import { validateJobData } from "@/lib/validator/job";
 
 export async function GET(request, { params }) {
     try {
@@ -26,7 +27,13 @@ export async function GET(request, { params }) {
         const job = await prisma.job.findUnique({
             where: { id: parseInt(id) },
             include: {
-                employer: true,
+                employer: {
+                    include: {
+                        user: {
+                            select: { name: true, email: true }
+                        }
+                    }
+                },
             },
         });
 
@@ -56,55 +63,58 @@ export async function GET(request, { params }) {
     }
 }
 
-// export async function PUT(request, { params }) {
-//     try {
-//         const session = await auth();
+export async function PUT(request, { params }) {
+    try {
+        const session = await auth();
 
-//         if (!session) {
-//             return NextResponse.json(
-//                 { success: false, errors: { general: "Authentication required." } },
-//                 { status: 401 }
-//             );
-//         }
-//         const { id } = await params;
-//         const resumeId = parseInt(id);
-//         const permissionError = await resumePermission(
-//             session.user.id,
-//             resumeId,
-//             session.user.role
-//         );
+        if (!session) {
+            return NextResponse.json(
+                { success: false, errors: { general: "Authentication required." } },
+                { status: 401 }
+            );
+        }
+        const { id } = await params;
+        const jobId = parseInt(id);
+        const permissionError = await jobPermission(
+            session.user.id,
+            jobId,
+            session.user.role
+        );
 
-//         if (permissionError) return permissionError;
-//         const body = await request.json();
+        if (permissionError) return permissionError;
+        const body = await request.json();
 
-//         const errors = validateResumeData(body);
+        const errors = validateJobData(body);
 
-//         if (Object.keys(errors).length > 0) {
-//             return NextResponse.json({ success: false, errors }, { status: 400 });
-//         }
+        if (Object.keys(errors).length > 0) {
+            return NextResponse.json({ success: false, errors }, { status: 400 });
+        }
 
-//         const { profession, age, details } = body;
+        const { title, type, description, closingDate } = body;
+        const jobType = type === "full-time" ? "FULL_TIME" : type === "part-time" ? "PART_TIME" : "CONTRACT";
 
-//         const updatedResume = await prisma.resume.update({
-//             where: { id: parseInt(id) },
-//             data: {
-//                 profession,
-//                 age: parseInt(age, 10),
-//                 details: details,
-//             },
-//         });
 
-//         return NextResponse.json(
-//             { success: true, message: "Resume updated successfully!" },
-//             { status: 200 }
-//         );
-//     } catch (error) {
-//         return NextResponse.json(
-//             { success: false, errors: { general: error.message } },
-//             { status: 500 }
-//         );
-//     }
-// }
+        const updatedJob = await prisma.job.update({
+            where: { id: jobId },
+            data: {
+                title,
+                type: jobType,
+                description,
+                closingDate: new Date(closingDate)
+            },
+        });
+
+        return NextResponse.json(
+            { success: true, message: "Job updated successfully!" },
+            { status: 200 }
+        );
+    } catch (error) {
+        return NextResponse.json(
+            { success: false, errors: { general: error.message } },
+            { status: 500 }
+        );
+    }
+}
 
 export async function DELETE(request, { params }) {
     try {

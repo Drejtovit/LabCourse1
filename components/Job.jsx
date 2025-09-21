@@ -1,26 +1,31 @@
+import Image from "next/image";
+import Link from "next/link";
+
 export default function Job({
   children,
-  company,
+  description,
+  id,
   location,
   employer,
   type,
+  image,
 }) {
   return (
     <div className="col-lg-6 col-md-12 col-xs-12">
-      <a className="job-listings-featured" href="job-details.html">
+      <Link className="job-listings-featured" href={`/job/browse/${id}`}>
         <div className="row">
           <div className="col-lg-6 col-md-6 col-xs-12">
             <div className="job-company-logo">
-              <img
-                src="assets/img/features/img1.png"
+              <Image
+                src={image || "/assets/img/default-avatar.png"}
                 width={40}
                 height={40}
-                alt=""
+                alt="avatar"
               />
             </div>
             <div className="job-details">
               <h3>{children}</h3>
-              <span className="company-name">{company}</span>
+              <span className="company-name">{description}</span>
               <div className="tags">
                 <span>
                   <i className="lni-map-marker"></i> {location}
@@ -41,7 +46,7 @@ export default function Job({
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 }

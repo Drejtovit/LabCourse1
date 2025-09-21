@@ -77,7 +77,7 @@ export default function JobItem({ id, title, location, type }) {
         </div>
         <div className="col-lg-3 col-md-2 col-xs-12">
           <button className="btn btn-xs btn-danger" onClick={handleDelete} >Delete</button>
-          <Link className="btn btn-xs btn-secondary mt-2" href={`/resume/edit/${id}`}>Edit</Link>
+          <Link className="btn btn-xs btn-secondary mt-2" href={`/job/edit/${id}`}>Edit</Link>
 
           {/* <div className="can-img">
             <a href="#">

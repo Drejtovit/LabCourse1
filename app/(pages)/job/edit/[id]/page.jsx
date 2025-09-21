@@ -15,7 +15,7 @@ export default async function JobEdit({ params }) {
         redirect('/');
     }
     const header = await headers();
-    const cookie = header.get('cookie') || '';
+    const cookie = header.get('cookie');
 
     const { id } = await params;
 

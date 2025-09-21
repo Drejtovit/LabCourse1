@@ -43,7 +43,7 @@ export default function Home() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-lg-3 col-md-6 col-xs-12">
+                                            {/* <div className="col-lg-3 col-md-6 col-xs-12">
                                                 <div className="form-group">
                                                     <div className="search-category-container">
                                                         <label className="styled-select">
@@ -63,7 +63,7 @@ export default function Home() {
                                                     </div>
 
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="col-lg-1 col-md-6 col-xs-12">
                                                 <button type="submit" className="button"><i className="lni-search"></i></button>
                                             </div>
@@ -75,26 +75,6 @@ export default function Home() {
                     </div>
                 </div>
             </header>
-            {/* Category Section Start */}
-            <section className="category section bg-gray">
-                <div className="container">
-                    <div className="section-header">
-                        <h2 className="section-title">Browse Categories</h2>
-                        <p>Most popular categories of portal, sorted by popularity</p>
-                    </div>
-                    <div className="row">
-                        <Category number="4286" icon="lni-home" icon_number="1">Finance</Category>
-                        <Category number="2000" icon="lni-world" icon_number="2">Sale/Markting</Category>
-                        <Category number="1450" icon="lni-book" icon_number="3">Education/Training</Category>
-                        <Category number="5100" icon="lni-display" icon_number="4" extra="border-right-0">Technologies</Category>
-                        <Category number="5079" icon="lni-brush" icon_number="5" extra="border-bottom-0">Art/Design</Category>
-                        <Category number="3235" icon="lni-heart" icon_number="6" extra="border-bottom-0">Healthcare</Category>
-                        <Category number="1800" icon="lni-funnel" icon_number="7" extra="border-bottom-0">Science</Category>
-                        <Category number="4286" icon="lni-cup" icon_number="8" extra="border-right-0  border-bottom-0">Food Services</Category>
-                    </div>
-                </div>
-            </section>
-            {/* Category Section End */}
 
             {/* Listings Section Start */}
             <section id="job-listings" className="section">
