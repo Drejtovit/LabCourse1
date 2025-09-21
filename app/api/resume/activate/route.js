@@ -34,6 +34,15 @@ export async function GET(request) {
             },
           },
         },
+        educations: {
+          orderBy: [{ endDate: "desc" }, { startDate: "desc" }],
+        },
+        experiences: {
+          orderBy: [{ endDate: "desc" }, { startDate: "desc" }],
+        },
+        SkillsOnResumes: {
+          include: { skill: true },
+        },
       },
     });
     if (!resume) {

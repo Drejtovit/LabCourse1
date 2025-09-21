@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export default function BrowseResumesClient({ resumes }) {
     const [filteredResumes, setFilteredResumes] = useState(resumes);
+    const [sort, setSort] = useState('');
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +39,9 @@ export default function BrowseResumesClient({ resumes }) {
                                 <div className="wrap-search-filter row align-items-end g-3 mb-4">
                                     <div className="col-lg-2 col-md-3 col-12">
                                         <select className="form-control" style={{ fontWeight: 300, color: "#383838ff" }}
-                                            name="sort">
+                                            name="sort"
+                                            value={sort}
+                                            onChange={e => setSort(e.target.value)}>
                                             <option value=""
                                                 style={{ color: "#565656ff" }}>
                                                 Sort By
@@ -54,7 +57,7 @@ export default function BrowseResumesClient({ resumes }) {
                                         <p className="text-danger">{errors.general}</p>
                                     )}
                                     <div className="col-lg-2 col-md-12 col-12">
-                                        <button type="submit" className="btn btn-secondary w-100" disabled={isLoading}>
+                                        <button type="submit" className="btn btn-secondary w-100" disabled={isLoading || sort === ''}>
                                             {isLoading ? 'Filtering...' : 'Filter Resumes'}
                                         </button>
                                     </div>
@@ -70,14 +73,13 @@ export default function BrowseResumesClient({ resumes }) {
                                 profession={resume?.profession}
                                 email={resume?.candidate?.user?.email}
                                 location={resume?.candidate?.city + "," + resume?.candidate?.state}
-                                skills={["HTML5", "CSS3", "Bootstrap", "Wordpress"]}
-                                experience="4"
+                                skills={resume?.SkillsOnResumes?.map(s => s.skill.name)}
                             >
                                 {resume?.details}
                             </BrowseResume>
                         })}
                     </div>
-                </div>
+                </div >
             </div >
             {/* Start Pagination  */}
             {/* <ul ul className="pagination" >

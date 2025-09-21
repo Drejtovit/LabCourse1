@@ -14,15 +14,16 @@ export default function ResumeEditClient({ session, resume }) {
         details: resume?.details || '',
     });
     const router = useRouter();
-    const [educations, setEducations] = useState([
-        { degree: "", fieldOfStudy: "", school: "", from: "", to: "", description: "" }
-    ]);
-    const [experiences, setExperiences] = useState([
-        { companyName: "", professionTitle: "", from: "", to: "", description: "" }
-    ]);
-    const [skills, setSkills] = useState([
-        { name: "", proficiency: "" }
-    ]);
+
+    const [educations, setEducations] = useState(resume?.educations || [{ degree: "", fieldOfStudy: "", school: "", startDate: "", endDate: "", description: "" }]);
+
+    const [experiences, setExperiences] = useState(resume?.experiences || [{ companyName: "", professionTitle: "", startDate: "", endDate: "", description: "" }]);
+
+
+
+    const [skills, setSkills] = useState(resume?.SkillsOnResumes?.map(skills => ({ skillId: skills.skill.id, skillName: skills.skill.name, proficiency: skills.proficiencyLevel })) || [{ skillName: "", proficiency: "" }]);
+    const readOnlySkillIds = resume?.SkillsOnResumes?.map(s => s.skill.id) || [];
+    console.log(readOnlySkillIds);
 
     async function handleSubmit(formData) {
         setErrorMessage({});
@@ -34,6 +35,9 @@ export default function ResumeEditClient({ session, resume }) {
                 profession: formData.get('profession'),
                 age: formData.get('age'),
                 details: formData.get('details'),
+                educations,
+                experiences,
+                skills
             })
         });
         const data = await res.json();
@@ -43,6 +47,65 @@ export default function ResumeEditClient({ session, resume }) {
         }
         setErrorMessage(data.errors);
         setIsLoading(false);
+    }
+    async function handleDeleteEducation({ id, index }) {
+        const res = await fetch(`/api/resume/${resume.id}/education`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }),
+        });
+        const data = await res.json();
+        if (data.errors?.id) {
+            removeItem(educations, setEducations, index);
+        }
+
+        if (res.ok && data.success) {
+            removeItem(educations, setEducations, index);
+        } else {
+            toast.error(data.errors.general, { toastId: 'delete-education-error' });
+        }
+    }
+    async function handleDeleteExperience({ id, index }) {
+        const res = await fetch(`/api/resume/${resume.id}/experience`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }),
+        });
+        const data = await res.json();
+        if (data.errors?.id) {
+            console.log(data.errors);
+
+            removeItem(experiences, setExperiences, index);
+        }
+
+        if (res.ok && data.success) {
+            removeItem(experiences, setExperiences, index);
+        } else {
+            toast.error(data.errors.general, { toastId: 'delete-experience-error' });
+        }
+    }
+    async function handleDeleteSkills({ skillId, index }) {
+        const res = await fetch(`/api/resume/${resume.id}/skills`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ skillId }),
+        });
+        const data = await res.json();
+        if (data.errors?.id) {
+            removeItem(skills, setSkills, index);
+        }
+
+        if (res.ok && data.success) {
+            removeItem(skills, setSkills, index);
+        } else {
+            toast.error(data.errors.general, { toastId: 'delete-skill-error' });
+        }
     }
     return (
         <>
@@ -133,7 +196,7 @@ export default function ResumeEditClient({ session, resume }) {
                                                 <input type="text" className="form-control"
                                                     name='degree'
                                                     placeholder="Degree, e.g. Bachelor"
-                                                    value={education.degree || ""}
+                                                    value={education.degree}
                                                     onChange={(e) => updateItem(educations, setEducations, index, e)}
                                                 />
                                             </div>
@@ -151,7 +214,7 @@ export default function ResumeEditClient({ session, resume }) {
                                                 <input type="text" className="form-control"
                                                     name='school'
                                                     placeholder="School name, e.g. Massachusetts Institute of Technology"
-                                                    value={education.school || ""}
+                                                    value={education.school}
                                                     onChange={(e) => updateItem(educations, setEducations, index, e)}
                                                 />
                                             </div>
@@ -159,19 +222,19 @@ export default function ResumeEditClient({ session, resume }) {
                                                 <div className="row">
                                                     <div className="col-md-6">
                                                         <label className="control-label">From</label>
-                                                        <input type="text" className="form-control"
-                                                            name='from'
+                                                        <input type="number" className="form-control"
+                                                            name='startDate'
                                                             placeholder="e.g 2014"
-                                                            value={education.from || ""}
+                                                            value={education.startDate}
                                                             onChange={(e) => updateItem(educations, setEducations, index, e)}
                                                         />
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <label className="control-label">To</label>
-                                                        <input type="text" className="form-control"
-                                                            name='to'
+                                                        <label className="control-label">To(Optional)</label>
+                                                        <input type="number" className="form-control"
+                                                            name='endDate'
                                                             placeholder="e.g 2020"
-                                                            value={education.to || ""}
+                                                            value={education.endDate || ""}
                                                             onChange={(e) => updateItem(educations, setEducations, index, e)}
                                                         />
                                                     </div>
@@ -190,8 +253,9 @@ export default function ResumeEditClient({ session, resume }) {
                                             {index > 0 && <div className="add-post-btn">
                                                 <div className="float-end">
                                                     <button className='btn-delete'
+                                                        type='button'
                                                         disabled={index === 0}
-                                                        onClick={() => removeItem(educations, setEducations, index)}>
+                                                        onClick={() => handleDeleteEducation({ id: education.id, index })}>
                                                         Delete This
                                                     </button>
                                                 </div>
@@ -203,9 +267,10 @@ export default function ResumeEditClient({ session, resume }) {
                                         <div className="add-post-btn">
                                             <div className="float-end">
                                                 <button className='btn-added'
+                                                    type='button'
                                                     disabled={educations.length >= 5}
                                                     onClick={() => addItem(educations, setEducations,
-                                                        { degree: "", fieldOfStudy: "", school: "", from: "", to: "", description: "" })}>
+                                                        { degree: "", fieldOfStudy: "", school: "", startDate: "", endDate: "", description: "" })}>
                                                     <i>Add New Education</i>
                                                 </button>
                                             </div>
@@ -239,20 +304,20 @@ export default function ResumeEditClient({ session, resume }) {
                                             <div className="mb-3">
                                                 <div className="row">
                                                     <div className="col-md-6">
-                                                        <label className="control-label">Date From</label>
-                                                        <input type="text" className="form-control"
+                                                        <label className="control-label">From</label>
+                                                        <input type="number" className="form-control"
                                                             placeholder="e.g 2014"
-                                                            name="from"
-                                                            value={experience.from || ""}
-                                                            onChange={(e) => updateItem(experience, setExperiences, index, e)}
+                                                            name="startDate"
+                                                            value={experience.startDate || ""}
+                                                            onChange={(e) => updateItem(experiences, setExperiences, index, e)}
                                                         />
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <label className="control-label">Date To</label>
-                                                        <input type="text" className="form-control"
+                                                        <label className="control-label">To</label>
+                                                        <input type="number" className="form-control"
                                                             placeholder="e.g 2020"
-                                                            name="to"
-                                                            value={experience.to || ""}
+                                                            name="endDate"
+                                                            value={experience.endDate || ""}
                                                             onChange={(e) => updateItem(experiences, setExperiences, index, e)}
                                                         />
                                                     </div>
@@ -271,7 +336,8 @@ export default function ResumeEditClient({ session, resume }) {
                                             <div className="add-post-btn">
                                                 <div className="float-end">
                                                     <button className='btn-delete'
-                                                        onClick={() => removeItem(experiences, setExperiences, index)}>
+                                                        type='button'
+                                                        onClick={() => handleDeleteExperience({ id: experience.id, index })}>
                                                         Delete This
                                                     </button>
                                                 </div>
@@ -282,8 +348,9 @@ export default function ResumeEditClient({ session, resume }) {
                                     <div className="add-post-btn">
                                         <div className="float-end">
                                             <button className='btn-added'
+                                                type='button'
                                                 onClick={() => addItem(experiences, setExperiences,
-                                                    { companyName: "", professionTitle: "", from: "", to: "", description: "" })}>
+                                                    { companyName: "", professionTitle: "", startDate: "", endDate: "", description: "" })}>
                                                 <i>Add New Experience</i>
                                             </button>
                                         </div>
@@ -302,9 +369,11 @@ export default function ResumeEditClient({ session, resume }) {
                                                         <input className="form-control"
                                                             placeholder="Skill name, e.g. HTML"
                                                             type="text"
-                                                            name="name"
-                                                            value={skill.name || ""}
+                                                            name="skillName"
+                                                            readOnly={readOnlySkillIds.includes(skill.skillId)}
+                                                            value={skill.skillName || ""}
                                                             onChange={(e) => updateItem(skills, setSkills, index, e)}
+                                                            style={readOnlySkillIds.includes(skill.skillId) ? { backgroundColor: "#e3f2fd" } : {}}
                                                         />
                                                     </div>
                                                     <div className="col-md-6">
@@ -323,8 +392,9 @@ export default function ResumeEditClient({ session, resume }) {
                                                 (<div className="add-post-btn">
                                                     <div className="float-end">
                                                         <button className='btn-delete'
+                                                            type='button'
                                                             disabled={index === 0}
-                                                            onClick={() => removeItem(skills, setSkills, index)}>
+                                                            onClick={() => handleDeleteSkills({ skillId: skill.skillId, index })}>
                                                             Delete This
                                                         </button>
                                                     </div>
@@ -335,8 +405,9 @@ export default function ResumeEditClient({ session, resume }) {
                                     <div className="add-post-btn">
                                         <div className="float-end">
                                             <button className='btn-added'
+                                                type='button'
                                                 onClick={() => addItem(skills, setSkills,
-                                                    { name: "", proficiency: "" }
+                                                    { skillName: "", proficiency: "" }
                                                 )}>
                                                 <i>Add New Skill</i>
                                             </button>

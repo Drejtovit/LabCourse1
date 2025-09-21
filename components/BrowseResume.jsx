@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function BrowseResumes({ children, id, name, profession, location, skills, experience, email }) {
+export default function BrowseResumes({ children, id, name, profession, location, skills, email }) {
     return (
         <div className="col-lg-6 col-md-6 col-xs-12">
             <div className="manager-resumes-item">
@@ -25,18 +25,16 @@ export default function BrowseResumes({ children, id, name, profession, location
                     <div className="row ">
                         <div className="resume-skills">
                             <div className="tag-list float-start">
-                                <span>{skills[0]}</span>
-                                <span>{skills[1]}</span>
-                                <span>{skills[2]}</span>
-                                <span>{skills[3]}</span>
+                                {skills.length > 0 ? skills.map((skill, index) => (
+                                    <span key={index}>{skill}</span>
+                                )) : (
+                                    <span>No skills listed</span>
+                                )}
                             </div>
                             <div className="resume-exp float-end">
-                                <span className="btn btn-secondary btn-xs" style={{ cursor: 'default' }}>Exp. {experience}</span>
+                                <Link href={`/resume/browse/${id}`} className="btn btn-common btn-sm float-end"
+                                >View details</Link>
                             </div>
-                        </div>
-                        <div className="item-footer my-2">
-                            <Link href={`/resume/browse/${id}`} className="btn btn-common btn-sm float-end"
-                            >View details</Link>
                         </div>
                     </div>
                 </div>

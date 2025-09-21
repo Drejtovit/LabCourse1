@@ -73,15 +73,57 @@ model Candidate {
 }
 
 model Resume {
-  id          Int       @id @default(autoincrement())
-  profession  String
-  age         Int?
-  details     String?   @db.Text
-  candidateId String
-  isActive    Boolean   @default(false)
-  candidate   Candidate @relation(fields: [candidateId], references: [candidateId], onDelete: Cascade)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id              Int               @id @default(autoincrement())
+  profession      String
+  age             Int?
+  details         String?           @db.Text
+  candidateId     String
+  isActive        Boolean           @default(false)
+  candidate       Candidate         @relation(fields: [candidateId], references: [candidateId], onDelete: Cascade)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  educations      Education[]
+  experiences     Experience[]
+  SkillsOnResumes SkillsOnResumes[]
+}
+
+model Education {
+  id           Int     @id @default(autoincrement())
+  degree       String
+  fieldOfStudy String?
+  school       String
+  startDate    Int
+  endDate      Int?
+  description  String? @db.Text
+  resumeId     Int
+  resume       Resume  @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}
+
+model Experience {
+  id              Int     @id @default(autoincrement())
+  companyName     String
+  professionTitle String
+  startDate       Int
+  endDate         Int?
+  description     String? @db.Text
+  resumeId        Int
+  resume          Resume  @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  SkillsOnResumes SkillsOnResumes[]
+}
+
+model SkillsOnResumes {
+  resumeId         Int
+  skillId          Int
+  resume           Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  skill            Skill  @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  proficiencyLevel Int
+
+  @@id([resumeId, skillId])
 }
 
 model Job {
