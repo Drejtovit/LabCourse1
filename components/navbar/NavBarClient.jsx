@@ -10,9 +10,9 @@ export default function NavBarClient({ session }) {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(open => !open);
 
-    const pages = ["/about", "/findjob", "/jobdetails", "/resume", "/privacy-policy"];
-    const candidates = ["/browsejobs", "/categories", "/resume/create", "/manageresumes", "/jobalerts"];
-    const employers = ["/postjob", "/managejobs", "/manageapplications", "/browseresumes"];
+    const pages = ["/about", "/job/find", "/job/details", "/resume", "/privacy-policy"];
+    const candidates = ["/job/browse", "/categories", "/resume/create", "/resume/manage", "/job/alerts"];
+    const employers = ["/job/post", "/job/manage", "/manageapplications", "/resume/browse"];
 
     return (
         <nav className="navbar navbar-expand-lg fixed-top scrolling-navbar">
@@ -43,8 +43,8 @@ export default function NavBarClient({ session }) {
                                 <ul className="dropdown-menu">
                                     {/*FIX THE LINKS*/}
                                     <li><Link className="dropdown-item" href="/about" onClick={() => setIsOpen(false)}>About</Link></li>
-                                    <li><Link className="dropdown-item" href="/findjob" onClick={() => setIsOpen(false)}>Job Page</Link></li>
-                                    <li><Link className="dropdown-item" href="/jobdetails" onClick={() => setIsOpen(false)}>Job Details</Link></li>
+                                    <li><Link className="dropdown-item" href="/job/find" onClick={() => setIsOpen(false)}>Job Page</Link></li>
+                                    <li><Link className="dropdown-item" href="/job/details" onClick={() => setIsOpen(false)}>Job Details</Link></li>
                                     <li><Link className="dropdown-item" href="/resume" onClick={() => setIsOpen(false)}>Resume Page</Link></li>
                                     <li><Link className="dropdown-item" href="/privacy-policy" onClick={() => setIsOpen(false)}>Privacy Policy</Link></li>
                                 </ul>
@@ -55,11 +55,11 @@ export default function NavBarClient({ session }) {
                                         Candidates
                                     </a>
                                     <ul className="dropdown-menu">
-                                        <li><Link className="dropdown-item" href="/browsejobs" onClick={() => setIsOpen(false)}>Browse Jobs</Link></li>
+                                        <li><Link className="dropdown-item" href="/job/browse" onClick={() => setIsOpen(false)}>Browse Jobs</Link></li>
                                         <li><Link className="dropdown-item" href="/categories" onClick={() => setIsOpen(false)}>Browse Categories</Link></li>
                                         <li><Link className="dropdown-item" href="/resume/create" onClick={() => setIsOpen(false)}>Add Resume</Link></li>
                                         <li><Link className="dropdown-item" href="/resume/manage" onClick={() => setIsOpen(false)}>Manage Resumes</Link></li>
-                                        <li><Link className="dropdown-item" href="/jobalerts" onClick={() => setIsOpen(false)}>Job Alerts</Link></li>
+                                        <li><Link className="dropdown-item" href="/job/alerts" onClick={() => setIsOpen(false)}>Job Alerts</Link></li>
                                     </ul>
                                 </li>
                             )}
@@ -69,8 +69,8 @@ export default function NavBarClient({ session }) {
                                         Employers
                                     </a>
                                     <ul className="dropdown-menu ">
-                                        <li><Link className="dropdown-item" href="/postjob" onClick={() => setIsOpen(false)}>Add Job</Link></li>
-                                        <li><Link className="dropdown-item" href="/managejobs" onClick={() => setIsOpen(false)}>Manage Jobs</Link></li>
+                                        <li><Link className="dropdown-item" href="/job/post" onClick={() => setIsOpen(false)}>Add Job</Link></li>
+                                        <li><Link className="dropdown-item" href="/job/manage" onClick={() => setIsOpen(false)}>Manage Jobs</Link></li>
                                         <li><Link className="dropdown-item" href="/manageapplications" onClick={() => setIsOpen(false)}>Manage Applications</Link></li>
                                         <li><Link className="dropdown-item" href="/resume/browse" onClick={() => setIsOpen(false)}>Browse Resumes</Link></li>
                                     </ul>
@@ -116,7 +116,7 @@ export default function NavBarClient({ session }) {
                                             </Link>
                                         </li>}
                                         {session?.user?.role === "EMPLOYER" && <li>
-                                            <Link className="dropdown-item" href="/managejobs" onClick={() => setIsOpen(false)}>
+                                            <Link className="dropdown-item" href="/job/manage" onClick={() => setIsOpen(false)}>
                                                 <i className="lni lni-briefcase me-2"></i> Manage Jobs
                                             </Link>
                                         </li>}
@@ -136,7 +136,7 @@ export default function NavBarClient({ session }) {
                             )
                             }
                             {session?.user?.role === "EMPLOYER" && <li className="button-group">
-                                <Link className="button btn btn-common" href="/postjob" >Post a Job</Link>
+                                <Link className="button btn btn-common" href="/job/post" >Post a Job</Link>
                             </li>}
 
                         </ul>

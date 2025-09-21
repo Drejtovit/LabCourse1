@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+
 import PageHeader from "@/components/PageHeader";
 import AccountManagement from "@/components/AccountManagment";
 import NotificationsItem from "@/components/NotificationsItem";
@@ -21,7 +21,7 @@ const notificationsData = [
 export default function Notifications() {
   return (
     <>
-      <Header />
+
       <PageHeader>Notifications</PageHeader>
 
       <div id="content">

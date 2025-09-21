@@ -107,10 +107,14 @@ export default function ProfilePageClient({ session, user }) {
             body: JSON.stringify({ id }),
         });
 
-        if (res.ok) {
+        const data = await res.json();
+        if (data.errors?.id) {
+            removeItem(phoneNumbers, setPhoneNumbers, index);
+        }
+        if (res.ok && data.success) {
             removeItem(phoneNumbers, setPhoneNumbers, index);
         } else {
-            toast.error('Failed to delete phone number', { toastId: 'delete-phone-error' });
+            toast.error(data.errors.general, { toastId: 'delete-phone-error' });
         }
     }
 

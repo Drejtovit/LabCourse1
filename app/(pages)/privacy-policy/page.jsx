@@ -1,10 +1,10 @@
-import Header from '@/components/Header.jsx';
+
 import PageHeader from '@/components/PageHeader.jsx';
 
 export default function PrivacyPolicy() {
     return (
         <>
-            <Header></Header>
+
             <PageHeader>Privacy Policy</PageHeader>
 
             <div className="policy section">
