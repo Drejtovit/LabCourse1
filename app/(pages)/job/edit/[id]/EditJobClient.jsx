@@ -4,24 +4,24 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addItem, handleInputChange, removeItem, updateItem } from '@/lib/utils/helpers.js';
 import { toast } from 'react-toastify';
-export default function EditJobClient({ session, user }) {
+export default function EditJobClient({ session, job }) {
 
 
     const [errorMessage, setErrorMessage] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [formValues, setFormValues] = useState({
-        title: '',
-        type: '',
-        description: '',
-        closingDate: '',
+        title: job?.title || '',
+        type: job?.type === 'FULL_TIME' ? "full-time" : job?.type === 'PART_TIME' ? "part-time" : job?.type === 'CONTRACT' ? "contract" : '',
+        description: job?.description || '',
+        closingDate: job?.closingDate.split("T")[0] || '',
     });
     const router = useRouter();
 
     async function handleSubmit(formData) {
         setErrorMessage({});
         setIsLoading(true);
-        const res = await fetch('/api/job', {
-            method: 'POST',
+        const res = await fetch(`/api/job/${job.id}`, {
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: formData.get('title'),
@@ -34,8 +34,8 @@ export default function EditJobClient({ session, user }) {
         const data = await res.json();
 
         if (res.ok && data.success) {
-            toast.success("Job created successfully!", { toastId: "job-create-success" });
-            router.push("/");//TODO to job page
+            toast.success("Job edited successfully!", { toastId: "job-edit-success" });
+            router.replace("/job/manage");//TODO to job page
         }
         setErrorMessage(data.errors);
         setIsLoading(false);
@@ -65,12 +65,12 @@ export default function EditJobClient({ session, user }) {
                                     </div>
                                     <div className="mb-3">
                                         <label className="control-label">Company</label>
-                                        <input type="text" className="form-control" placeholder="Write company name" value={user.name} readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
+                                        <input type="text" className="form-control" placeholder="Write company name" value={job?.employer?.user?.name} readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="control-label">Location <span>(optional)</span></label>
                                         <input type="text" className="form-control" placeholder="e.g.London"
-                                            value={user.employer?.zip + ' ' + user.employer?.city + ', ' + user.employer?.state}
+                                            value={job?.employer?.zip + ' ' + job?.employer?.city + ', ' + job?.employer?.state}
                                             readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
                                     </div>
                                     {/* <div className="mb-3">
@@ -113,19 +113,20 @@ export default function EditJobClient({ session, user }) {
                                         <label className="control-label">Application email</label>
                                         <input type="text" className="form-control"
                                             placeholder="Enter an email address"
-                                            value={user.email} readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
+                                            value={job?.employer?.user?.email} readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
                                     </div>
-                                    {user.employer?.websiteUrl && (
+                                    {job?.employer?.websiteUrl && (
                                         <div className="mb-3">
                                             <label className="control-label">URL(optional)</label>
                                             <input type="text" className="form-control"
                                                 placeholder="Enter a website URL"
-                                                value={user.employer?.websiteUrl} readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
+                                                value={job?.employer?.websiteUrl} readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
                                         </div>
                                     )}
                                     <div className="mb-3">
                                         <label className="control-label">Closing Date <span>(optional)</span></label>
-                                        <input type="date" className="form-control" placeholder="yyyy-mm-dd" name="closingDate"
+                                        <input type="date" className="form-control" placeholder="yyyy-mm-dd" name="closingDate" value={formValues.closingDate}
+                                            onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                             style={errorMessage?.closingDate ? { borderColor: "red", backgroundColor: "#ffe6e6" } : {}} />
                                         {errorMessage?.closingDate && <p className="text-danger mt-2">{errorMessage.closingDate}</p>}
                                     </div>
@@ -140,6 +141,9 @@ export default function EditJobClient({ session, user }) {
                                                     id="jobTypeFullTime"
                                                     value="full-time"
                                                     required
+                                                    checked={formValues.type === "full-time"}
+                                                    onChange={(e) => handleInputChange({ setList: setFormValues, e })}
+
                                                 />
                                                 <label className="form-check-label" htmlFor="jobTypeFullTime">
                                                     Full Time
@@ -152,6 +156,8 @@ export default function EditJobClient({ session, user }) {
                                                     name="type"
                                                     id="jobTypePartTime"
                                                     value="part-time"
+                                                    checked={formValues.type === "part-time"}
+                                                    onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                                 />
                                                 <label className="form-check-label" htmlFor="jobTypePartTime">
                                                     Part Time
@@ -164,6 +170,8 @@ export default function EditJobClient({ session, user }) {
                                                     name="type"
                                                     id="jobTypeContract"
                                                     value="contract"
+                                                    checked={formValues.type === "contract"}
+                                                    onChange={(e) => handleInputChange({ setList: setFormValues, e })}
                                                 />
                                                 <label className="form-check-label" htmlFor="jobTypeContract">
                                                     Contract
@@ -174,7 +182,7 @@ export default function EditJobClient({ session, user }) {
                                     </div>
                                     {errorMessage?.general && <p className="text-danger mt-2">{errorMessage.general}</p>}
                                     <button className="btn btn-common mt-4" type="submit" disabled={isLoading}>
-                                        {isLoading ? 'Creating...' : 'Create Job'}
+                                        {isLoading ? 'Editing...' : 'Edit Job'}
                                     </button>
                                 </form>
                             </div>

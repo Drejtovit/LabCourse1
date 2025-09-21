@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { resumePermission } from "@/lib/actions/resume.js";
 import { auth } from "@/lib/auth.js";
 import { validateResumeData } from "@/lib/validator/resume.js";
-import { parse } from "date-fns";
+
 
 export async function GET(request, { params }) {
   try {

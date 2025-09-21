@@ -1,71 +1,90 @@
 
 import Job from "@/components/Job.jsx";
+import Image from "next/image";
+import { formatDate } from "@/lib/utils/helpers.js";
+import SignInNotice from "@/components/SignInNotice";
+import { auth } from "@/lib/auth.js";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
+import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
 
-export default function JobDetails() {
+
+
+export default async function JobDetails({ params }) {
+    const session = await auth();
+    if (!session) {
+        return (
+            <SignInNotice />
+        );
+    }
+    if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
+        redirect('/');//TODO make a 403 notice
+    }
+
+    const { id } = await params;
+
+    const header = await headers();
+    const cookie = header.get('cookie');
+
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/job/browse/${id}`,
+        { cache: "no-store", headers: { cookie } }
+    );
+    const data = await res.json();
+    if (!res.ok || data.errors) {
+        return (
+            toast.error(data?.errors?.general || "There was an error fetching the job."),
+            redirect('/job/browse')
+        );
+    }
+    const job = data.job;
     return (
         <>
-
-            {/* Make it dynamic */}
             <div className="page-header">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8 col-md-6 col-xs-12">
                             <div className="breadcrumb-wrapper">
                                 <div className="img-wrapper">
-                                    <img src="assets/img/about/company-logo.png" alt="" />
+                                    <Image
+                                        src={job?.employer?.user?.image || "/assets/img/default-avatar.png"}
+                                        alt={job?.employer?.user?.name}
+                                        width={100}
+                                        height={100}
+                                    />
                                 </div>
                                 <div className="content">
-                                    <h3 className="product-title">Hiring UI Designer</h3>
-                                    <p className="brand">UIDeck Inc.</p>
+                                    <h3 className="product-title">Hiring {job?.title}</h3>
+                                    <p className="brand">{job?.employer?.user?.name}</p>
                                     <div className="tags">
                                         <span>
-                                            <i className="lni-map-marker"></i> New York
+                                            <i className="lni-map-marker"></i> {job?.employer?.city}, {job?.employer?.state}
                                         </span>
                                         <span>
-                                            <i className="lni-calendar"></i> Posted 26 June, 2020
+                                            <i className="lni-calendar"></i> Posted: {formatDate(job?.createdAt, false)} ({formatDistanceToNow(job?.createdAt, { addSuffix: true })})
+                                        </span>
+                                        <span>
+                                            <i className="lni-calendar"></i> Deadline: {formatDate(job?.closingDate, false)}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-6 col-xs-12">
-                            <div className="month-price">
-                                <span className="year">Yearly</span>
-                                <div className="price">$65,000</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
+            </div >
             {/* Detail job section */}
-            <section className="job-detail section">
+            < section className="job-detail section" >
                 <div className="container">
                     <div className="row justify-content: center;">
                         <div className="col-lg-8 col-md-12 col-xs-12">
                             <div className="content-area">
                                 <h4>Job Description</h4>
-                                <p>
-                                    Proin gravida nibh vel velit auctor aliquet. Aenean
-                                    sollicitudin, lorem quis bibendum auctor, nisi elit consequat
-                                    ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
-                                    nibh vulputate cursus a sit amet mauris. Morbi umsan ipsum
-                                    velit.
-                                </p>
-                                <p>
-                                    Proin gravida nibh vel velit auctor aliquet. Aenean
-                                    sollicitudin, lorem quis bibendum auctor, nisi elit consequat
-                                    ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
-                                    nibh vulputate cursus a sit amet mauris. Morbi umsan ipsum
-                                    velit. Nam nec tellus a odio tincidunt auctor a ornare odio.
-                                </p>
-                                <h5>What You Need for this Position</h5>
-                                <ul>
-                                    <li>- Objective-C</li>
-                                    <li>- iOS SDK</li>
-                                    <li>- XCode</li>
-                                    <li>- Cocoa</li>
-                                    <li>- ClojureScript</li>
-                                </ul>
+                                {job?.description && (
+                                    <p>{job?.description}</p>
+                                )}
                                 <h5>How To Apply</h5>
                                 <p>
                                     Proin gravida nibh vel velit auctor aliquet. Aenean
@@ -73,16 +92,16 @@ export default function JobDetails() {
                                     ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
                                     nibh vulputate cursus a sit amet mauris.
                                 </p>
-                                <a href="#" className="btn btn-common">
+                                <Link href="#" className="btn btn-common">
                                     Apply job
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
             {/* Featured jobs */}
-            <section id="featured" className="section bg-gray pb-45">
+            <section className="section bg-gray pb-45" >
                 <div className="container">
                     <h4 className="small-title text-left">Similar Jobs</h4>
                     <div className="row">
@@ -105,6 +124,5 @@ export default function JobDetails() {
                     </div>
                 </div>
             </section>
-        </>
-    );
+        </>);
 }
