@@ -1,15 +1,11 @@
 "use client"
-import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
-export default function JobItem({ id, title, location, type }) {
+export default function JobItem({ id, title, location, type, applicationsCount }) {
 
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
 
   async function handleDelete() {
     let confirmDelete;
@@ -52,42 +48,46 @@ export default function JobItem({ id, title, location, type }) {
     const data = await job.json();
 
     if (!job.ok || data.errors) {
-      // console.log(data.errors.general);
       toast.error(data.errors.general, { toastId: `error-delete-job` });
       router.replace("/");//Re look at this
     }
-    window.location.reload();
+    router.refresh();
   }
 
 
   return (
-    <div className="alerts-content">
-      <div className="row">
-        <div className="col-lg-3 col-md-5 col-xs-12">
-          <h3>{title}</h3>
-          <span className="location">
-            <i className="lni-map-marker"></i>
-            {location}
+    <div className="alerts-content py-3 border-bottom">
+      <div className="row align-items-center g-3">
+        <div className="col-12 col-md-4 text-center text-md-start">
+          <h3 className="mb-1">{title}</h3>
+          <span className="location d-block mb-1 text-muted small">
+            <i className="lni-map-marker"></i> {location}
           </span>
         </div>
-        <div className="col-lg-3 col-md-3 col-xs-12">
-          <p>
-            <span className="full-time">{type}</span>
-          </p>
+        <div className="col-12 col-md-3 text-center text-md-start">
+          <span className={type === "Full-time" ? "full-time" : type === "Part-time" ? "part-time" : "contract"}>{type}</span>
         </div>
-        <div className="col-lg-3 col-md-2 col-xs-12">
-          <button className="btn btn-xs btn-danger" onClick={handleDelete} >Delete</button>
-          <Link className="btn btn-xs btn-secondary mt-2" href={`/job/edit/${id}`}>Edit</Link>
-
-          {/* <div className="can-img">
-            <a href="#">
-              <img src={img} alt="" />
-            </a>
-          </div> */}
+        <div className="col-12 col-md-5">
+          <div className="d-flex flex-column flex-md-row justify-content-md-end align-items-center gap-2 mt-2 mt-md-0">
+            <button className="btn btn-xs btn-danger w-100 w-md-auto" onClick={handleDelete}>
+              Delete
+            </button>
+            <Link className="btn btn-xs btn-secondary w-100 w-md-auto" href={`/job/edit/${id}`}>
+              Edit
+            </Link>
+            {applicationsCount > 0 ? (
+              <span className="badge bg-info mt-2 px-3 py-2">
+                {applicationsCount} {applicationsCount === 1 ?
+                  (<> Candidate  <i className="lni lni-user"></i></>) :
+                  (<> Candidates <i className="lni lni-users"></i></>)}
+              </span>
+            ) : (
+              <span className="badge bg-secondary mt-2 px-2 py-2">
+                No Candidates <i className="lni lni-users"></i>
+              </span>
+            )}
+          </div>
         </div>
-        {/* <Link className="btn btn-xs btn-secondary " href={`/job/edit/${jobId}`}>Edit</Link> */}
-
-
       </div>
     </div>
   );

@@ -6,11 +6,8 @@ import SignInNotice from "@/components/SignInNotice";
 import { auth } from "@/lib/auth.js";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { toast } from "react-toastify";
 import { formatDistanceToNow } from "date-fns";
-import Link from "next/link";
-
-
+import ApplyButton from "@/components/ApplyButton.jsx";
 
 export default async function JobDetails({ params }) {
     const session = await auth();
@@ -34,12 +31,10 @@ export default async function JobDetails({ params }) {
     );
     const data = await res.json();
     if (!res.ok || data.errors) {
-        return (
-            toast.error(data?.errors?.general || "There was an error fetching the job."),
-            redirect('/job/browse')
-        );
+        redirect('/job/browse');
     }
     const job = data.job;
+
     return (
         <>
             <div className="page-header">
@@ -62,11 +57,13 @@ export default async function JobDetails({ params }) {
                                         <span>
                                             <i className="lni-map-marker"></i> {job?.employer?.city}, {job?.employer?.state}
                                         </span>
-                                        <span>
+                                        <br />
+                                        <span >
                                             <i className="lni-calendar"></i> Posted: {formatDate(job?.createdAt, false)} ({formatDistanceToNow(job?.createdAt, { addSuffix: true })})
                                         </span>
+                                        <br />
                                         <span>
-                                            <i className="lni-calendar"></i> Deadline: {formatDate(job?.closingDate, false)}
+                                            <i className="lni-timer"></i> Closing Date: {formatDate(job?.closingDate, false)}
                                         </span>
                                     </div>
                                 </div>
@@ -75,7 +72,7 @@ export default async function JobDetails({ params }) {
                     </div>
                 </div>
             </div >
-            {/* Detail job section */}
+
             < section className="job-detail section" >
                 <div className="container">
                     <div className="row justify-content: center;">
@@ -92,9 +89,7 @@ export default async function JobDetails({ params }) {
                                     ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
                                     nibh vulputate cursus a sit amet mauris.
                                 </p>
-                                <Link href="#" className="btn btn-common">
-                                    Apply job
-                                </Link>
+                                <ApplyButton jobId={job?.id} candidateId={session?.user?.id} status={job?.applications[0]?.status} closingDate={job?.closingDate} />
                             </div>
                         </div>
                     </div>

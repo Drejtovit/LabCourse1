@@ -23,26 +23,31 @@ export default async function AccountManagment({ type }) {
                         </li>
 
                         <li>
-                            <a href="/resume/manage" className={type == 'resumes' ? 'active' : ''}>
+                            <Link href="/resume/manage" className={type == 'resumes' ? 'active' : ''}>
                                 Manage Resumes
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="/jobalerts" className={type == 'jobalerts' ? 'active' : ''}>
+                            <Link href="/applications/candidateapplications" className={type == 'applications' ? 'active' : ''}>
+                                Your Applications
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/job/alerts" className={type == 'jobalerts' ? 'active' : ''}>
                                 Job Alerts
-                            </a>
+                            </Link>
                         </li>
                     </>
                 )}
                 {session?.user?.role === "EMPLOYER" && (
                     <>
                         <li>
-                            <Link href="/managejobs" className={type == 'jobs' ? 'active' : ''}>
+                            <Link href="/job/manage" className={type == 'jobs' ? 'active' : ''}>
                                 Manage Jobs
                             </Link>
                         </li>
                         <li>
-                            <Link href="/manageapplications" className={type == 'applications' ? 'active' : ''}>
+                            <Link href="/applications/manageapplications" className={type == 'applications' ? 'active' : ''}>
                                 Manage Applications
                             </Link>
                         </li>

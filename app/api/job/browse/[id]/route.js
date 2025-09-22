@@ -48,6 +48,12 @@ export async function GET(request, { params }) {
             },
           },
         },
+        applications: {
+          where: { candidateId: session.user.id, jobId: parseInt(id) },
+          select: {
+            status: true,
+          },
+        },
       },
     });
 

@@ -28,7 +28,7 @@ export default function BrowseJobClient({ jobs }) {
                                 description={job.description}
                                 location={job.employer.city + ", " + job.employer.state}
                                 employer={job.employer?.user?.name}
-                                type={job.type}
+                                type={job.type === "FULL_TIME" ? "Full Time" : job.type === "PART_TIME" ? "Part Time" : "Contract"}
                                 image={job.employer?.user?.image}
                             >
                                 {job.title}
@@ -36,7 +36,7 @@ export default function BrowseJobClient({ jobs }) {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
         </>
     )
 }

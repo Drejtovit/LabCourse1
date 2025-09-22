@@ -32,8 +32,6 @@ export default async function ManageJobs() {
   }
   const jobs = jobData?.jobs;
 
-  const jobHeaders = ["Name", "Keywords", "Actions", "Candidates"];
-
   return (
     <>
 
@@ -48,15 +46,6 @@ export default async function ManageJobs() {
             <div className="col-lg-8 col-md-8 col-xs-12">
               <div className="job-alerts-item candidates">
                 <h3 className="alerts-title">Manage Jobs</h3>
-                <div className="alerts-list">
-                  <div className="row">
-                    {jobHeaders.map((header, idx) => (
-                      <div key={idx} className="col-lg-3 col-md-3 col-12">
-                        <p>{header}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
                 {jobs?.length === 0 && (
                   <div className="text-center">
                     <p className="fw-bold fs-3">
@@ -69,8 +58,8 @@ export default async function ManageJobs() {
                     id={job.id}
                     title={job.title}
                     location={job.employer.zip + ", " + job.employer.city + ", " + job.employer.state}
-                    type={job.type === "FULL_TIME" ? "Full-time" : job.type === "PARTTIME" ? "Part-time" : "Contract"}
-
+                    type={job.type === "FULL_TIME" ? "Full-time" : job.type === "PART_TIME" ? "Part-time" : "Contract"}
+                    applicationsCount={job._count?.applications}
                   />
                 ))}
 
