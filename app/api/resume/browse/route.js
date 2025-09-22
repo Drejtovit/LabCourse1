@@ -1,26 +1,8 @@
 import prisma from "@/lib/db.js";
-import { auth } from "@/lib/auth.js";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json(
-        { success: false, errors: { general: "Authentication required." } },
-        { status: 401 }
-      );
-    }
-
-    if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-      return NextResponse.json(
-        {
-          success: false,
-          errors: { general: "Forbidden, you are not allowed." },
-        },
-        { status: 403 }
-      );
-    } //TODO when amdin 403
 
     const url = new URL(request.url);
     let sort = url.searchParams.get("sort") || "Newest";

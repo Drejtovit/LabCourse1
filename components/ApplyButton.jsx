@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-export default function ApplyButton({ jobId, candidateId, status, closingDate }) {
+export default function ApplyButton({ jobId, candidateId, status, closingDate, hasResume }) {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const deadline = new Date(closingDate);
@@ -50,8 +50,8 @@ export default function ApplyButton({ jobId, candidateId, status, closingDate })
                     <button className="btn btn-common" disabled
                         style={{ color: "orange" }}>Application Pending</button>
                 ) : (
-                    <button className="btn btn-common" onClick={handleApply} disabled={loading || success}>
-                        {loading ? "Applying..." : success ? "Applied" : "Apply Now"}
+                    <button className="btn btn-common" onClick={handleApply} disabled={loading || !hasResume || success}>
+                        {loading ? "Applying..." : success ? "Applied" : !hasResume ? "No Resume, please upload your resume first" : "Apply Now"}
                     </button>
                 ))}
         </>

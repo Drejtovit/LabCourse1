@@ -54,7 +54,7 @@ export async function GET(request, { params }) {
             status: true,
           },
         },
-      },
+      }
     });
 
     return NextResponse.json({ success: true, job }, { status: 200 });

@@ -13,7 +13,7 @@ export default async function JobDetails({ params }) {
     const session = await auth();
     if (!session) {
         return (
-            <SignInNotice />
+            <SignInNotice message="Please sign in as candidate to view and apply for jobs." />
         );
     }
     if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
@@ -34,6 +34,22 @@ export default async function JobDetails({ params }) {
         redirect('/job/browse');
     }
     const job = data.job;
+
+    const hasResume = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session.user.id}?role=CANDIDATE`, { cache: "no-store", headers: { cookie } });
+    const hasResumeData = await hasResume.json();
+    if (!hasResume.ok || hasResumeData.errors) {
+        redirect('/job/browse');
+    }
+    console.log(hasResumeData?.user?.candidate?.resumes[0]?.isActive);
+
+    const similarJobs = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/job/browse`,
+        { cache: "no-store" });
+
+    const similarJobsData = await similarJobs.json();
+    if (!similarJobs.ok || similarJobsData.errors) {
+        redirect('/job/browse');
+    }
+    const similarJobsList = similarJobsData.jobs;
 
     return (
         <>
@@ -89,7 +105,7 @@ export default async function JobDetails({ params }) {
                                     ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
                                     nibh vulputate cursus a sit amet mauris.
                                 </p>
-                                <ApplyButton jobId={job?.id} candidateId={session?.user?.id} status={job?.applications[0]?.status} closingDate={job?.closingDate} />
+                                <ApplyButton jobId={job?.id} candidateId={session?.user?.id} status={job?.applications[0]?.status} closingDate={job?.closingDate} hasResume={hasResumeData?.user?.candidate?.resumes[0]?.isActive} />
                             </div>
                         </div>
                     </div>
@@ -100,24 +116,25 @@ export default async function JobDetails({ params }) {
                 <div className="container">
                     <h4 className="small-title text-left">Similar Jobs</h4>
                     <div className="row">
-                        <Job
-                            company="MizTech"
-                            state="New York"
-                            employer="John Smith"
-                            type="full-time"
-                        >
-                            Software Engineer
-                        </Job>
-                        <Job
-                            company="Hunter Inc."
-                            state="New York"
-                            employer="John Smith"
-                            type="part-time"
-                        >
-                            Graphic Designer
-                        </Job>
+                        {similarJobsList?.length === 0 && (
+                            <p>No similar jobs found.</p>
+                        )}
+                        {similarJobsList.slice(0, 3).filter(similarJob => similarJob.id !== job.id).map((similarJob, index) => (
+                            <Job
+                                key={index}
+                                id={similarJob.id}
+                                description={similarJob.description}
+                                location={similarJob.employer.city + ", " + similarJob.employer.state}
+                                employer={similarJob.employer?.user?.name}
+                                type={similarJob.type === "FULL_TIME" ? "Full Time" : similarJob.type === "PART_TIME" ? "Part Time" : "Contract"}
+                                image={similarJob.employer?.user?.image}
+                            >
+                                {similarJob.title}
+                            </Job>
+                        ))}
                     </div>
                 </div>
             </section>
-        </>);
+        </>
+    );
 }

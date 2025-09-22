@@ -73,30 +73,7 @@ export default function PostJobClient({ session, user }) {
                                             value={user.employer?.zip + ' ' + user.employer?.city + ', ' + user.employer?.state}
                                             readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
                                     </div>
-                                    {/* <div className="mb-3">
-                                        <label className="control-label">Category</label>
-                                        <div className="search-category-container">
-                                            <label className="styled-select">
-                                                <select className="dropdown-product selectpicker">
-                                                    <option>All Categories</option>
-                                                    <option>Finance</option>
-                                                    <option>IT & Engineering</option>
-                                                    <option>Education/Training</option>
-                                                    <option>Art/Design</option>
-                                                    <option>Sale/Markting</option>
-                                                    <option>Healthcare</option>
-                                                    <option>Science</option>
-                                                    <option>Food Services</option>
-                                                </select>
-                                            </label>
-                                        </div>
-                                    </div> */}
-                                    {/* <div className="mb-3">
-                                        <label className="control-label">Job Tags <span>(optional)</span></label>
-                                        <input type="text" className="form-control" placeholder="e.g.PHP,Social Media,Management" />
-                                        <p className="note">Comma separate tags, such as required skills or technologies, for this
-                                            job.</p>
-                                    </div> */}
+
                                     <section id="editor">
                                         <div className="mb-3">
                                             <label htmlFor="comment">Description</label>

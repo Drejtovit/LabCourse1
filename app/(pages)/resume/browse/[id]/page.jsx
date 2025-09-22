@@ -10,7 +10,7 @@ export default async function ResumeDetails({ params }) {
     const session = await auth();
     if (!session) {
         return (
-            <SignInNotice />
+            <SignInNotice message="Please sign in as employer to view this resume." />
         );
     }
     if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
