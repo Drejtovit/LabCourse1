@@ -43,17 +43,12 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-    const buffer = Buffer.from(bytes);
+    const base64 = `data:${image.type};base64,${Buffer.from(bytes).toString(
+      "base64"
+    )}`;
 
-    const uploadResult = await new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        { folder: "profile_pictures" },
-        (error, result) => {
-          if (error) return reject(error);
-          resolve(result);
-        }
-      );
-      uploadStream.end(buffer);
+    const uploadResult = await cloudinary.uploader.upload(base64, {
+      folder: "profile_pictures",
     });
 
     if (!uploadResult || !uploadResult.secure_url) {

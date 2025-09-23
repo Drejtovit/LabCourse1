@@ -1,5 +1,6 @@
 import prisma from "@/lib/db.js";
 import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth.js";
 import { hash } from "bcryptjs";
 import { validateUserData } from "@/lib/validator/user";
 
@@ -80,6 +81,35 @@ export async function POST(request) {
       { success: true, user: rest, message: "User created successfully" },
       { status: 201 }
     );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, errors: { general: error.message } },
+      { status: 500 }
+    );
+  }
+}
+export async function GET(request) {
+  try {
+    const session = await auth();
+    if (!session || session.user.role !== "ADMIN") {
+      return NextResponse.json({ errors: { general: "Unauthorized" } }, { status: 401 });
+    }
+
+    const users = await prisma.user.findMany({
+      where: {
+        role: { in: ["EMPLOYER", "CANDIDATE"] },
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        image: true,
+        role: true,
+        updatedAt: true,
+      },
+    });
+    return NextResponse.json({ users }, { status: 200 });
+
   } catch (error) {
     return NextResponse.json(
       { success: false, errors: { general: error.message } },

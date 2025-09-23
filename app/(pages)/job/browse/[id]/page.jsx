@@ -117,7 +117,7 @@ export default async function JobDetails({ params }) {
                     <h4 className="small-title text-left">Similar Jobs</h4>
                     <div className="row">
                         {similarJobsList?.length === 0 && (
-                            <p>No similar jobs found.</p>
+                            <p className="text-info">No similar jobs found.</p>
                         )}
                         {similarJobsList.slice(0, 3).filter(similarJob => similarJob.id !== job.id).map((similarJob, index) => (
                             <Job

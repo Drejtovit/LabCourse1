@@ -20,7 +20,7 @@ export default async function CandidateApplications() {
         redirect("/");//Todo make a 403 notice also make other pages like this one more secure
     }
     const header = await headers();
-    const cookie = header.get('cookie') || '';
+    const cookie = header.get('cookie');
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/applications/candidate?candidateId=${session.user.id}`, { cache: 'no-store', headers: { cookie } });
 
     const data = await res.json();

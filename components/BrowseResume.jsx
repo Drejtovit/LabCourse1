@@ -32,7 +32,7 @@ export default function BrowseResumes({ children, id, name, profession, location
                                 )}
                             </div>
                             <div className="resume-exp float-end">
-                                <Link href={`/resume/browse/${id}`} className="btn btn-common btn-sm float-end"
+                                <Link href={`/resume/browse/${id}`} className="btn btn-common btn-sm float-end mt-2"
                                 >View details</Link>
                             </div>
                         </div>

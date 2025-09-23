@@ -91,6 +91,7 @@ export default async function ResumeDetails({ params }) {
                                     (
                                         <div className="work-experience item">
                                             <h4>Work Experience</h4>
+                                            <p>{resume?.experiences.length === 0 ? "No work experience provided." : ""}</p>
                                             {resume?.experiences.map((experience) => (
                                                 <div key={experience.id}>
                                                     <p><i className="lni lni-briefcase me-2" style={{
@@ -109,6 +110,7 @@ export default async function ResumeDetails({ params }) {
                                 {resume?.educations ?
                                     (<div className="education item">
                                         <h4>Education</h4>
+                                        <p>{resume?.educations.length === 0 ? "No education provided." : ""}</p>
                                         {resume?.educations.map((education) => (
                                             <div key={education.id}>
                                                 <p><i className="lni lni-graduation me-2" style={{

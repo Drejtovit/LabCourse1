@@ -116,6 +116,11 @@ export default function NavBarClient({ session }) {
                                                 <i className="lni lni-briefcase me-2"></i> Manage Jobs
                                             </Link>
                                         </li>}
+                                        {session?.user?.role === "ADMIN" && <li>
+                                            <Link className="dropdown-item" href="/dashboard" onClick={() => setIsOpen(false)}>
+                                                <i className="lni lni-dashboard me-2"></i> Admin Panel
+                                            </Link>
+                                        </li>}
 
                                         <li>
                                             <button
@@ -140,8 +145,6 @@ export default function NavBarClient({ session }) {
                     </div>
                 </div>
             </div>
-            {/* <DropDownMenu></DropDownMenu> */}
-            {/* <div className="mobile-menu" data-logo="assets/img/logo-mobile.png"></div> */}
         </nav >
     )
 }

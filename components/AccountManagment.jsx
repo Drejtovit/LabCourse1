@@ -17,12 +17,6 @@ export default async function AccountManagment({ type }) {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/bookmarkedjobs" className={type == 'bookmarked' ? 'active' : ''}>
-                                Bookmarked Jobs
-                            </Link>
-                        </li>
-
-                        <li>
                             <Link href="/resume/manage" className={type == 'resumes' ? 'active' : ''}>
                                 Manage Resumes
                             </Link>
@@ -30,11 +24,6 @@ export default async function AccountManagment({ type }) {
                         <li>
                             <Link href="/applications/candidateapplications" className={type == 'applications' ? 'active' : ''}>
                                 Your Applications
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/job/alerts" className={type == 'jobalerts' ? 'active' : ''}>
-                                Job Alerts
                             </Link>
                         </li>
                     </>

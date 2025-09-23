@@ -9,8 +9,9 @@ export default async function Home() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/job/browse`, { cache: 'no-store' });
 
     const data = await res.json();
+
     if (!res.ok || data.errors) {
-        redirect('/signin');
+        redirect("/signin");
     }
     const jobs = data.jobs;
 
@@ -41,6 +42,7 @@ export default async function Home() {
                         <p>Hand-picked jobs featured depending on popularity and benifits</p>
                     </div>
                     <div className="row">
+                        {jobs?.length === 0 ? <div className="col-12 text-center"><h4 className="text-info">There are no jobs available, please try again later!</h4></div> : null}
                         {jobs?.slice(0, 6).map((job) => (
                             <Job key={job.id}
                                 description={job.description}

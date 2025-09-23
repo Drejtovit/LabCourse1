@@ -21,6 +21,7 @@ export default function BrowseJobClient({ jobs }) {
                                 </div>
                             </div>
                         </div>
+                        {jobs?.length === 0 ? <div className="col-12 text-center"><h4 className="text-info">There are no jobs available, please try again later!</h4></div> : null}
                         {jobs?.length > 0 && jobs?.map((job, index) => (
                             <Job
                                 key={index}

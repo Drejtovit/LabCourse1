@@ -81,35 +81,6 @@ export default function BrowseResumesClient({ resumes }) {
                     </div>
                 </div >
             </div >
-            {/* Start Pagination  */}
-            {/* <ul ul className="pagination" >
-        <li className="active">
-          <Link href="#" className="btn btn-common">
-            <i className="ti-angle-left"></i> prev
-          </Link>
-        </li>
-        <li>
-          <Link href="#">1</Link>
-        </li>
-        <li>
-          <Link href="#">2</Link>
-        </li>
-        <li>
-          <Link href="#">3</Link>
-        </li>
-        <li>
-          <Link href="#">4</Link>
-        </li>
-        <li>
-          <Link href="#">5</Link>
-        </li>
-        <li className="active">
-          <Link href="#" className="btn btn-common">
-            Next <i className="ti-angle-right"></i>
-          </Link>
-        </li>
-      </ul > */}
-            {/* <!-- End Pagination --> */}
         </>
     );
 }
