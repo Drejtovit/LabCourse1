@@ -85,23 +85,7 @@ export default function RootLayout({ children }) {
               </div>
             </div>
           </section>
-
-          <div id="copyright">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="site-info text-center">
-                    <p>Designed and Developed by <Link href="https://uideck.com" rel="nofollow">UIdeck</Link></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </footer>
-        {/* 
-        <a href="#" class="back-to-top">
-          <i class="lni-arrow-up"></i>
-        </a> */}
       </body>
     </html>
   );

@@ -2,6 +2,7 @@ import prisma from "@/lib/db.js";
 import { auth } from "@/lib/auth.js";
 import { NextResponse } from "next/server";
 import { validateProfileData } from "@/lib/validator/user";
+import { userPermission } from "@/lib/actions/user.js";
 
 export async function GET(request, { params }) {
   try {
@@ -66,7 +67,7 @@ export async function PUT(request, { params }) {
 
     const { id } = await params;
 
-    if (session.user.id !== id) {
+    if (session.user.id !== id && session.user.role !== "ADMIN") {
       return NextResponse.json(
         { success: false, errors: { general: "Forbidden" } },
         { status: 403 }
@@ -131,6 +132,38 @@ export async function PUT(request, { params }) {
 
     return NextResponse.json(
       { success: true, message: "Profile updated successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, errors: { general: error.message } },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request, { params }) {
+  try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { success: false, errors: { general: "Unauthorized" } },
+        { status: 401 }
+      );
+    }
+    const { id } = await params;
+    const permissionError = await userPermission(
+      session.user.id,
+      id,
+      session.user.role
+    );
+
+    if (permissionError) return permissionError;
+
+    await prisma.user.delete({ where: { id } });
+
+    return NextResponse.json(
+      { success: true, message: "User deleted successfully" },
       { status: 200 }
     );
   } catch (error) {

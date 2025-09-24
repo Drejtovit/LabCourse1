@@ -106,7 +106,10 @@ export async function GET(request) {
         image: true,
         role: true,
         updatedAt: true,
+        employer: { select: { city: true, state: true } },
+        candidate: { select: { city: true, state: true } },
       },
+
     });
     return NextResponse.json({ users }, { status: 200 });
 

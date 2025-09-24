@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import DeleteButton from './DeleteButton.jsx';
 
 export default function JobItem({ id, title, location, type, applicationsCount }) {
 
@@ -49,8 +50,9 @@ export default function JobItem({ id, title, location, type, applicationsCount }
 
     if (!job.ok || data.errors) {
       toast.error(data.errors.general, { toastId: `error-delete-job` });
-      router.replace("/");//Re look at this
+      router.replace("/");
     }
+    toast.success("Job deleted successfully", { toastId: `success-delete-job` });
     router.refresh();
   }
 
@@ -69,9 +71,7 @@ export default function JobItem({ id, title, location, type, applicationsCount }
         </div>
         <div className="col-12 col-md-5">
           <div className="d-flex flex-column flex-md-row justify-content-md-end align-items-center gap-2 mt-2 mt-md-0">
-            <button className="btn btn-xs btn-danger w-100 w-md-auto" onClick={handleDelete}>
-              Delete
-            </button>
+            <DeleteButton id={id} classes="btn btn-xs btn-danger w-100 w-md-auto" item="job">Delete</DeleteButton>
             <Link className="btn btn-xs btn-secondary w-100 w-md-auto" href={`/job/edit/${id}`}>
               Edit
             </Link>

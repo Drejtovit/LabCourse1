@@ -21,7 +21,7 @@ export async function POST(request) {
   try {
     const body = await request.formData();
     const image = body.get("image");
-    const userId = session.user.id;
+    const userId = body.get("userId") ? body.get("userId") : session.user.id;
     if (!image || !userId) {
       return NextResponse.json(
         { errors: { image: "Image file is required" }, success: false },

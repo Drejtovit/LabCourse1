@@ -2,7 +2,7 @@
 import PageHeader from '@/components/PageHeader.jsx';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { addItem, handleInputChange, removeItem, updateItem } from '@/lib/utils/helpers.js';
+import { handleInputChange } from '@/lib/utils/helpers.js';
 import { toast } from 'react-toastify';
 export default function EditJobClient({ session, job }) {
 
@@ -43,13 +43,13 @@ export default function EditJobClient({ session, job }) {
     return (
         <>
 
-            <PageHeader>Post a Job</PageHeader>
+            <PageHeader>Edit Job</PageHeader>
             <section className="section">
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-9 col-md-12 col-xs-12">
                             <div className="post-job box">
-                                <h3 className="job-title">Post a new Job</h3>
+                                <h3 className="job-title">Edit Job</h3>
                                 <form className="form-ad" onSubmit={e => {
                                     e.preventDefault();
                                     handleSubmit(new FormData(e.target));

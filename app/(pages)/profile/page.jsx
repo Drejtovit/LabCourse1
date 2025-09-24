@@ -25,5 +25,5 @@ export default async function ProfilePage() {
     if (!res.ok || userData.errors) {
         redirect("/");
     }
-    return <ProfilePageClient session={session} user={userData.user} />;
+    return <ProfilePageClient user={userData.user} />;
 }

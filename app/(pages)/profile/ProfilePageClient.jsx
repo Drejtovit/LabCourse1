@@ -3,12 +3,11 @@ import Image from "next/image";
 import { useState, useRef } from "react";
 import { handleInputChange, updateItem, addItem, removeItem } from "@/lib/utils/helpers.js";
 import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation";
+import DeleteButton from "@/components/DeleteButton.jsx";
 
-
-
-
-export default function ProfilePageClient({ session, user }) {
-
+export default function ProfilePageClient({ user }) {
+    const router = useRouter();
     const [isUploading, setIsUploading] = useState(false);
     const [errorMessage, setErrorMessage] = useState({});
     const [editButton, setEditButton] = useState(false);
@@ -27,7 +26,6 @@ export default function ProfilePageClient({ session, user }) {
         websiteUrl: user.employer?.websiteUrl,
     })
     const [phoneNumbers, setPhoneNumbers] = useState(user?.phoneNumber || [{ number: "" }]);
-    console.log("PHONE NUMBERS:", phoneNumbers);
 
     async function handleImageUpload(e) {
         const image = e.target.files[0];
@@ -48,7 +46,8 @@ export default function ProfilePageClient({ session, user }) {
             return;
         }
         setIsUploading(false);
-        window.location.reload();
+        toast.success("Profile image uploaded successfully", { toastId: 'image-upload-success' });
+        router.refresh();
     }
 
     async function handleSubmit(formData) {
@@ -73,8 +72,6 @@ export default function ProfilePageClient({ session, user }) {
             body: JSON.stringify({
                 name: formData.get("name"),
                 role: user.role,
-                // phoneId: user.role === "CANDIDATE" ? user.phoneNumber[0]?.id : user.phoneNumber?.id,//TODO FIX WHICH [] POSITION IS THE ID OF THE PHONE NUMBER
-                // phoneNumber: formData.get("phoneNumber"),
                 phoneNumbers: phoneNumbers,
                 zip: formData.get("zip"),
                 city: formData.get("city"),
@@ -120,12 +117,7 @@ export default function ProfilePageClient({ session, user }) {
 
     return (
 
-        <div
-            className="d-flex justify-content-center align-items-center min-vh-100 mt-5"
-            style={{
-                background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
-            }}
-        >
+        <div className="d-flex justify-content-center align-items-center min-vh-100 mt-5" style={{ background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)", }}>
             <div className="container py-5">
                 <div className="row justify-content-center">
                     <div className="col-xl-4">
@@ -372,6 +364,9 @@ export default function ProfilePageClient({ session, user }) {
                                     {!editButton && <button className="btn btn-secondary" style={{ marginLeft: "10px" }} type="button" onClick={() => setEditButton(true)} disabled={editButton}>
                                         EDIT
                                     </button>}
+                                    <DeleteButton id={user.id} classes="btn btn-danger float-end" disabled={isLoading} item="user">
+                                        DELETE
+                                    </DeleteButton>
                                 </form>
                             </div>
                         </div>

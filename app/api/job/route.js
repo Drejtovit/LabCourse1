@@ -12,6 +12,12 @@ export async function POST(request) {
         { status: 401 }
       );
     }
+    if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
+      return NextResponse.json(
+        { success: false, errors: { general: "Unauthorized access." } },
+        { status: 403 }
+      );
+    }
 
     const body = await request.json();
 
@@ -21,11 +27,12 @@ export async function POST(request) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    const { title, type, description, closingDate } = body;
+    const { title, type, description, closingDate, employerId } = body;
 
     const employer = await prisma.employer.findUnique({
-      where: { employerId: session.user.id },
+      where: { employerId },
     });
+
     if (!employer) {
       return NextResponse.json(
         {
@@ -40,8 +47,8 @@ export async function POST(request) {
       type === "full-time"
         ? "FULL_TIME"
         : type === "part-time"
-        ? "PART_TIME"
-        : "CONTRACT";
+          ? "PART_TIME"
+          : "CONTRACT";
 
     const newJob = await prisma.job.create({
       data: {
@@ -49,7 +56,7 @@ export async function POST(request) {
         type: jobType,
         description,
         closingDate: new Date(closingDate),
-        employer: { connect: { employerId: session.user.id } },
+        employer: { connect: { employerId } },
       },
     });
     return NextResponse.json({ success: true, job: newJob }, { status: 201 });

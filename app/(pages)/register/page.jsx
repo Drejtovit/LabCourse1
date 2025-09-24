@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import RegisterClient from "./RegisterClient"; // move your current Register code to RegisterClient.jsx
+import RegisterClient from "./RegisterClient";
 
 export default async function RegisterPage() {
     const session = await auth();

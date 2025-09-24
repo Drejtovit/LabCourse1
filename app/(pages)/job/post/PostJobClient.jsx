@@ -2,10 +2,10 @@
 import PageHeader from '@/components/PageHeader.jsx';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { addItem, handleInputChange, removeItem, updateItem } from '@/lib/utils/helpers.js';
+import { handleInputChange } from '@/lib/utils/helpers.js';
 import { toast } from 'react-toastify';
-export default function PostJobClient({ session, user }) {
 
+export default function PostJobClient({ session, user }) {
 
     const [errorMessage, setErrorMessage] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +28,7 @@ export default function PostJobClient({ session, user }) {
                 type: formData.get('type'),
                 description: formData.get('description'),
                 closingDate: formData.get('closingDate'),
+                employerId: user.id,
             })
         });
 
@@ -35,14 +36,13 @@ export default function PostJobClient({ session, user }) {
 
         if (res.ok && data.success) {
             toast.success("Job created successfully!", { toastId: "job-create-success" });
-            router.push("/");//TODO to job page
+            router.push("/job/manage");
         }
         setErrorMessage(data.errors);
         setIsLoading(false);
     }
     return (
         <>
-
             <PageHeader>Post a Job</PageHeader>
             <section className="section">
                 <div className="container">
@@ -68,7 +68,7 @@ export default function PostJobClient({ session, user }) {
                                         <input type="text" className="form-control" placeholder="Write company name" value={user.name} readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
                                     </div>
                                     <div className="mb-3">
-                                        <label className="control-label">Location <span>(optional)</span></label>
+                                        <label className="control-label">Location</label>
                                         <input type="text" className="form-control" placeholder="e.g.London"
                                             value={user.employer?.zip + ' ' + user.employer?.city + ', ' + user.employer?.state}
                                             readOnly={true} style={{ backgroundColor: "#e3f2fd" }} />
@@ -157,8 +157,8 @@ export default function PostJobClient({ session, user }) {
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </div >
+            </section >
 
         </>
     )

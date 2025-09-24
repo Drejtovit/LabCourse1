@@ -1,4 +1,3 @@
-
 import Job from "@/components/Job.jsx";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils/helpers.js";

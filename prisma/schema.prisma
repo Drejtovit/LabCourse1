@@ -151,8 +151,8 @@ model Application {
   candidateId String
   appliedAt   DateTime  @default(now())
   status      Status    @default(PENDING)
-  job         Job       @relation(fields: [jobId], references: [id])
-  candidate   Candidate @relation(fields: [candidateId], references: [candidateId])
+  job         Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  candidate   Candidate @relation(fields: [candidateId], references: [candidateId], onDelete: Cascade)
 
   @@id([jobId, candidateId])
 }
@@ -182,7 +182,7 @@ model RefreshToken {
   id        String   @id @default(cuid())
   token     String   @unique
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())
 }
