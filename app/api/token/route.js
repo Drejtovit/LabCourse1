@@ -7,11 +7,9 @@ export async function DELETE(request) {
         const session = await auth();
 
         if (!session) {
-            return NextResponse.json(
-                { success: false, errors: { general: "Authentication required." } },
-                { status: 401 }
-            );
+            return NextResponse.json({ success: false, errors: { general: "Authentication required." } }, { status: 401 });
         }
+
         await prisma.refreshToken.deleteMany({
             where: {
                 userId: session.user.id,
@@ -19,14 +17,9 @@ export async function DELETE(request) {
             },
         });
 
-        return NextResponse.json(
-            { success: true },
-            { status: 200 }
-        );
+        return NextResponse.json({ success: true }, { status: 200 });
+
     } catch (error) {
-        return NextResponse.json(
-            { success: false, errors: { general: error.message } },
-            { status: 500 }
-        );
+        return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
     }
 }

@@ -37,6 +37,11 @@ export default function SideBar() {
                         </Link>
                     </li>
                     <li>
+                        <Link href="/dashboard/resumes" className={`nav-link ${pathname.startsWith("/dashboard/resumes") ? "active" : "link-body-emphasis"}`} >
+                            Resumes
+                        </Link>
+                    </li>
+                    <li>
                         <Link href="/dashboard/contact" className={`nav-link ${pathname.startsWith("/dashboard/contact") ? "active" : "link-body-emphasis"}`} >
                             Contact Us
                         </Link>
@@ -61,27 +66,32 @@ export default function SideBar() {
                 <div className="offcanvas-body">
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">
-                            <Link href="#" className={`nav-link ${pathname === "/dashboard" ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
+                            <Link href="/dashboard" className={`nav-link ${pathname === "/dashboard" ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
                                 Overview
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className={`nav-link ${pathname.startsWith("/dashboard/users") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
+                            <Link href="/dashboard/users" className={`nav-link ${pathname.startsWith("/dashboard/users") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
                                 Users
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className={`nav-link ${pathname.startsWith("/dashboard/jobs") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
+                            <Link href="/dashboard/jobs" className={`nav-link ${pathname.startsWith("/dashboard/jobs") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
                                 Jobs
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className={`nav-link ${pathname.startsWith("/dashboard/applications") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
+                            <Link href="/dashboard/applications" className={`nav-link ${pathname.startsWith("/dashboard/applications") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
                                 Applications
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className={`nav-link ${pathname.startsWith("/dashboard/contact") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
+                            <Link href="/dashboard/resumes" className={`nav-link ${pathname.startsWith("/dashboard/resumes") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
+                                Resumes
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/dashboard/contact" className={`nav-link ${pathname.startsWith("/dashboard/contact") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
                                 Contact Us
                             </Link>
                         </li>

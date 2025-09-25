@@ -41,14 +41,13 @@ export default function NavBarClient({ session }) {
                                     Pages
                                 </Link>
                                 <ul className="dropdown-menu">
-                                    {/*FIX THE LINKS*/}
                                     <li><Link className="dropdown-item" href="/about" onClick={() => setIsOpen(false)}>About</Link></li>
                                     <li><Link className="dropdown-item" href="/job/browse" onClick={() => setIsOpen(false)}>Browse Jobs</Link></li>
                                     <li><Link className="dropdown-item" href="/resume/browse" onClick={() => setIsOpen(false)}>Browse Resumes</Link></li>
                                     <li><Link className="dropdown-item" href="/privacy-policy" onClick={() => setIsOpen(false)}>Privacy Policy</Link></li>
                                 </ul>
                             </li>
-                            {session?.user.role === 'CANDIDATE' && (
+                            {(session?.user.role === 'CANDIDATE' || session?.user.role === 'ADMIN') && (
                                 <li className={`nav-item dropdown ${candidates.includes(pathname) ? 'active' : ''}`} >
                                     <a className="nav-link dropdown-toggle " href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                         Candidates
@@ -57,10 +56,11 @@ export default function NavBarClient({ session }) {
                                         <li><Link className="dropdown-item" href="/resume/create" onClick={() => setIsOpen(false)}>Add Resume</Link></li>
                                         <li><Link className="dropdown-item" href="/resume/manage" onClick={() => setIsOpen(false)}>Manage Resumes</Link></li>
                                         <li><Link className="dropdown-item" href="/job/alerts" onClick={() => setIsOpen(false)}>Job Alerts</Link></li>
+                                        <li><Link className="dropdown-item" href="/applications/candidateapplications" onClick={() => setIsOpen(false)}>Your Applications</Link></li>
                                     </ul>
                                 </li>
                             )}
-                            {session?.user.role === 'EMPLOYER' && (
+                            {(session?.user.role === 'EMPLOYER' || session?.user.role === 'ADMIN') && (
                                 <li className={`nav-item dropdown ${employers.includes(pathname) ? 'active' : ''}`}>
                                     <a className="nav-link dropdown-toggle" href="#" onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                                         Employers

@@ -15,12 +15,12 @@ export async function POST(request) {
 
     const body = await request.json();
 
-    // if(session.user.id !== body.candidateId && session.user.role !== "ADMIN") {
-    //   return NextResponse.json(
-    //     { success: false, errors: { general: "Forbidden, you are not allowed." } },
-    //     { status: 403 }
-    //   );
-    // } //TODO when admin
+    if (session.user.id !== body.candidateId && session.user.role !== "ADMIN") {
+      return NextResponse.json(
+        { success: false, errors: { general: "Forbidden, you are not allowed." } },
+        { status: 403 }
+      );
+    }
 
     const errors = validateResumeData(body);
 

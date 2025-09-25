@@ -10,19 +10,13 @@ export async function GET(request, { params }) {
     const session = await auth();
 
     if (!session) {
-      return NextResponse.json(
-        { success: false, errors: { general: "Authentication required." } },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "Authentication required." } }, { status: 401 });
     }
 
     const { id } = await params;
 
     if (!id || isNaN(parseInt(id))) {
-      return NextResponse.json(
-        { success: false, errors: { general: "ID is required" } },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "ID is required" } }, { status: 400 });
     }
 
     const resume = await prisma.resume.findUnique({
@@ -49,14 +43,9 @@ export async function GET(request, { params }) {
     });
 
     if (!resume) {
-      return NextResponse.json(
-        {
-          success: false,
-          errors: { general: "There are no resumes available." },
-        },
-        { status: 404 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "There are no resumes available." } }, { status: 404 });
     }
+
     const permissionError = await resumePermission(
       session.user.id,
       resume.id,
@@ -66,11 +55,9 @@ export async function GET(request, { params }) {
     if (permissionError) return permissionError;
 
     return NextResponse.json({ success: true, resume }, { status: 200 });
+
   } catch (error) {
-    return NextResponse.json(
-      { success: false, errors: { general: error.message } },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
   }
 }
 
@@ -79,13 +66,11 @@ export async function PUT(request, { params }) {
     const session = await auth();
 
     if (!session) {
-      return NextResponse.json(
-        { success: false, errors: { general: "Authentication required." } },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "Authentication required." } }, { status: 401 });
     }
     const { id } = await params;
     const resumeId = parseInt(id);
+
     const permissionError = await resumePermission(
       session.user.id,
       resumeId,
@@ -198,15 +183,10 @@ export async function PUT(request, { params }) {
       });
     }
 
-    return NextResponse.json(
-      { success: true, message: "Resume updated successfully!" },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true, message: "Resume updated successfully!" }, { status: 200 });
+
   } catch (error) {
-    return NextResponse.json(
-      { success: false, errors: { general: error.message } },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
   }
 }
 
@@ -215,11 +195,9 @@ export async function DELETE(request, { params }) {
     const session = await auth();
 
     if (!session) {
-      return NextResponse.json(
-        { success: false, errors: { general: "Authentication required." } },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "Authentication required." } }, { status: 401 });
     }
+
     const { id } = await params;
 
     const permissionError = await resumePermission(
@@ -234,14 +212,9 @@ export async function DELETE(request, { params }) {
       where: { id: parseInt(id) },
     });
 
-    return NextResponse.json(
-      { success: true, message: "Resume deleted successfully" },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true, message: "Resume deleted successfully" }, { status: 200 });
+
   } catch (error) {
-    return NextResponse.json(
-      { success: false, errors: { general: error.message } },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
   }
 }

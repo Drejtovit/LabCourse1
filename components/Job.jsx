@@ -49,9 +49,6 @@ export default function Job({
           </div>
           <div className="col-lg-6 col-md-6 col-xs-12 text-right">
             <div className="tag-type">
-              {/* <span className="heart-icon">
-                <i className="lni-heart"></i>
-              </span> */}
               <span className={type === "Full Time" ? "full-time" : type === "Part Time" ? "part-time" : "contract"}>{type}</span>
             </div>
           </div>

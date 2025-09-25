@@ -9,19 +9,13 @@ export async function GET(request, { params }) {
         const session = await auth();
 
         if (!session) {
-            return NextResponse.json(
-                { success: false, errors: { general: "Authentication required." } },
-                { status: 401 }
-            );
+            return NextResponse.json({ success: false, errors: { general: "Authentication required." } }, { status: 401 });
         }
 
         const { id } = await params;
 
         if (!id || isNaN(parseInt(id))) {
-            return NextResponse.json(
-                { success: false, errors: { general: "ID is required" } },
-                { status: 400 }
-            );
+            return NextResponse.json({ success: false, errors: { general: "ID is required" } }, { status: 400 });
         }
 
         const job = await prisma.job.findUnique({
@@ -38,13 +32,7 @@ export async function GET(request, { params }) {
         });
 
         if (!job) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    errors: { general: "There are no jobs available." },
-                },
-                { status: 404 }
-            );
+            return NextResponse.json({ success: false, errors: { general: "There are no jobs available." } }, { status: 404 });
         }
         const permissionError = await jobPermission(
             session.user.id,
@@ -56,10 +44,7 @@ export async function GET(request, { params }) {
 
         return NextResponse.json({ success: true, job }, { status: 200 });
     } catch (error) {
-        return NextResponse.json(
-            { success: false, errors: { general: error.message } },
-            { status: 500 }
-        );
+        return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
     }
 }
 
@@ -68,10 +53,7 @@ export async function PUT(request, { params }) {
         const session = await auth();
 
         if (!session) {
-            return NextResponse.json(
-                { success: false, errors: { general: "Authentication required." } },
-                { status: 401 }
-            );
+            return NextResponse.json({ success: false, errors: { general: "Authentication required." } }, { status: 401 });
         }
         const { id } = await params;
         const jobId = parseInt(id);
@@ -94,7 +76,7 @@ export async function PUT(request, { params }) {
         const jobType = type === "full-time" ? "FULL_TIME" : type === "part-time" ? "PART_TIME" : "CONTRACT";
 
 
-        const updatedJob = await prisma.job.update({
+        await prisma.job.update({
             where: { id: jobId },
             data: {
                 title,
@@ -104,15 +86,9 @@ export async function PUT(request, { params }) {
             },
         });
 
-        return NextResponse.json(
-            { success: true, message: "Job updated successfully!" },
-            { status: 200 }
-        );
+        return NextResponse.json({ success: true, message: "Job updated successfully!" }, { status: 200 });
     } catch (error) {
-        return NextResponse.json(
-            { success: false, errors: { general: error.message } },
-            { status: 500 }
-        );
+        return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
     }
 }
 
@@ -121,10 +97,7 @@ export async function DELETE(request, { params }) {
         const session = await auth();
 
         if (!session) {
-            return NextResponse.json(
-                { success: false, errors: { general: "Authentication required." } },
-                { status: 401 }
-            );
+            return NextResponse.json({ success: false, errors: { general: "Authentication required." } }, { status: 401 });
         }
         const { id } = await params;
 
@@ -142,14 +115,8 @@ export async function DELETE(request, { params }) {
             where: { id: parseInt(id) },
         });
 
-        return NextResponse.json(
-            { success: true, message: "Job deleted successfully" },
-            { status: 200 }
-        );
+        return NextResponse.json({ success: true, message: "Job deleted successfully" }, { status: 200 });
     } catch (error) {
-        return NextResponse.json(
-            { success: false, errors: { general: error.message } },
-            { status: 500 }
-        );
+        return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
     }
 }

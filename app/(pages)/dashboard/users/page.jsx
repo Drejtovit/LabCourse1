@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import DeleteButton from "../../../../components/DeleteButton.jsx";
+import DeleteButton from "@/components/DeleteButton.jsx";
 
 export default async function DashboardUsersPage() {
 
@@ -23,7 +23,7 @@ export default async function DashboardUsersPage() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, { cache: "no-store", headers: { cookie } });
     const data = await res.json();
     if (!res.ok || data.errors) {
-        redirect('/');
+        redirect('/dashboard');
     }
 
     return (
@@ -35,7 +35,7 @@ export default async function DashboardUsersPage() {
                     <div className="card shadow border-0 rounded-4 ">
                         <div className="card-header bg-white border-bottom rounded-top-4 d-flex align-items-center py-2">
                             <i className="bi bi-people-fill text-primary fs-5 me-2"></i>
-                            <h6 className="mb-0 fw-semibold text-secondary">User Management</h6>
+                            <h6 className="mb-0 fw-semibold text-secondary">User Management ({data?.users?.length})</h6>
                         </div>
                         <div className="table-responsive">
                             <table className="table align-middle mb-0 table-hover table-sm">
@@ -81,8 +81,8 @@ export default async function DashboardUsersPage() {
                                                             <span className={`badge badge-sm ${user?.role === "EMPLOYER" ? "bg-primary" : "bg-secondary"} me-1`}>
                                                                 {user?.role}
                                                             </span>
-                                                            <span className={`badge badge-sm ${new Date(user?.updatedAt).getTime() > (Date.now() - 30 * 24 * 60 * 60 * 1000) ? "bg-success" : "bg-danger"}`}>
-                                                                {new Date(user?.updatedAt).getTime() > (Date.now() - 30 * 24 * 60 * 60 * 1000) ? "Active" : "Inactive"}
+                                                            <span className={`badge badge-sm ${new Date(user?.updatedAt).getTime() > (Date.now() - 14 * 24 * 60 * 60 * 1000) ? "bg-success" : "bg-danger"}`}>
+                                                                {new Date(user?.updatedAt).getTime() > (Date.now() - 14 * 24 * 60 * 60 * 1000) ? "Active" : "Inactive"}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -95,13 +95,13 @@ export default async function DashboardUsersPage() {
                                                 </span>
                                             </td>
                                             <td className="d-none d-lg-table-cell">
-                                                <span className={`badge ${new Date(user?.updatedAt).getTime() > (Date.now() - 30 * 24 * 60 * 60 * 1000) ? "bg-success" : "bg-danger"}`}>
-                                                    {new Date(user?.updatedAt).getTime() > (Date.now() - 30 * 24 * 60 * 60 * 1000) ? "Active" : "Inactive"}
+                                                <span className={`badge ${new Date(user?.updatedAt).getTime() > (Date.now() - 14 * 24 * 60 * 60 * 1000) ? "bg-success" : "bg-danger"}`}>
+                                                    {new Date(user?.updatedAt).getTime() > (Date.now() - 14 * 24 * 60 * 60 * 1000) ? "Active" : "Inactive"}
                                                 </span>
                                             </td>
                                             <td className="text-end">
                                                 <div className="btn-group" role="group">
-                                                    <Link className="btn btn-sm btn-primary px-2 py-1 me-3" aria-label="Edit User" href={`/dashboard/users/edit/${user.id}`}>
+                                                    <Link className="btn btn-sm btn-primary px-2 py-1 me-3" href={`/dashboard/users/edit/${user.id}`}>
                                                         <i className="lni lni-pencil"></i>
                                                     </Link>
                                                     <DeleteButton id={user.id} classes="btn btn-sm btn-danger px-2 py-1" link="/dashboard/users" item="user"></DeleteButton>
@@ -124,7 +124,7 @@ export default async function DashboardUsersPage() {
                     <div className="card shadow border-0 rounded-4 mt-4">
                         <div className="card-header bg-white border-bottom rounded-top-4 d-flex align-items-center py-2">
                             <i className="bi bi-people-fill text-primary fs-5 me-2"></i>
-                            <h6 className="mb-0 fw-semibold text-secondary">Employer Management</h6>
+                            <h6 className="mb-0 fw-semibold text-secondary">Employer Management ({data?.users?.filter(user => user.role === "EMPLOYER").length})</h6>
                         </div>
                         <div className="table-responsive">
                             <table className="table align-middle mb-0 table-hover table-sm">
@@ -170,8 +170,8 @@ export default async function DashboardUsersPage() {
                                                             <span className="text-muted small me-2">
                                                                 {user?.employer?.city}, {user?.employer?.state}
                                                             </span>
-                                                            <span className={`badge badge-sm ${new Date(user?.updatedAt).getTime() > (Date.now() - 30 * 24 * 60 * 60 * 1000) ? "bg-success" : "bg-danger"}`}>
-                                                                {new Date(user?.updatedAt).getTime() > (Date.now() - 30 * 24 * 60 * 60 * 1000) ? "Active" : "Inactive"}
+                                                            <span className={`badge badge-sm ${new Date(user?.updatedAt).getTime() > (Date.now() - 14 * 24 * 60 * 60 * 1000) ? "bg-success" : "bg-danger"}`}>
+                                                                {new Date(user?.updatedAt).getTime() > (Date.now() - 14 * 24 * 60 * 60 * 1000) ? "Active" : "Inactive"}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -180,8 +180,8 @@ export default async function DashboardUsersPage() {
                                             <td className="d-none d-lg-table-cell small">{user?.email}</td>
                                             <td className="d-none d-lg-table-cell small">{user?.employer?.city}, {user?.employer?.state}</td>
                                             <td className="d-none d-lg-table-cell">
-                                                <span className={`badge ${new Date(user?.updatedAt).getTime() > (Date.now() - 30 * 24 * 60 * 60 * 1000) ? "bg-success" : "bg-danger"}`}>
-                                                    {new Date(user?.updatedAt).getTime() > (Date.now() - 30 * 24 * 60 * 60 * 1000) ? "Active" : "Inactive"}
+                                                <span className={`badge ${new Date(user?.updatedAt).getTime() > (Date.now() - 14 * 24 * 60 * 60 * 1000) ? "bg-success" : "bg-danger"}`}>
+                                                    {new Date(user?.updatedAt).getTime() > (Date.now() - 14 * 24 * 60 * 60 * 1000) ? "Active" : "Inactive"}
                                                 </span>
                                             </td>
                                             <td className="text-end">
@@ -202,7 +202,7 @@ export default async function DashboardUsersPage() {
                     <div className="card shadow border-0 rounded-4 mt-4">
                         <div className="card-header bg-white border-bottom rounded-top-4 d-flex align-items-center py-2">
                             <i className="bi bi-people-fill text-primary fs-5 me-2"></i>
-                            <h6 className="mb-0 fw-semibold text-secondary">Candidate Management</h6>
+                            <h6 className="mb-0 fw-semibold text-secondary">Candidate Management ({data?.users?.filter(user => user.role === "CANDIDATE").length})</h6>
                         </div>
                         <div className="table-responsive">
                             <table className="table align-middle mb-0 table-hover table-sm">

@@ -1,6 +1,7 @@
 "use client";
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 
 export default function DeleteButton({ id, classes, children = null, link = "/", item = "", disabled = false }) {
     const router = useRouter();
@@ -10,7 +11,7 @@ export default function DeleteButton({ id, classes, children = null, link = "/",
         toast.warning(
             <div>
                 <p className="text-danger" style={{ fontSize: "1em" }}>
-                    Are you sure you want to delete this {item}? <br />
+                    Are you sure you want to delete this {item} ? <br />
                     <strong style={{ fontSize: "0.87em" }}>(This action cannot be undone!)</strong>
                 </p>
                 <div className="mt-2">
@@ -40,9 +41,22 @@ export default function DeleteButton({ id, classes, children = null, link = "/",
         });
 
         if (!confirmDelete) return;
-        const res = await fetch(`/api/${item}/${id}`, {
-            method: "DELETE",
-        });
+        let res;
+
+        if (item === "application") {
+            const [jobId, candidateId] = id.split("+");
+            console.log(jobId, candidateId);
+
+            res = await fetch(`/api/${item}s`, {
+                method: "DELETE",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ jobId, candidateId }),
+            });
+        } else {
+            res = await fetch(`/api/${item}/${id}`, {
+                method: "DELETE",
+            });
+        }
         const data = await res.json();
 
         if (!res.ok || data.errors) {
@@ -50,12 +64,18 @@ export default function DeleteButton({ id, classes, children = null, link = "/",
             router.replace(link);
             return;
         }
+
         toast.success(`${item.charAt(0).toUpperCase() + item.slice(1)} deleted successfully`, { toastId: `success-delete-${item}` });
-        router.refresh();
+
+        if (data.signOut) {
+            await signOut({ callbackUrl: "/" });
+        } else {
+            router.refresh();
+        }
     }
 
     return (
-        <button className={classes} aria-label={`Delete ${item}`} onClick={handleDelete} disabled={disabled} type="button">
+        <button className={classes} onClick={handleDelete} disabled={disabled} type="button">
             {!children ? <i className="lni lni-trash"></i> : children}
         </button>
     );

@@ -39,7 +39,6 @@ export default async function JobDetails({ params }) {
     if (!hasResume.ok || hasResumeData.errors) {
         redirect('/job/browse');
     }
-    console.log(hasResumeData?.user?.candidate?.resumes[0]?.isActive);
 
     const similarJobs = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/job/browse`,
         { cache: "no-store" });
@@ -104,13 +103,20 @@ export default async function JobDetails({ params }) {
                                     ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
                                     nibh vulputate cursus a sit amet mauris.
                                 </p>
-                                <ApplyButton jobId={job?.id} candidateId={session?.user?.id} status={job?.applications[0]?.status} closingDate={job?.closingDate} hasResume={hasResumeData?.user?.candidate?.resumes[0]?.isActive} />
+                                {session.user.role === "ADMIN" ? (
+                                    <div className="alert alert-info" role="alert">
+                                        You are logged in as admin. To apply for this job, please
+                                        create a candidate account and sign in as a candidate.
+                                    </div>
+                                ) : (
+                                    <ApplyButton jobId={job?.id} candidateId={session?.user?.id} status={job?.applications[0]?.status} closingDate={job?.closingDate} hasResume={hasResumeData?.user?.candidate?.resumes[0]?.isActive} />
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             </section >
-            {/* Featured jobs */}
+
             <section className="section bg-gray pb-45" >
                 <div className="container">
                     <h4 className="small-title text-left">Similar Jobs</h4>

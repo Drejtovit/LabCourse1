@@ -9,7 +9,7 @@ export default async function AccountManagment({ type }) {
         <div className="right-sidebar">
             <h4>Manage Account</h4>
             <ul className="list-item">
-                {session?.user?.role === "CANDIDATE" && (
+                {(session?.user?.role === "CANDIDATE" || session?.user?.role === "ADMIN") && (
                     <>
                         <li>
                             <Link className={type == 'resume' ? 'active' : ''} href="/resume">
@@ -22,13 +22,13 @@ export default async function AccountManagment({ type }) {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/applications/candidateapplications" className={type == 'applications' ? 'active' : ''}>
+                            <Link href="/applications/candidateapplications" className={type == 'applicationsCandidate' ? 'active' : ''}>
                                 Your Applications
                             </Link>
                         </li>
                     </>
                 )}
-                {session?.user?.role === "EMPLOYER" && (
+                {(session?.user?.role === "EMPLOYER" || session?.user?.role === "ADMIN") && (
                     <>
                         <li>
                             <Link href="/job/manage" className={type == 'jobs' ? 'active' : ''}>
@@ -36,7 +36,7 @@ export default async function AccountManagment({ type }) {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/applications/manageapplications" className={type == 'applications' ? 'active' : ''}>
+                            <Link href="/applications/manageapplications" className={type == 'applicationsEmployer' ? 'active' : ''}>
                                 Manage Applications
                             </Link>
                         </li>

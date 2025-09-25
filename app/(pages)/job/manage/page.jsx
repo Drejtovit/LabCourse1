@@ -24,13 +24,13 @@ export default async function ManageJobs() {
   const jobData = await job.json();
 
   if (!job.ok || jobData.errors) {
-    if (jobData.errors.jobs) {
+    if (jobData.errors.jobs && session.user.role !== "ADMIN") {
       redirect("/job/post");
-    } else {
+    } else if (session.user.role !== "ADMIN") {
       redirect("/");
     }
   }
-  const jobs = jobData?.jobs;
+  const jobs = jobData?.jobs || [];
 
   return (
     <>
@@ -44,6 +44,12 @@ export default async function ManageJobs() {
               <AccountManagment type="jobs" />
             </div>
             <div className="col-lg-8 col-md-8 col-xs-12">
+              {session.user.role === "ADMIN" && (
+                <div className="alert alert-info" role="alert">
+                  You are logged in as admin. To create and manage jobs, please
+                  create an employer account and sign in as an employer.
+                </div>
+              )}
               <div className="job-alerts-item candidates">
                 <h3 className="alerts-title">Manage Jobs</h3>
                 {jobs?.length === 0 && (

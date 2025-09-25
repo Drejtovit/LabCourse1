@@ -48,6 +48,12 @@ export default function PostJobClient({ session, user }) {
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-9 col-md-12 col-xs-12">
+                            {session.user.role === "ADMIN" && (
+                                <div className="alert alert-info" role="alert">
+                                    You are logged in as admin. To create and manage jobs, please
+                                    create an employer account and sign in as an employer.
+                                </div>
+                            )}
                             <div className="post-job box">
                                 <h3 className="job-title">Post a new Job</h3>
                                 <form className="form-ad" onSubmit={e => {

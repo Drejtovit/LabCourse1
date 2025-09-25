@@ -11,7 +11,7 @@ export default async function ResumeCreate() {
         return (
             <SignInNotice />
         );
-    } else if (session.user.role !== "CANDIDATE") {
+    } else if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
         redirect('/');
     }
     const header = await headers();
@@ -22,7 +22,7 @@ export default async function ResumeCreate() {
     if (!res.ok || userData.errors) {
         redirect('/');
     }
-    if (userData.user.candidate.resumes.length === 5) {
+    if (userData.user?.candidate?.resumes?.length === 5) {
         return (
             <ResumeRedirect hasResume={false} message={"You have reached the maximum number of resumes."} route={'/resume/manage'} type={'error'} />
         );

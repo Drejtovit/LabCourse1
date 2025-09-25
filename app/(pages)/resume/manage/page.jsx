@@ -25,13 +25,13 @@ export default async function ManageResumes() {
     const resumeData = await res.json();
 
     if (!res.ok || resumeData.errors) {
-        if (resumeData.errors.resume) {
+        if (resumeData.errors.resume && session.user.role !== "ADMIN") {
             redirect("/resume/create");
-        } else {
+        } else if (session.user.role !== "ADMIN") {
             redirect("/");
         }
     }
-    const resumes = resumeData?.resumes;
+    const resumes = resumeData?.resumes || [];
 
     return (
         <>
@@ -43,6 +43,12 @@ export default async function ManageResumes() {
                             <AccountManagment type='resumes'></AccountManagment>
                         </div>
                         <div className="col-lg-8 col-md-12 col-xs-12">
+                            {session.user.role === "ADMIN" && (
+                                <div className="alert alert-info" role="alert">
+                                    You are logged in as admin. To create and manage resumes, please
+                                    create a candidate account and sign in as a candidate.
+                                </div>
+                            )}
                             <div className="job-alerts-item candidates">
                                 <h3 className="alerts-title">Manage Resumes</h3>
                                 {resumes?.length === 0 && (

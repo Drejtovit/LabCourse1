@@ -25,10 +25,10 @@ export default async function CandidateApplications() {
 
     const data = await res.json();
 
-    if (!res.ok || data.errors) {
+    if ((!res.ok || data.errors) && session.user.role !== "ADMIN") {
         redirect("/");
     }
-    const applications = data?.candidateApplications?.applications;
+    const applications = data?.candidateApplications?.applications || [];
 
     return (
         <>
@@ -38,11 +38,24 @@ export default async function CandidateApplications() {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-4 col-md-12 col-xs-12">
-                            <AccountManagment type="applications" />
+                            <AccountManagment type="applicationsCandidate" />
                         </div>
                         <div className="col-lg-8 col-md-12 col-xs-12">
+                            {session.user.role === "ADMIN" && (
+                                <div className="alert alert-info" role="alert">
+                                    You are logged in as admin. To apply for jobs and manage your applications, please
+                                    create a candidate account and sign in as a candidate.
+                                </div>
+                            )}
                             <div className="job-alerts-item">
                                 <h3 className="alerts-title">View applications</h3>
+                                {applications?.length === 0 && (
+                                    <div className="text-center">
+                                        <p className="fw-bold fs-3">
+                                            You have not submitted any applications yet.
+                                        </p>
+                                    </div>
+                                )}
                                 {applications?.length > 0 &&
                                     applications?.map((application, index) => (
                                         <ApplicationCandidate key={index}

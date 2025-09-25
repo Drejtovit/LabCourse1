@@ -26,13 +26,13 @@ export default async function ManageApplications() {
     const data = await res.json();
 
     if (!res.ok || data.errors) {
-        if (data.errors.jobs) {
+        if (data.errors.jobs && session.user.role !== "ADMIN") {
             redirect("/job/post");
-        } else {
+        } else if (session.user.role !== "ADMIN") {
             redirect("/");
         }
     }
-    const applications = data?.applications;
+    const applications = data?.applications || [];
 
     return (
         <>
@@ -42,11 +42,24 @@ export default async function ManageApplications() {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-4 col-md-12 col-xs-12">
-                            <AccountManagment type="applications" />
+                            <AccountManagment type="applicationsEmployer" />
                         </div>
                         <div className="col-lg-8 col-md-12 col-xs-12">
+                            {session.user.role === "ADMIN" && (
+                                <div className="alert alert-info" role="alert">
+                                    You are logged in as admin. To view and manage applications, please
+                                    create an employer account and sign in as an employer.
+                                </div>
+                            )}
                             <div className="job-alerts-item">
                                 <h3 className="alerts-title">Manage applications</h3>
+                                {applications?.length === 0 && (
+                                    <div className="text-center">
+                                        <p className="fw-bold fs-3">
+                                            You have not created any applications yet.
+                                        </p>
+                                    </div>
+                                )}
                                 {applications?.length > 0 &&
                                     applications?.map((application, index) => (
                                         <Application key={index}

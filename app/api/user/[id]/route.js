@@ -3,15 +3,13 @@ import { auth } from "@/lib/auth.js";
 import { NextResponse } from "next/server";
 import { validateProfileData } from "@/lib/validator/user";
 import { userPermission } from "@/lib/actions/user.js";
+import { signOut } from "next-auth/react";
 
 export async function GET(request, { params }) {
   try {
     const session = await auth();
     if (!session) {
-      return NextResponse.json(
-        { success: false, errors: { general: "Unauthorized" } },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "Unauthorized" } }, { status: 401 });
     }
     const url = new URL(request.url);
     const role = url.searchParams.get("role");
@@ -35,23 +33,15 @@ export async function GET(request, { params }) {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { success: false, errors: { general: "User not found" } },
-        { status: 404 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "User not found" } }, { status: 404 });
     }
 
     const { password, ...userWithoutPassword } = user;
 
-    return NextResponse.json(
-      { success: true, user: userWithoutPassword },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true, user: userWithoutPassword }, { status: 200 });
+
   } catch (error) {
-    return NextResponse.json(
-      { success: false, errors: { general: error.message } },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
   }
 }
 
@@ -59,19 +49,13 @@ export async function PUT(request, { params }) {
   try {
     const session = await auth();
     if (!session) {
-      return NextResponse.json(
-        { success: false, errors: { general: "Unauthorized" } },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "Unauthorized" } }, { status: 401 });
     }
 
     const { id } = await params;
 
     if (session.user.id !== id && session.user.role !== "ADMIN") {
-      return NextResponse.json(
-        { success: false, errors: { general: "Forbidden" } },
-        { status: 403 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "Forbidden" } }, { status: 403 });
     }
 
     const body = await request.json();
@@ -146,10 +130,7 @@ export async function DELETE(request, { params }) {
   try {
     const session = await auth();
     if (!session) {
-      return NextResponse.json(
-        { success: false, errors: { general: "Unauthorized" } },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, errors: { general: "Unauthorized" } }, { status: 401 });
     }
     const { id } = await params;
     const permissionError = await userPermission(
@@ -161,15 +142,15 @@ export async function DELETE(request, { params }) {
     if (permissionError) return permissionError;
 
     await prisma.user.delete({ where: { id } });
-
-    return NextResponse.json(
-      { success: true, message: "User deleted successfully" },
-      { status: 200 }
-    );
+    if (session.user.id === id && session.user.role !== "ADMIN") {
+      return NextResponse.json({
+        success: true,
+        message: "User deleted successfully",
+        signOut: true
+      }, { status: 200 });
+    }
+    return NextResponse.json({ success: true, message: "User deleted successfully" }, { status: 200 });
   } catch (error) {
-    return NextResponse.json(
-      { success: false, errors: { general: error.message } },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });
   }
 }

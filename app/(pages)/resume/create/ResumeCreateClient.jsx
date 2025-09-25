@@ -10,7 +10,7 @@ export default function ResumeCreateClient({ session, user }) {
     const [isLoading, setIsLoading] = useState(false);
     const [formValues, setFormValues] = useState({
         profession: '',
-        age: user.candidate ? new Date().getFullYear() - new Date(user.candidate.birthDate).getFullYear() : '',
+        age: user?.candidate ? new Date().getFullYear() - new Date(user?.candidate?.birthDate).getFullYear() : '',
         details: '',
     });
     const router = useRouter();
@@ -32,7 +32,7 @@ export default function ResumeCreateClient({ session, user }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 profession: formData.get('profession'),
-                candidateId: user.candidate.candidateId,
+                candidateId: user?.candidate?.candidateId,
                 age: formData.get('age'),
                 details: formData.get('details'),
                 educations,
@@ -55,6 +55,12 @@ export default function ResumeCreateClient({ session, user }) {
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-9 col-md-12 col-xs-12">
+                            {session.user.role === "ADMIN" && (
+                                <div className="alert alert-info" role="alert">
+                                    You are logged in as admin. To create and manage resumes, please
+                                    create a candidate account and sign in as a candidate.
+                                </div>
+                            )}
                             <div className="add-resume box">
                                 <form className="form-ad" onSubmit={e => {
                                     e.preventDefault();
@@ -63,13 +69,13 @@ export default function ResumeCreateClient({ session, user }) {
                                     <h3>Basic information</h3>
                                     <div className="mb-3">
                                         <label className="control-label">Name</label>
-                                        <input type="text" name='name' value={user.name} readOnly={true} className="form-control" placeholder="Name"
+                                        <input type="text" name='name' value={user?.name} readOnly={true} className="form-control" placeholder="Name"
                                             style={{ backgroundColor: "#e3f2fd" }} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="control-label"></label>
                                         <label className="control-label">Email</label>
-                                        <input type="text" name='email' value={user.email} readOnly={true} className="form-control" placeholder="Your@domain.com"
+                                        <input type="text" name='email' value={user?.email} readOnly={true} className="form-control" placeholder="Your@domain.com"
                                             style={{ backgroundColor: "#e3f2fd" }} />
                                     </div>
                                     <div className="mb-3">
@@ -87,7 +93,7 @@ export default function ResumeCreateClient({ session, user }) {
                                         <input type="text" name='location' className="form-control"
                                             placeholder="Location, e.g"
                                             readOnly={true}
-                                            value={user.candidate.city + ", " + user.candidate.state}
+                                            value={user?.candidate?.city + ", " + user?.candidate?.state}
                                             style={{ backgroundColor: "#e3f2fd" }}
                                         />
                                     </div>

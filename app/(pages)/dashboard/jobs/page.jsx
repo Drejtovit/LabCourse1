@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { formatDate } from "@/lib/utils/helpers.js";
 import Link from "next/link";
-import DeleteButton from "../../../../components/DeleteButton.jsx";
+import DeleteButton from "@/components/DeleteButton.jsx";
 
 export default async function DashboardJobsPage() {
 
@@ -20,10 +20,10 @@ export default async function DashboardJobsPage() {
     const header = await headers();
     const cookie = header.get('cookie');
 
-    const jobsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/jobs`, { cache: "no-store", headers: { cookie } });
-    const jobs = await jobsRes.json();
-    if (!jobsRes.ok || jobs.errors) {
-        redirect('/');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/jobs`, { cache: "no-store", headers: { cookie } });
+    const data = await res.json();
+    if (!res.ok || data.errors) {
+        redirect('/dashboard');
     }
 
     return (
@@ -35,7 +35,7 @@ export default async function DashboardJobsPage() {
                     <div className="card shadow border-0 rounded-4 ">
                         <div className="card-header bg-white border-bottom rounded-top-4 d-flex align-items-center py-2">
                             <i className="bi bi-briefcase-fill text-info fs-5 me-2"></i>
-                            <h6 className="mb-0 fw-semibold text-secondary">Jobs({jobs?.jobs?.length})</h6>
+                            <h6 className="mb-0 fw-semibold text-secondary">Jobs({data?.jobs?.length})</h6>
                         </div>
                         <div className="table-responsive">
                             <table className="table align-middle mb-0 table-hover table-sm">
@@ -50,9 +50,9 @@ export default async function DashboardJobsPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {jobs?.jobs?.map((job, index) => (
+                                    {data.jobs?.map((job, index) => (
                                         <tr key={index}>
-                                            <td className="d-none d-md-table-cell small">{index + 1}</td>
+                                            <td className="d-none d-md-table-cell small">{job.id}</td>
                                             <td>
                                                 <div>
                                                     <div className="fw-medium small">{job.title}</div>

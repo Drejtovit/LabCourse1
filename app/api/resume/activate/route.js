@@ -68,7 +68,7 @@ export async function GET(request) {
 export async function PUT(request) {
   try {
     const body = await request.json();
-    const { resumeId, candidateId } = body;
+    const { resumeId, candidateId, newStatus } = body;
 
     if (!resumeId || !candidateId) {
       return NextResponse.json(
@@ -84,7 +84,7 @@ export async function PUT(request) {
 
     const updatedActiveResume = await prisma.resume.update({
       where: { id: resumeId },
-      data: { isActive: true },
+      data: { isActive: newStatus ?? true },
     });
 
     return NextResponse.json(
