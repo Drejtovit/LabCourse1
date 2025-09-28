@@ -2,7 +2,6 @@
 import PageHeader from "@/components/PageHeader";
 import JobItem from "@/components/JobItem";
 import AccountManagment from "@/components/AccountManagment";
-import Pagination from "@/components/Pagination";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
@@ -68,8 +67,6 @@ export default async function ManageJobs() {
                     applicationsCount={job._count?.applications}
                   />
                 ))}
-
-                <Pagination />
               </div>
             </div>
           </div>

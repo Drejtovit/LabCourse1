@@ -41,11 +41,6 @@ export default function SideBar() {
                             Resumes
                         </Link>
                     </li>
-                    <li>
-                        <Link href="/dashboard/contact" className={`nav-link ${pathname.startsWith("/dashboard/contact") ? "active" : "link-body-emphasis"}`} >
-                            Contact Us
-                        </Link>
-                    </li>
                 </ul>
             </div>
 
@@ -88,11 +83,6 @@ export default function SideBar() {
                         <li>
                             <Link href="/dashboard/resumes" className={`nav-link ${pathname.startsWith("/dashboard/resumes") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
                                 Resumes
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/dashboard/contact" className={`nav-link ${pathname.startsWith("/dashboard/contact") ? "active" : "link-body-emphasis"}`} onClick={() => setShowSidebar(false)}>
-                                Contact Us
                             </Link>
                         </li>
                     </ul>

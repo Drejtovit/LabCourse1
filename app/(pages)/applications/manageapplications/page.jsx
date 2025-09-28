@@ -1,7 +1,6 @@
 import Application from '@/components/applicationsContainer/ApplicationEmployer';
 import AccountManagment from '@/components/AccountManagment';
 import PageHeader from '@/components/PageHeader.jsx';
-import Pagination from '@/components/Pagination.jsx';
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
@@ -74,7 +73,6 @@ export default async function ManageApplications() {
                                             {application.job.title} Needed
                                         </Application>
                                     ))}
-                                <Pagination />
                             </div>
                         </div>
                     </div>

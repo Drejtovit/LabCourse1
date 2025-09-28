@@ -595,15 +595,6 @@
     text-align: center;
   }
 
-  .pagination li a {
-    padding: 5px 10px;
-    margin: 0 1px;
-    min-width: 24px;
-    height: 26px;
-    line-height: 16px;
-    font-size: 12px;
-  }
-
   .all-categories .categories-title {
     font-size: 18px;
   }

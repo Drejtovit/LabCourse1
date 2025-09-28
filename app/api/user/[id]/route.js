@@ -3,7 +3,6 @@ import { auth } from "@/lib/auth.js";
 import { NextResponse } from "next/server";
 import { validateProfileData } from "@/lib/validator/user";
 import { userPermission } from "@/lib/actions/user.js";
-import { signOut } from "next-auth/react";
 
 export async function GET(request, { params }) {
   try {
@@ -36,9 +35,7 @@ export async function GET(request, { params }) {
       return NextResponse.json({ success: false, errors: { general: "User not found" } }, { status: 404 });
     }
 
-    const { password, ...userWithoutPassword } = user;
-
-    return NextResponse.json({ success: true, user: userWithoutPassword }, { status: 200 });
+    return NextResponse.json({ success: true, user: user }, { status: 200 });
 
   } catch (error) {
     return NextResponse.json({ success: false, errors: { general: error.message } }, { status: 500 });

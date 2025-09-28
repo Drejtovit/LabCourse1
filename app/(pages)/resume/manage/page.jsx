@@ -2,7 +2,6 @@ import AccountManagment from "@/components/AccountManagment.jsx";
 import ResumeCard from "@/components/ResumeCard.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
 import SignInNotice from "@/components/SignInNotice.jsx";
-import { formatDate } from "@/lib/utils/helpers.js";
 import { formatDistanceToNow } from "date-fns";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";

@@ -613,36 +613,6 @@ async function main() {
             { jobId: job6.id, candidateId: candidate5.id, status: 'ACCEPTED' }
         ]
     })
-
-    // // Create some Notifications
-    // await prisma.notifications.createMany({
-    //     data: [
-    //         {
-    //             title: 'New Job Application',
-    //             message: 'You have received a new application for Senior Full Stack Developer position.',
-    //             status: 'PENDING',
-    //             createdAt: new Date(),
-    //             typeModel: 'Job',
-    //             typeId: job1.id
-    //         },
-    //         {
-    //             title: 'Application Accepted',
-    //             message: 'Your application for AI/ML Engineer position has been accepted!',
-    //             status: 'ACCEPTED',
-    //             createdAt: new Date(),
-    //             typeModel: 'Application',
-    //             typeId: job3.id
-    //         },
-    //         {
-    //             title: 'New Job Posted',
-    //             message: 'A new job matching your skills has been posted: Frontend React Developer',
-    //             status: 'PENDING',
-    //             createdAt: new Date(),
-    //             typeModel: 'Job',
-    //             typeId: job2.id
-    //         }
-    //     ]
-    // })
 }
 
 main()

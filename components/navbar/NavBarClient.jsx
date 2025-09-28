@@ -11,7 +11,7 @@ export default function NavBarClient({ session }) {
     const toggle = () => setIsOpen(open => !open);
 
     const pages = ["/about", "/job/browse", "/resume/browse", "/privacy-policy"];
-    const candidates = ["/resume/create", "/resume/manage", "/job/alerts", "/applications/candidateapplications"];
+    const candidates = ["/resume/create", "/resume/manage", "/applications/candidateapplications"];
     const employers = ["/job/post", "/job/manage", "/applications/manageapplications"];
 
     return (
@@ -55,7 +55,6 @@ export default function NavBarClient({ session }) {
                                     <ul className="dropdown-menu">
                                         <li><Link className="dropdown-item" href="/resume/create" onClick={() => setIsOpen(false)}>Add Resume</Link></li>
                                         <li><Link className="dropdown-item" href="/resume/manage" onClick={() => setIsOpen(false)}>Manage Resumes</Link></li>
-                                        <li><Link className="dropdown-item" href="/job/alerts" onClick={() => setIsOpen(false)}>Job Alerts</Link></li>
                                         <li><Link className="dropdown-item" href="/applications/candidateapplications" onClick={() => setIsOpen(false)}>Your Applications</Link></li>
                                     </ul>
                                 </li>

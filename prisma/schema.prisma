@@ -28,7 +28,6 @@ model User {
 
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  // Notifications Notifications[]
   RefreshToken RefreshToken[]
 }
 
@@ -136,7 +135,6 @@ model Job {
   updatedAt    DateTime      @updatedAt
   employerId   String
   employer     Employer      @relation(fields: [employerId], references: [employerId], onDelete: Cascade)
-  // Notifications Notifications[]
   applications Application[]
 }
 
@@ -155,21 +153,6 @@ model Application {
   candidate   Candidate @relation(fields: [candidateId], references: [candidateId], onDelete: Cascade)
 
   @@id([jobId, candidateId])
-}
-
-model Notifications {
-  id        Int      @id @default(autoincrement())
-  title     String
-  message   String
-  status    Status
-  createdAt DateTime
-  typeModel String
-  typeId    Int
-  // userId    String
-  // jobId     String
-
-  // user User @relation(fields: [userId], references: [id])
-  // job  Job  @relation(fields: [jobId], references: [id])
 }
 
 enum Status {

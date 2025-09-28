@@ -1,9 +1,10 @@
+"use client"
 import Link from "next/link"
-import { auth } from "@/lib/auth.js";
+import { useSession } from "next-auth/react";
 
-export default async function AccountManagment({ type }) {
+export default function AccountManagment({ type }) {
 
-    const session = await auth();
+    const { data: session } = useSession();
 
     return (
         <div className="right-sidebar">
@@ -41,13 +42,6 @@ export default async function AccountManagment({ type }) {
                             </Link>
                         </li>
                     </>)}
-
-                <li>
-                    <Link href="/notifications" className={type == 'notifications' ? 'active' : ''} >
-                        Notifications <span className="notinumber">2</span>
-                    </Link>
-                </li>
-
                 <li>
                     <a href="/change-password" className={type == 'password' ? 'active' : ''}>
                         Change Password
