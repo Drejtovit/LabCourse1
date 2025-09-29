@@ -23,7 +23,6 @@ export default function ResumeEditClient({ session, resume }) {
 
     const [skills, setSkills] = useState(resume?.SkillsOnResumes?.map(skills => ({ skillId: skills.skill.id, skillName: skills.skill.name, proficiency: skills.proficiencyLevel })) || [{ skillName: "", proficiency: "" }]);
     const readOnlySkillIds = resume?.SkillsOnResumes?.map(s => s.skill.id) || [];
-    console.log(readOnlySkillIds);
 
     async function handleSubmit(formData) {
         setErrorMessage({});
@@ -77,8 +76,6 @@ export default function ResumeEditClient({ session, resume }) {
         });
         const data = await res.json();
         if (data.errors?.id) {
-            console.log(data.errors);
-
             removeItem(experiences, setExperiences, index);
         }
 

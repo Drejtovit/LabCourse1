@@ -5,7 +5,6 @@ import { getUserProfileImage } from '@/lib/actions/user.js';
 export default async function Navbar() {
 
     const session = await auth();
-    console.log(session);
     let sessionWithImage = session;
 
     if (session?.user?.id) {

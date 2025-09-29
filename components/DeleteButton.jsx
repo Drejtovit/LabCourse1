@@ -45,8 +45,6 @@ export default function DeleteButton({ id, classes, children = null, link = "/",
 
         if (item === "application") {
             const [jobId, candidateId] = id.split("+");
-            console.log(jobId, candidateId);
-
             res = await fetch(`/api/${item}s`, {
                 method: "DELETE",
                 headers: { 'Content-Type': 'application/json' },
