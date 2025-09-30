@@ -12,7 +12,6 @@ export async function GET(request) {
         const candidates = await prisma.candidate.findMany({
             include: {
                 user: { select: { name: true, email: true } }
-                // resumes: true
             },
         });
         return NextResponse.json({ candidates }, { status: 200 });

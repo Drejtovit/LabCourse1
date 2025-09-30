@@ -16,7 +16,7 @@ export default function BrowseResumesClient({ resumes }) {
         setIsLoading(true);
         const sort = formData.get('sort') || '';
 
-        const res = await fetch(`/api/resume/browse?sort=${encodeURIComponent(sort)}`, { cache: 'no-store' });
+        const res = await fetch(`/api/resume/browse?sort=${sort}`, { cache: 'no-store' });
         const data = await res.json();
         if (!res.ok || data.errors) {
             setErrors(data.errors);

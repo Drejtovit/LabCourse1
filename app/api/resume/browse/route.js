@@ -5,13 +5,7 @@ export async function GET(request) {
   try {
 
     const url = new URL(request.url);
-    let sort = url.searchParams.get("sort") || "Newest";
-
-    if (sort && sort === "Newest") {
-      sort = "desc";
-    } else if (sort && sort === "Oldest") {
-      sort = "asc";
-    }
+    let sort = url.searchParams.get("sort") || "desc";
 
     const resumes = await prisma.resume.findMany({
       where: {

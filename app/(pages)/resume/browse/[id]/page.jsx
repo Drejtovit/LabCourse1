@@ -3,7 +3,7 @@ import { formatDate } from "@/lib/utils/helpers.js";
 import SignInNotice from "@/components/SignInNotice";
 import { auth } from "@/lib/auth.js";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import Forbidden from '@/components/Forbidden';
 import ResumeRedirect from "@/components/redirect/ResumeRedirect";
 
 export default async function ResumeDetails({ params }) {
@@ -14,7 +14,9 @@ export default async function ResumeDetails({ params }) {
         );
     }
     if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-        redirect('/');//TODO make a 403 notice
+        return (
+            <Forbidden />
+        );
     }
 
     const { id } = await params;
@@ -29,7 +31,7 @@ export default async function ResumeDetails({ params }) {
     const data = await res.json();
     if (!res.ok || data.errors) {
         return (
-            <ResumeRedirect hasResume={false} message={data?.errors?.general || "There was an error fetching the resume."} route='/resume/browse' type='error' /> // TODO MAKE A 403 notice
+            <ResumeRedirect hasResume={false} message={data?.errors?.general || "There was an error fetching the resume."} route='/resume/browse' type='error' />
         );
     }
     const resume = data.resume;

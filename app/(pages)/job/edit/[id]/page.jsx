@@ -2,6 +2,8 @@ import EditJobClient from './EditJobClient.jsx';
 import { auth } from '@/lib/auth.js';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
+import Forbidden from '@/components/Forbidden';
+import SignInNotice from '@/components/SignInNotice.jsx';
 
 export default async function JobEdit({ params }) {
     const session = await auth();
@@ -12,7 +14,9 @@ export default async function JobEdit({ params }) {
     }
 
     if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');
@@ -29,7 +33,7 @@ export default async function JobEdit({ params }) {
         redirect('/');
     }
     if (session.user.role === "EMPLOYER" && jobData.job.employerId !== session.user.id) {
-        redirect('/');//TODO make a 403 notice
+        redirect('/');
     }
 
     return (

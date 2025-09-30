@@ -20,8 +20,7 @@ export async function GET(request, { params }) {
         },
         { status: 403 }
       );
-    } //TODO when amdin 403
-
+    }
     const { id } = await params;
 
     if (!id || isNaN(parseInt(id))) {

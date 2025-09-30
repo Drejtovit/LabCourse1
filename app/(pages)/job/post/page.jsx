@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth.js';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 import SignInNotice from '@/components/SignInNotice.jsx';
+import Forbidden from '@/components/Forbidden';
 
 export default async function JobCreate() {
     const session = await auth();
@@ -11,7 +12,9 @@ export default async function JobCreate() {
             <SignInNotice />
         );
     } else if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie') || '';

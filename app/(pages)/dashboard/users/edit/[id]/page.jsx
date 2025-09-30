@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 import SignInNotice from '@/components/SignInNotice.jsx';
 import AdminEditUser from './AdminEditUser.jsx';
+import Forbidden from '@/components/Forbidden';
 
 export default async function UserEdit({ params }) {
     const session = await auth();
@@ -13,7 +14,9 @@ export default async function UserEdit({ params }) {
     }
 
     if (session.user.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');

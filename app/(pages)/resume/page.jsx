@@ -2,7 +2,7 @@ import AccountManagment from "@/components/AccountManagment.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import Forbidden from '@/components/Forbidden';
 import ResumeRedirect from "@/components/redirect/ResumeRedirect.jsx";
 import SignInNotice from "@/components/SignInNotice.jsx";
 
@@ -15,7 +15,9 @@ export default async function Resume() {
             </div>
         )
     } else if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
 
 
@@ -84,7 +86,7 @@ export default async function Resume() {
                                                 <h5><i className="lni lni-apartment me-2" style={{
                                                     opacity: '0.6'
                                                 }}></i>{experience?.companyName}</h5>
-                                                <span className="date"><i className="lni lni-calendar me-2"></i>{experience?.startDate} - {experience?.endDate ? experience?.endDate : 'Present'} {experience?.endDate ? " (" + experience?.endDate - experience?.startDate + " years)" : ""}</span>
+                                                <span className="date"><i className="lni lni-calendar me-2"></i>{experience?.startDate} - {experience?.endDate ? experience?.endDate : 'Present'}</span>
                                                 {experience?.description && <p>{experience?.description}</p>}
                                                 <hr className="border border-dark" />
                                             </div>

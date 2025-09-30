@@ -3,10 +3,6 @@ import { NextResponse } from "next/server";
 
 export default async function middleware(req) {
   const userauth = await auth();
-
-  // if (!userauth) {
-  //   return NextResponse.redirect(new URL("/signin", req.url));
-  // }
   if (
     (userauth && req.nextUrl.pathname === "/register") ||
     (userauth && req.nextUrl.pathname === "/signin")

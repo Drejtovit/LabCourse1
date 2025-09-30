@@ -1,4 +1,3 @@
-
 import PageHeader from "@/components/PageHeader";
 import JobItem from "@/components/JobItem";
 import AccountManagment from "@/components/AccountManagment";
@@ -6,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import SignInNotice from "@/components/SignInNotice.jsx";
+import Forbidden from "@/components/Forbidden";
 
 export default async function ManageJobs() {
   const session = await auth();
@@ -15,7 +15,9 @@ export default async function ManageJobs() {
     );
   }
   if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-    redirect("/");//Todo make a 403 notice also make other pages like this one more secure
+    return (
+      <Forbidden />
+    );
   }
   const header = await headers();
   const cookie = header.get('cookie') || '';

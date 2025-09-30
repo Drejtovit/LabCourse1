@@ -6,8 +6,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import SignInNotice from "@/components/SignInNotice.jsx";
 import { formatDistanceToNow } from "date-fns";
-
-
+import Forbidden from '@/components/Forbidden';
 
 export default async function CandidateApplications() {
     const session = await auth();
@@ -17,7 +16,9 @@ export default async function CandidateApplications() {
         );
     }
     if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
-        redirect("/");//Todo make a 403 notice also make other pages like this one more secure
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');

@@ -1,9 +1,9 @@
 import SignInNotice from "@/components/SignInNotice";
+import Forbidden from "@/components/Forbidden";
 import SideBar from "@/components/SideBar";
 import { auth } from "@/lib/auth.js";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import Link from "next/link";
 import Image from "next/image";
 import DeleteButton from "@/components/DeleteButton.jsx";
 import ApplicationStatusButton from "@/components/ApplicationStatusButton.jsx";
@@ -16,7 +16,9 @@ export default async function DashboardApplicationsPage() {
     }
 
     if (session?.user?.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');
@@ -51,7 +53,7 @@ export default async function DashboardApplicationsPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {data?.applications?.slice(0, 5).map((application, index) => (
+                                    {data?.applications?.map((application, index) => (
                                         <tr key={index}>
                                             <td className="d-none d-md-table-cell small">{application.jobId}, {application.candidateId}</td>
                                             <td>

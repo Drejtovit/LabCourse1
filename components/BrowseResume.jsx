@@ -2,14 +2,12 @@ import Link from "next/link";
 
 export default function BrowseResumes({ children, id, name, profession, location, skills, email }) {
     return (
-        <div className="col-lg-6 col-md-6 col-xs-12">
+        <div className="col-lg-6 col-md-6 col-xs-12" >
             <div className="manager-resumes-item">
                 <div className="manager-content">
-                    <a href="resume.html"><img className="resume-thumb" src="assets/img/jobs/avatar-1.jpg"
-                        alt="" /></a>
                     <div className="manager-info">
                         <div className="manager-name">
-                            <h4><a href="#">{name}</a></h4>
+                            <h4><Link href={`/resume/browse/${id}`}>{name}</Link></h4>
                             <h5>{profession}</h5>
                         </div>
                         <div className="manager-meta">

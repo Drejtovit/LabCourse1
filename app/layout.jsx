@@ -11,7 +11,6 @@ export const metadata = {
   title: "Job Portal",
   description: "Find your dream job with our portal",
   keywords: ["Bootstrap", "Landing page", "Template", "Registration", "Landing"],
-  // authors: [{ name: "UIdeck" }],
   charset: "utf-8",
   icons: {
     icon: "/favicon.ico",

@@ -1,4 +1,5 @@
 import SignInNotice from "@/components/SignInNotice";
+import Forbidden from "@/components/Forbidden";
 import { auth } from "@/lib/auth.js";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
@@ -18,32 +19,44 @@ export default async function DashboardPage() {
     }
 
     if (session?.user?.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');
 
-    const usersRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, { cache: "no-store", headers: { cookie } });
-    const usersData = await usersRes.json();
-    if (!usersRes.ok || usersData.errors) {
+    const [usersRes, applicationsRes, jobsRes, resumesRes] = await Promise.all([
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
+            cache: "no-store",
+            headers: { cookie }
+        }),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/applications`, {
+            cache: "no-store",
+            headers: { cookie }
+        }),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/jobs`, {
+            cache: "no-store",
+            headers: { cookie }
+        }),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/resumes`, {
+            cache: "no-store",
+            headers: { cookie }
+        })
+    ]);
+
+    if (!usersRes.ok || !applicationsRes.ok || !jobsRes.ok || !resumesRes.ok) {
         redirect('/');
     }
 
-    const applicationsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/applications`, { cache: "no-store", headers: { cookie } });
-    const applicationsData = await applicationsRes.json();
-    if (!applicationsRes.ok || applicationsData.errors) {
-        redirect('/');
-    }
+    const [usersData, applicationsData, jobsData, resumesData] = await Promise.all([
+        usersRes.json(),
+        applicationsRes.json(),
+        jobsRes.json(),
+        resumesRes.json()
+    ]);
 
-    const jobsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/jobs`, { cache: "no-store", headers: { cookie } });
-    const jobsData = await jobsRes.json();
-    if (!jobsRes.ok || jobsData.errors) {
-        redirect('/');
-    }
-
-    const resumesRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/resumes`, { cache: "no-store", headers: { cookie } });
-    const resumesData = await resumesRes.json();
-    if (!resumesRes.ok || resumesData.errors) {
+    if (usersData.errors || applicationsData.errors || jobsData.errors || resumesData.errors) {
         redirect('/');
     }
 

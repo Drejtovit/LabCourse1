@@ -69,7 +69,7 @@ export default async function Home() {
                                     <h3>7,000+ Browse Jobs</h3>
                                     <p>Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on
                                         over 600,000 companies worldwide. The right job is out there.</p>
-                                    <a className="btn btn-common" href="#">Search jobs</a>
+                                    <a className="btn btn-common" href="/job/browse">Search jobs</a>
                                 </div>
                             </div>
                         </div>

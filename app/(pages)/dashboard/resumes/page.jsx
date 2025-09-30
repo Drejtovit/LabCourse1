@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import DeleteButton from "@/components/DeleteButton.jsx";
 import ResumeStatusButton from "@/components/ResumeStatusButton.jsx";
+import Forbidden from "@/components/Forbidden";
 
 export default async function DashboardResumesPage() {
 
@@ -16,7 +17,9 @@ export default async function DashboardResumesPage() {
     }
 
     if (session?.user?.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');

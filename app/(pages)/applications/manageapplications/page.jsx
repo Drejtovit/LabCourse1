@@ -1,3 +1,4 @@
+/* eslint-env node */
 import Application from '@/components/applicationsContainer/ApplicationEmployer';
 import AccountManagment from '@/components/AccountManagment';
 import PageHeader from '@/components/PageHeader.jsx';
@@ -6,6 +7,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import SignInNotice from "@/components/SignInNotice.jsx";
 import { formatDate } from '@/lib/utils/helpers';
+import Forbidden from '@/components/Forbidden';
 
 
 export default async function ManageApplications() {
@@ -16,7 +18,9 @@ export default async function ManageApplications() {
         );
     }
     if (session.user.role !== "EMPLOYER" && session.user.role !== "ADMIN") {
-        redirect("/");//Todo make a 403 notice also make other pages like this one more secure
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie') || '';

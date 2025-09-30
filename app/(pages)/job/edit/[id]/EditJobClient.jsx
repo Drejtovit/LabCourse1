@@ -35,7 +35,7 @@ export default function EditJobClient({ session, job }) {
 
         if (res.ok && data.success) {
             toast.success("Job edited successfully!", { toastId: "job-edit-success" });
-            router.replace("/job/manage");//TODO to job page
+            router.replace("/job/manage");
         }
         setErrorMessage(data.errors);
         setIsLoading(false);

@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth.js';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 import SignInNotice from '@/components/SignInNotice.jsx';
+import Forbidden from '@/components/Forbidden';
 
 export default async function ResumeEdit({ params }) {
     const session = await auth();
@@ -13,7 +14,9 @@ export default async function ResumeEdit({ params }) {
     }
 
     if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');
@@ -30,7 +33,9 @@ export default async function ResumeEdit({ params }) {
         redirect('/');
     }
     if (session.user.role === "CANDIDATE" && resumeData.resume.candidateId !== session.user.id) {
-        redirect('/');//TODO make a 403 notice
+        return (
+            <Forbidden />
+        );
     }
 
     return (

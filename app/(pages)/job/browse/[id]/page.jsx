@@ -7,6 +7,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import ApplyButton from "@/components/ApplyButton.jsx";
+import Forbidden from '@/components/Forbidden';
 
 export default async function JobDetails({ params }) {
     const session = await auth();
@@ -16,7 +17,9 @@ export default async function JobDetails({ params }) {
         );
     }
     if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
-        redirect('/');//TODO make a 403 notice
+        return (
+            <Forbidden redirectTo="/job/browse" />
+        );
     }
 
     const { id } = await params;
@@ -39,6 +42,7 @@ export default async function JobDetails({ params }) {
     if (!hasResume.ok || hasResumeData.errors) {
         redirect('/job/browse');
     }
+    const hasActiveResume = hasResumeData?.user?.candidate?.resumes?.some(resume => resume.isActive) || false;
 
     const similarJobs = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/job/browse`,
         { cache: "no-store" });
@@ -109,7 +113,7 @@ export default async function JobDetails({ params }) {
                                         create a candidate account and sign in as a candidate.
                                     </div>
                                 ) : (
-                                    <ApplyButton jobId={job?.id} candidateId={session?.user?.id} status={job?.applications[0]?.status} closingDate={job?.closingDate} hasResume={hasResumeData?.user?.candidate?.resumes[0]?.isActive} />
+                                    <ApplyButton jobId={job?.id} candidateId={session?.user?.id} status={job?.applications[0]?.status} closingDate={job?.closingDate} hasResume={hasActiveResume} />
                                 )}
                             </div>
                         </div>

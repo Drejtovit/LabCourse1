@@ -1,6 +1,6 @@
 import SignInNotice from "@/components/SignInNotice";
 import { auth } from "@/lib/auth.js";
-import { redirect } from "next/navigation";
+import Forbidden from "@/components/Forbidden.jsx";
 import CreateUsersClient from "./CreateUsersClient.jsx";
 
 
@@ -11,7 +11,9 @@ export default async function CreateUsers() {
     }
 
     if (session?.user?.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     return (
         <CreateUsersClient />

@@ -17,7 +17,6 @@ export default function ProfilePageClient({ user }) {
     const [formValues, setFormValues] = useState({
         name: user.name,
         email: user.email,
-        // phoneNumber: user.phoneNumber[0]?.number,//TODO FIX FOR EMPLOYEE
         zip: user.role === "CANDIDATE" ? user.candidate?.zip : user.employer?.zip,
         city: user.role === "CANDIDATE" ? user.candidate?.city : user.employer?.city,
         state: user.role === "CANDIDATE" ? user.candidate?.state : user.employer?.state,

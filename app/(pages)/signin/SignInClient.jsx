@@ -76,32 +76,6 @@ export default function SignIn() {
                                         <a href="/register">Don't have an account?</a>
                                     </p>
                                 </form>
-                                {/* <hr className="mt-5 mb-4 border-secondary-subtle"></hr>
-                <p className="mt-3 mb-3">Or continue with</p>
-                <div className="d-flex gap-2 gap-sm-3 justify-content-center">
-                  <form action={async () => {
-                    "use server"
-                    await signIn("google", { redirectTo: "/" })
-                  }} >
-                    <button className="btn-google btn-sm " style={{ width: "auto", marginLeft: "10px" }}>
-                      <Image src="https://www.svgrepo.com/show/475656/google-color.svg" width={24} height={24} alt="goggle-icon" style={{ marginRight: "10px" }} />
-                      <span>
-                        Sign in with Google
-                      </span>
-                    </button>
-                  </form>
-                  <form action={async () => {
-                    "use server"
-                    await signIn("github", { redirectTo: "/" })
-                  }} >
-                    <button className="btn-google btn-sm " style={{ width: "auto", marginLeft: "10px" }}>
-                      <Image src="/assets/img/github_mark_icon.png" width={24} height={24} alt="git-icon" style={{ marginRight: "10px" }} />
-                      <span>
-                        Sign in with GitHub
-                      </span>
-                    </button>
-                  </form>
-                </div> */}
                             </div>
                         </div>
                     </div>

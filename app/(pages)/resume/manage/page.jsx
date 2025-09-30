@@ -2,6 +2,7 @@ import AccountManagment from "@/components/AccountManagment.jsx";
 import ResumeCard from "@/components/ResumeCard.jsx";
 import PageHeader from "@/components/PageHeader.jsx";
 import SignInNotice from "@/components/SignInNotice.jsx";
+import Forbidden from '@/components/Forbidden';
 import { formatDistanceToNow } from "date-fns";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -16,7 +17,9 @@ export default async function ManageResumes() {
         );
     }
     if (session.user.role !== "CANDIDATE" && session.user.role !== "ADMIN") {
-        redirect("/");//Todo make a 403 notice also make other pages like this one more secure
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');

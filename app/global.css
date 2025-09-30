@@ -1651,6 +1651,7 @@ button:focus {
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
+  min-height: 180px;
 }
 
 .job-listings-featured .job-company-logo {
@@ -1759,7 +1760,7 @@ button:focus {
 .job-listings-featured:hover {
   background: #f9fcff;
   border-color: #ffffff;
-  box-shadow: 11px 0px 20px rgba(102, 102, 102, 0.08);
+  box-shadow: 11px 8px 20px rgba(0, 102, 102, 0.25);
 }
 
 /* ==========================================================================

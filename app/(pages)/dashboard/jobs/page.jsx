@@ -1,4 +1,5 @@
 import SignInNotice from "@/components/SignInNotice";
+import Forbidden from "@/components/Forbidden";
 import SideBar from "@/components/SideBar";
 import { auth } from "@/lib/auth.js";
 import { redirect } from "next/navigation";
@@ -15,7 +16,9 @@ export default async function DashboardJobsPage() {
     }
 
     if (session?.user?.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');

@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import DeleteButton from "@/components/DeleteButton.jsx";
+import Forbidden from "@/components/Forbidden";
 
 export default async function DashboardUsersPage() {
 
@@ -15,7 +16,9 @@ export default async function DashboardUsersPage() {
     }
 
     if (session?.user?.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');

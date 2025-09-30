@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth.js";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import JobAdminClient from "./JobAdminClient.jsx";
+import Forbidden from '@/components/Forbidden';
 
 
 export default async function JobAdmin() {
@@ -12,7 +13,9 @@ export default async function JobAdmin() {
     }
 
     if (session?.user?.role !== "ADMIN") {
-        redirect('/');
+        return (
+            <Forbidden />
+        );
     }
     const header = await headers();
     const cookie = header.get('cookie');
