@@ -24,6 +24,7 @@ export async function POST(request) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
+    console.error("Error creating contact:", error);
     return new Response(JSON.stringify({ error: "Failed to create contact" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
@@ -41,6 +42,7 @@ export async function GET() {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
+    console.error("Error fetching contacts:", error);
     return new Response(JSON.stringify({ error: "Failed to fetch contacts" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },

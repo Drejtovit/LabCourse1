@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import PageHeader from "@/components/PageHeader.jsx";
 import { useState } from "react";
@@ -26,13 +26,16 @@ export default function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error("Failed to submit");
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit");
+      }
       setStatus({ type: "success", message: "Message sent successfully." });
       setForm({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
       setStatus({
         type: "error",
-        message: "Something went wrong. Please try again.",
+        message: err.message || "Something went wrong. Please try again.",
       });
     }
   };
